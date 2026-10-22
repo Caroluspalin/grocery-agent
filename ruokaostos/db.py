@@ -11,6 +11,8 @@ def connect(path: Path | str | None = None) -> sqlite3.Connection:
     conn = sqlite3.connect(path or config.DATABASE_PATH)
     conn.row_factory = sqlite3.Row
     conn.execute("PRAGMA foreign_keys = ON")
+    # SQLiten LOWER() ja LIKE ymmärtävät kirjainkoon vain ASCII-merkeille (ei ä/ö/å).
+    conn.create_function("casefold", 1, lambda s: s.casefold() if s else s, deterministic=True)
     return conn
 
 

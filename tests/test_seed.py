@@ -2,18 +2,6 @@ import sqlite3
 
 import pytest
 
-from ruokaostos import db
-from scripts.seed import seed
-
-
-@pytest.fixture
-def conn(tmp_path):
-    path = tmp_path / "test.db"
-    seed(path)
-    with db.connect(path) as c:
-        yield c
-    c.close()
-
 
 def test_tuotteita_noin_200(conn):
     n = conn.execute("SELECT COUNT(*) FROM tuotteet").fetchone()[0]
