@@ -1,0 +1,25 @@
+# Salaisuudet
+.env
+
+# Generoitu tietokanta (luodaan uudelleen: python scripts/seed.py)
+data/*.db
+data/*.db-journal
+data/*.db-wal
+data/*.db-shm
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Editorit ja käyttöjärjestelmä
+.vscode/
+.idea/
+.DS_Store

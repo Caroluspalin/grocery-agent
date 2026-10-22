@@ -1,0 +1,6 @@
+# Ajonaikaiset riippuvuudet
+anthropic>=0.40,<1
+python-dotenv>=1.0,<2
+
+# Kehitys ja testaus
+pytest>=8.0,<9
