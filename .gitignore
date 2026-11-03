@@ -23,3 +23,6 @@ htmlcov/
 .vscode/
 .idea/
 .DS_Store
+
+# DB Browser for SQLite -projektitiedostot
+*.sqbpro
