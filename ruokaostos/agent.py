@@ -36,10 +36,17 @@ varmistettu, ei sitä, että tuote olisi sopimaton. Kerro tämä käyttäjälle,
 asialla on merkitystä (esim. keliakia tai allergia).
 
 Työskentely:
-- Jos käyttäjällä on ruokavaliorajoitteita, käytä niitä jokaisessa haussa.
-- Hae tuotteita lyhyillä perusmuotoisilla hakusanoilla (esim. "maito", "juusto", \
-"peruna"). Jos haku ei tuota tuloksia, kokeile toista sanaa tai selaa kategoriaa \
-tyhjällä hakusanalla.
+- Kun pyyntö koskee tuoteryhmiä (esim. "aamupalatarvikkeet", "juustoja", \
+"jotain grillattavaa"), kutsu ensin listaa_kategoriat ja hae sitten sopivista \
+kategorioista tyhjällä hakusanalla. Tuotteiden nimissä ei aina ole ryhmän nimeä: \
+"Edam viipale 300 g" on Juustot-kategoriassa, mutta sana "juusto" ei löydä sitä.
+- Jos käyttäjällä on ruokavaliorajoitteita, anna ne jokaisessa haussa \
+ruokavaliot-parametrina. Älä koskaan laita ruokavaliota hakusanaan: \
+"juusto gluteeniton" ei löydä mitään.
+- Hakusana on yksi perusmuotoinen sana tuotteen nimestä (esim. "maito", "edam", \
+"peruna"), kun etsit tiettyä tuotetta.
+- Jos haku ei löydä mitään, hae tuotteen todennäköisestä kategoriasta tyhjällä \
+hakusanalla ennen kuin kerrot, ettei tuotetta ole.
 - Voit tehdä useita hakuja kerralla, kun tarvitset monta tuotetta.
 - Kg- ja l-hintaisissa tuotteissa määrä on kiloina tai litroina; arvioi järkevä \
 määrä ja kerro arviosi käyttäjälle.
@@ -60,25 +67,39 @@ TYOKALUT = [
             "description": (
                 "Hakee kaupan tuotteita nimen osalla. Palauttaa tuotteen id:n, nimen, "
                 "kategorian, hinnan sentteinä, hintayksikön (kpl, kg tai l) ja "
-                "ruokavaliomerkinnät. Tulokset ovat halvimmasta kalleimpaan. Tuotteen "
-                "täytyy täyttää kaikki annetut ruokavaliot. Tyhjä hakusana listaa kaikki "
-                "suodattimet täyttävät tuotteet. Käytä palautettua id:tä laske_hinta-työkalussa."
+                "ruokavaliomerkinnät. Tulokset ovat halvimmasta kalleimpaan. "
+                "Tuoteryhmää (esim. juustot, leivät) haetaan ensisijaisesti "
+                "kategoria-parametrilla ja tyhjällä hakusanalla, koska tuotteen nimessä "
+                "ei aina ole ryhmän nimeä. Ruokavaliota ei koskaan laiteta hakusanaan, "
+                "vaan ruokavaliot-parametriin; tuotteen täytyy täyttää kaikki annetut "
+                "ruokavaliot. Tyhjä hakusana listaa kaikki suodattimet täyttävät "
+                "tuotteet. Käytä palautettua id:tä laske_hinta-työkalussa."
             ),
             "parameters": {
                 "type": "object",
                 "properties": {
                     "hakusana": {
                         "type": "string",
-                        "description": "Osa tuotteen nimestä, esim. 'maito'. Kirjainkoolla ei ole väliä.",
+                        "description": (
+                            "Yksi perusmuotoinen sana tuotteen nimestä, esim. 'maito' tai "
+                            "'edam'. Ei ruokavalioita eikä useita sanoja. Tyhjä merkkijono, "
+                            "kun selaat kategoriaa. Kirjainkoolla ei ole väliä."
+                        ),
                     },
                     "kategoria": {
                         "type": "string",
-                        "description": "Rajaa kategoriaan. Nimet saat listaa_kategoriat-työkalulla.",
+                        "description": (
+                            "Rajaa kategoriaan, esim. 'Juustot'. Ensisijainen tapa hakea "
+                            "tuoteryhmää. Nimet saat listaa_kategoriat-työkalulla."
+                        ),
                     },
                     "ruokavaliot": {
                         "type": "array",
                         "items": {"type": "string", "enum": ["gluteeniton", "laktoositon", "vegaaninen"]},
-                        "description": "Ruokavaliot, jotka tuotteen pitää täyttää (kaikki).",
+                        "description": (
+                            "Ruokavaliot, jotka tuotteen pitää täyttää (kaikki). Ruokavaliot "
+                            "annetaan aina tässä, ei koskaan hakusanassa."
+                        ),
                     },
                     "max_hinta_snt": {
                         "type": "integer",

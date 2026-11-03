@@ -241,3 +241,44 @@ def test_pyynnon_asetukset(conn):
     assert p["tools"] is agent.TYOKALUT
     assert p["max_completion_tokens"] == agent.MAX_TOKENS
     assert set(p) == {"model", "messages", "tools", "max_completion_tokens"}
+
+
+# --- hakuohjeet kuvauksissa ja promptissa ---------------------------------
+# Oikeassa ajossa malli laittoi ruokavalion hakusanaan ("juusto gluteeniton") eikä
+# käyttänyt kategorioita. Nämä testit varmistavat, ettei ohjeistus katoa vahingossa.
+
+
+def _hae_tuotteet_kuvaus():
+    [hae] = [t["function"] for t in agent.TYOKALUT if t["function"]["name"] == "hae_tuotteet"]
+    return hae
+
+
+def test_hae_tuotteet_ohjaa_ruokavalion_parametriin():
+    hae = _hae_tuotteet_kuvaus()
+    props = hae["parameters"]["properties"]
+    assert "ruokavaliota ei koskaan laiteta hakusanaan" in hae["description"].lower()
+    assert "ei ruokavalioita" in props["hakusana"]["description"].lower()
+    assert "ei koskaan hakusanassa" in props["ruokavaliot"]["description"].lower()
+
+
+def test_hae_tuotteet_ohjaa_kategoriahakuun():
+    hae = _hae_tuotteet_kuvaus()
+    props = hae["parameters"]["properties"]
+    assert "kategoria-parametrilla ja tyhjällä hakusanalla" in hae["description"]
+    assert "yksi perusmuotoinen sana" in props["hakusana"]["description"].lower()
+    assert "ensisijainen" in props["kategoria"]["description"].lower()
+
+
+def test_prompti_ohjaa_kategorioihin_ja_varahakuun():
+    p = agent.JARJESTELMAPROMPTI
+    assert "kutsu ensin listaa_kategoriat" in p
+    assert "Älä koskaan laita ruokavaliota hakusanaan" in p
+    assert "ennen kuin kerrot, ettei tuotetta ole" in p
+
+
+def test_promptin_esimerkki_pitaa_paikkansa(conn):
+    """Prompti väittää, ettei 'juusto' löydä Edamia mutta kategoria löytää."""
+    assert "Edam viipale 300 g" in agent.JARJESTELMAPROMPTI
+    nimet = lambda tulos: {t["nimi"] for t in tulos}
+    assert "Edam viipale 300 g" not in nimet(agent.tools.hae_tuotteet("juusto", conn=conn))
+    assert "Edam viipale 300 g" in nimet(agent.tools.hae_tuotteet("", kategoria="Juustot", conn=conn))
