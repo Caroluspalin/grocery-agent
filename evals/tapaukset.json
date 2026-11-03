@@ -185,7 +185,7 @@
     "kysymys": "Kokoa viikon ruoat neljän hengen perheelle, budjetti 5 €.",
     "ehdot": {
       "budjetti_max_snt": 500,
-      "vastaus_sisaltaa_jokin": ["ei riitä", "ei onnistu", "ei mahdu", "liian pieni", "ei ole mahdollista", "mahdoton", "ei kata"]
+      "vastaus_sisaltaa_jokin": ["ei riitä", "ei onnistu", "ei mahdu", "liian pieni", "ei ole mahdollista", "mahdoton", "ei kata", "ylit"]
     }
   },
   {
@@ -194,7 +194,7 @@
     "kysymys": "Tarvitsen kilon lohifilettä ja kaksi juustoa, budjetti 3 €.",
     "ehdot": {
       "budjetti_max_snt": 300,
-      "vastaus_sisaltaa_jokin": ["ei riitä", "ylittää", "ei mahdu", "liian pieni", "ei onnistu", "ei kata"]
+      "vastaus_sisaltaa_jokin": ["ei riitä", "ylittää", "ei mahdu", "liian pieni", "ei onnistu", "ei kata", "ylit"]
     }
   },
   {

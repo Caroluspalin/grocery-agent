@@ -4,6 +4,7 @@ Ei ole osa pytestiä. Käyttö projektin juuresta:
     .venv/bin/python -m evals.aja                      # kaikki tapaukset
     .venv/bin/python -m evals.aja --vain banaanin_hinta mahdoton_budjetti
     .venv/bin/python -m evals.aja --malli <malli>      # vertaa malleja
+    .venv/bin/python -m evals.aja --kertaa 3           # 3 ajoa + keskiarvo ja vaihtelu
     .venv/bin/python -m evals.aja -v                   # näytä työkalukutsut
 """
 
@@ -142,12 +143,95 @@ def tulosta_yhteenveto(y: dict, tulokset: list[dict]) -> None:
                     print(f"      - {nimi}: {syy}")
 
 
+def ajojen_vertailu(ajot: list[list[dict]]) -> dict:
+    """Vertaa saman setin useita ajoja: malli ei ole deterministinen, joten yksi ajo ei riitä.
+
+    Palauttaa onnistumisprosentit, niiden keskiarvon ja vaihteluvälin sekä tapaukset,
+    jotka epäonnistuivat joka kerta (todennäköisesti oikea vika) tai vaihtelivat
+    (epävakaa käytös tai liian tiukka tarkistus).
+    """
+    prosentit = [yhteenveto(ajo)["onnistumisprosentti"] for ajo in ajot]
+    onnistumiset: dict[str, int] = {}
+    for ajo in ajot:
+        for t in ajo:
+            onnistumiset[t["id"]] = onnistumiset.get(t["id"], 0) + t["onnistui"]
+    return {
+        "ajoja": len(ajot),
+        "prosentit": prosentit,
+        "keskiarvo": round(sum(prosentit) / len(prosentit), 1),
+        "pienin": min(prosentit),
+        "suurin": max(prosentit),
+        "aina_epaonnistuneet": [i for i, n in onnistumiset.items() if n == 0],
+        "vaihtelevat": {i: f"{n}/{len(ajot)}" for i, n in onnistumiset.items() if 0 < n < len(ajot)},
+    }
+
+
+def tulosta_vertailu(v: dict) -> None:
+    print("\n" + "#" * 60)
+    print(f"{v['ajoja']} ajoa: " + ", ".join(f"{p} %" for p in v["prosentit"]))
+    print(f"Keskiarvo {v['keskiarvo']} %, vaihteluväli {v['pienin']}–{v['suurin']} %")
+    print("\nEpäonnistui joka kerta:")
+    for i in v["aina_epaonnistuneet"] or ["(ei yhtään)"]:
+        print(f"  ✗ {i}")
+    print("\nVaihteli ajojen välillä (onnistui / ajoja):")
+    for i, osuus in v["vaihtelevat"].items() or [("(ei yhtään)", "")]:
+        print(f"  ~ {i} {osuus}")
+
+
+def aja_setti(tapaukset, client, conn, kanta, malli) -> list[dict]:
+    """Ajaa tapaukset kerran. KeyboardInterrupt jättää keskeneräisen ajon talteen."""
+    tulokset = []
+    try:
+        for i, tapaus in enumerate(tapaukset, 1):
+            jalki = aja_tapaus(tapaus, client, conn, malli)
+            tarkistukset = tarkista(tapaus, jalki, kanta)
+            onnistui = jalki["virhe"] is None and not any(tarkistukset.values())
+            tulokset.append({"id": tapaus["id"], "onnistui": onnistui, "tarkistukset": tarkistukset, "jalki": jalki})
+            merkki = "✓" if onnistui else "✗"
+            print(
+                f"{merkki} [{i:2}/{len(tapaukset)}] {tapaus['id']:<32} "
+                f"{jalki['kierrokset']} kierr., {len(jalki['kutsut'])} kutsua, "
+                f"{jalki['tokenit']['syote'] + jalki['tokenit']['tuloste']} tok."
+            )
+    except KeyboardInterrupt as e:
+        e.tulokset = tulokset
+        raise
+    return tulokset
+
+
+def tallenna(tulokset: list[dict], aloitettu: datetime, malli: str) -> Path:
+    TULOKSET.mkdir(exist_ok=True)
+    polku = TULOKSET / f"{aloitettu:%Y-%m-%d_%H%M%S}.json"
+    n = 2
+    while polku.exists():  # lyhyet --vain-ajot voivat alkaa samalla sekunnilla
+        polku = TULOKSET / f"{aloitettu:%Y-%m-%d_%H%M%S}_{n}.json"
+        n += 1
+    polku.write_text(
+        json.dumps(
+            {
+                "aloitettu": aloitettu.isoformat(timespec="seconds"),
+                "malli": malli,
+                "git": _git_versio(),
+                "yhteenveto": yhteenveto(tulokset),
+                "tapaukset": tulokset,
+            },
+            ensure_ascii=False,
+            indent=2,
+        ),
+        encoding="utf-8",
+    )
+    return polku
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description="Aja grocery-agentin evalit (kutsuu oikeaa API:a).")
     parser.add_argument("--vain", nargs="+", metavar="ID", help="aja vain nämä tapaukset")
     parser.add_argument("--malli", default=config.MODEL, help="malli (oletus: MODEL .env-tiedostosta)")
+    parser.add_argument("--kertaa", type=int, default=1, metavar="N", help="aja setti N kertaa ja vertaa (oletus 1)")
     parser.add_argument("-v", "--verbose", action="store_true", help="näytä agentin työkalukutsut")
     args = parser.parse_args()
+    if args.kertaa < 1:
+        parser.error("--kertaa pitää olla vähintään 1")
 
     logging.basicConfig(level=logging.INFO if args.verbose else logging.WARNING, format="  [%(message)s]")
     logging.getLogger("httpx").setLevel(logging.WARNING)
@@ -170,51 +254,31 @@ def main() -> None:
     client = openai.OpenAI(api_key=config.OPENAI_API_KEY)
     conn = db.connect()
     kanta = Tuotetiedot(conn)
-    aloitettu = datetime.now()
-    print(f"Ajetaan {len(tapaukset)} tapausta mallilla {args.malli}\n")
-
-    tulokset = []
+    ajot: list[list[dict]] = []
     try:
-        for i, tapaus in enumerate(tapaukset, 1):
-            jalki = aja_tapaus(tapaus, client, conn, args.malli)
-            tarkistukset = tarkista(tapaus, jalki, kanta)
-            onnistui = jalki["virhe"] is None and not any(tarkistukset.values())
-            tulokset.append({"id": tapaus["id"], "onnistui": onnistui, "tarkistukset": tarkistukset, "jalki": jalki})
-            merkki = "✓" if onnistui else "✗"
-            print(
-                f"{merkki} [{i:2}/{len(tapaukset)}] {tapaus['id']:<32} "
-                f"{jalki['kierrokset']} kierr., {len(jalki['kutsut'])} kutsua, "
-                f"{jalki['tokenit']['syote'] + jalki['tokenit']['tuloste']} tok."
-            )
+        for n in range(1, args.kertaa + 1):
+            aloitettu = datetime.now()
+            otsikko = f" (ajo {n}/{args.kertaa})" if args.kertaa > 1 else ""
+            print(f"\nAjetaan {len(tapaukset)} tapausta mallilla {args.malli}{otsikko}\n")
+            try:
+                tulokset = aja_setti(tapaukset, client, conn, kanta, args.malli)
+            except KeyboardInterrupt as e:
+                # Keskeneräinen ajo tallennetaan, mutta sitä ei oteta vertailuun.
+                if e.tulokset:
+                    print("\nKeskeytetty, tallennetaan tähän asti ajetut tapaukset.")
+                    tulosta_yhteenveto(yhteenveto(e.tulokset), e.tulokset)
+                    print(f"\nTulokset tallennettu: {tallenna(e.tulokset, aloitettu, args.malli).relative_to(config.PROJECT_ROOT)}")
+                break
+            ajot.append(tulokset)
+            tulosta_yhteenveto(yhteenveto(tulokset), tulokset)
+            print(f"\nTulokset tallennettu: {tallenna(tulokset, aloitettu, args.malli).relative_to(config.PROJECT_ROOT)}")
     except openai.AuthenticationError:
         sys.exit("API-avain on virheellinen. Tarkista OPENAI_API_KEY.")
-    except KeyboardInterrupt:
-        print("\nKeskeytetty, tallennetaan tähän asti ajetut tapaukset.")
     finally:
         conn.close()
 
-    if not tulokset:
-        return
-    y = yhteenveto(tulokset)
-    tulosta_yhteenveto(y, tulokset)
-
-    TULOKSET.mkdir(exist_ok=True)
-    polku = TULOKSET / f"{aloitettu:%Y-%m-%d_%H%M%S}.json"
-    polku.write_text(
-        json.dumps(
-            {
-                "aloitettu": aloitettu.isoformat(timespec="seconds"),
-                "malli": args.malli,
-                "git": _git_versio(),
-                "yhteenveto": y,
-                "tapaukset": tulokset,
-            },
-            ensure_ascii=False,
-            indent=2,
-        ),
-        encoding="utf-8",
-    )
-    print(f"\nTulokset tallennettu: {polku.relative_to(config.PROJECT_ROOT)}")
+    if len(ajot) > 1:
+        tulosta_vertailu(ajojen_vertailu(ajot))
 
 
 if __name__ == "__main__":

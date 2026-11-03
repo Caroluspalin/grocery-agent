@@ -290,3 +290,58 @@ def test_jaljella_oleva_raha_tyokalusta_sallitaan(conn, kanta):
         kutsut=haku_ja_lasku(conn, "banaani", None, [("Banaani", 1)], budjetti_snt=1000),
     )
     assert t.hinnat_tarkistettavissa(None, j, kanta) is None
+
+
+# --- useat ajot -----------------------------------------------------------
+
+
+def _ajo(**onnistumiset):
+    jalki_ = {"kierrokset": 1, "kutsut": [], "tokenit": {"syote": 0, "tuloste": 0}}
+    return [{"id": i, "onnistui": o, "jalki": jalki_} for i, o in onnistumiset.items()]
+
+
+def test_ajojen_vertailu():
+    ajot = [
+        _ajo(a=True, b=False, c=True, d=False),
+        _ajo(a=True, b=False, c=False, d=False),
+        _ajo(a=True, b=False, c=True, d=True),
+    ]
+    v = aja.ajojen_vertailu(ajot)
+    assert v["prosentit"] == [50.0, 25.0, 75.0]
+    assert v["keskiarvo"] == 50.0
+    assert (v["pienin"], v["suurin"]) == (25.0, 75.0)
+    assert v["aina_epaonnistuneet"] == ["b"]
+    assert v["vaihtelevat"] == {"c": "2/3", "d": "1/3"}
+
+
+def test_ajojen_vertailu_tulostuu(capsys):
+    aja.tulosta_vertailu(aja.ajojen_vertailu([_ajo(a=True), _ajo(a=True)]))
+    tuloste = capsys.readouterr().out
+    assert "Keskiarvo 100.0 %" in tuloste
+    assert tuloste.count("(ei yhtään)") == 2
+
+
+def test_keskeytetty_ajo_sailyttaa_tulokset(conn, kanta):
+    vastaukset = iter([_vastaus("ok")])
+
+    def create(**_):
+        try:
+            return next(vastaukset)
+        except StopIteration:
+            raise KeyboardInterrupt
+
+    client = SimpleNamespace(chat=SimpleNamespace(completions=SimpleNamespace(create=create)))
+    tapaukset = [{"id": "a", "kysymys": "x", "ehdot": {}}, {"id": "b", "kysymys": "y", "ehdot": {}}]
+    with pytest.raises(KeyboardInterrupt) as e:
+        aja.aja_setti(tapaukset, client, conn, kanta, "m")
+    assert [t["id"] for t in e.value.tulokset] == ["a"]
+
+
+def test_tallennus_ei_ylikirjoita(tmp_path, monkeypatch):
+    from datetime import datetime
+
+    monkeypatch.setattr(aja, "TULOKSET", tmp_path)
+    hetki = datetime(2026, 11, 3, 12, 0, 0)
+    eka = aja.tallenna(_ajo(a=True), hetki, "m")
+    toka = aja.tallenna(_ajo(a=False), hetki, "m")
+    assert eka != toka and eka.exists() and toka.exists()
