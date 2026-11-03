@@ -1,0 +1,253 @@
+[
+  {
+    "id": "aamupala_gluteeniton_10e",
+    "kuvaus": "Oikeasta ajosta: agentti haki ensin 15 kertaa ruokavalio hakusanassa, korjauksen jälkeen vain Aamupala-kategoriasta. Listalla pitää olla myös juustoa tai maitoa.",
+    "kysymys": "Kokoa gluteenittomat aamupalatarvikkeet, budjetti 10 €.",
+    "ehdot": {
+      "laske_hinta_kutsuttu": true,
+      "tyokalu_kutsuttu": ["listaa_kategoriat"],
+      "budjetti_max_snt": 1000,
+      "ruokavaliot": ["gluteeniton"],
+      "kategoriat_kaikki": [["Aamupala"], ["Juustot", "Maitotuotteet ja kasvijuomat"]],
+      "max_hakuja": 6,
+      "summa_vastauksessa": true
+    }
+  },
+  {
+    "id": "banaanin_hinta",
+    "kuvaus": "Yksinkertainen hintakysymys: yksi haku riittää.",
+    "kysymys": "Paljonko banaani maksaa?",
+    "ehdot": {
+      "vastaus_sisaltaa_kaikki": ["1,99"],
+      "max_hakuja": 2,
+      "ei_tyokaluvirheita": true
+    }
+  },
+  {
+    "id": "tarkka_lista_maito_kaura",
+    "kuvaus": "Täsmälliset tuotteet ja määrät: summa on tiedossa etukäteen (2 × 1,09 + 1,59).",
+    "kysymys": "Tarvitsen 2 kpl Kevytmaito 1 l ja yhden paketin Kaurahiutaleet 1 kg. Paljonko tulee yhteensä?",
+    "ehdot": {
+      "yhteensa_snt": 377,
+      "summa_vastauksessa": true,
+      "ei_tyokaluvirheita": true
+    }
+  },
+  {
+    "id": "kg_tuotteet_desimaalit",
+    "kuvaus": "Kilohintaiset tuotteet ja desimaalimäärät, pyöristys rivikohtaisesti puolikkaat ylöspäin (2,985 → 2,99 ja 0,995 → 1,00).",
+    "kysymys": "Haluan 1,5 kg banaaneja ja 500 g lanttua. Mitä maksaa?",
+    "ehdot": {
+      "yhteensa_snt": 399,
+      "summa_vastauksessa": true
+    }
+  },
+  {
+    "id": "useita_kappaleita",
+    "kuvaus": "Kappalemäärät kerrottuina, summa laske_hinnasta (3 × 1,79 + 2 × 3,99).",
+    "kysymys": "Kolme mozzarellaa ja kaksi halloumia, paljonko yhteensä?",
+    "ehdot": {
+      "yhteensa_snt": 1335,
+      "summa_vastauksessa": true
+    }
+  },
+  {
+    "id": "halvin_maito",
+    "kuvaus": "Vertailu: haku palauttaa tulokset halvimmasta alkaen.",
+    "kysymys": "Mikä on halvin maito?",
+    "ehdot": {
+      "vastaus_sisaltaa_kaikki": ["rasvaton maito", "0,99"],
+      "max_hakuja": 3
+    }
+  },
+  {
+    "id": "edam_ja_leipa",
+    "kuvaus": "Tuote, jonka nimessä ei ole ryhmän nimeä (Edam ≠ 'juusto'), plus toinen kategoria.",
+    "kysymys": "Haluan Edam-juustoa ja jotain leipää, paljonko maksaa?",
+    "ehdot": {
+      "laske_hinta_kutsuttu": true,
+      "tuotteet_mukana": [["edam"]],
+      "kategoriat_kaikki": [["Juustot"], ["Leivät ja leivonnaiset"]],
+      "summa_vastauksessa": true
+    }
+  },
+  {
+    "id": "gluteenittomat_juustot",
+    "kuvaus": "Tuoteryhmä + ruokavalio: pitää hakea Juustot-kategoriasta ruokavaliot-parametrilla.",
+    "kysymys": "Mitä gluteenittomia juustoja teillä on?",
+    "ehdot": {
+      "haku_kategorialla": ["Juustot"],
+      "haku_ruokavaliolla": ["gluteeniton"],
+      "vastaus_sisaltaa_kaikki": ["edam"],
+      "max_hakuja": 3
+    }
+  },
+  {
+    "id": "vegaaninen_juusto",
+    "kuvaus": "Yksittäinen erikoistuote ruokavaliolla.",
+    "kysymys": "Onko teillä vegaanista juustoa?",
+    "ehdot": {
+      "vastaus_sisaltaa_kaikki": ["vegaaninen juustoraaste"],
+      "max_hakuja": 3
+    }
+  },
+  {
+    "id": "tuote_puuttuu_hummeri",
+    "kuvaus": "Tuotetta ei ole: agentin pitää kokeilla kategoriaa ennen kuin sanoo, ettei tuotetta ole, eikä keksiä sitä.",
+    "kysymys": "Onko teillä hummeria?",
+    "ehdot": {
+      "haku_kategorialla": ["Kala ja äyriäiset"],
+      "ei_tyokalua": ["laske_hinta"],
+      "vastaus_sisaltaa_jokin": ["ei ole", "ei löyty", "ei valikoima", "ei myynnissä", "valitettavasti"]
+    }
+  },
+  {
+    "id": "laktoositon_taco",
+    "kuvaus": "Ateria ruokavaliolla ja budjetilla.",
+    "kysymys": "Laktoosittomat ainekset tacoiltaan neljälle, budjetti 20 €.",
+    "ehdot": {
+      "laske_hinta_kutsuttu": true,
+      "budjetti_max_snt": 2000,
+      "ruokavaliot": ["laktoositon"],
+      "tuotteet_mukana": [["taco"]],
+      "summa_vastauksessa": true
+    }
+  },
+  {
+    "id": "vegaaninen_illallinen",
+    "kuvaus": "Vegaaninen ateria: proteiinin pitää tulla kasviproteiineista tai säilykkeistä.",
+    "kysymys": "Vegaaniset ainekset kahteen illalliseen kahdelle, budjetti 15 €.",
+    "ehdot": {
+      "laske_hinta_kutsuttu": true,
+      "budjetti_max_snt": 1500,
+      "ruokavaliot": ["vegaaninen"],
+      "kategoriat_kaikki": [["Kasviproteiinit", "Säilykkeet"]],
+      "summa_vastauksessa": true
+    }
+  },
+  {
+    "id": "kaksi_ruokavaliota",
+    "kuvaus": "Kaksi ruokavaliota samaan aikaan: molemmat parametrina, ei hakusanassa.",
+    "kysymys": "Tarvitsen gluteenittomia ja laktoosittomia välipaloja viikon koulupäiviin, max 8 €.",
+    "ehdot": {
+      "laske_hinta_kutsuttu": true,
+      "budjetti_max_snt": 800,
+      "ruokavaliot": ["gluteeniton", "laktoositon"],
+      "haku_ruokavaliolla": ["gluteeniton", "laktoositon"]
+    }
+  },
+  {
+    "id": "keliakia_leipa",
+    "kuvaus": "Keliakia → gluteeniton-ruokavalio, vaikka sanaa ei mainita. Kannassa 2 gluteenitonta leipää.",
+    "kysymys": "Lapsellani on keliakia. Mitä leipää voin ostaa?",
+    "ehdot": {
+      "haku_ruokavaliolla": ["gluteeniton"],
+      "vastaus_sisaltaa_jokin": ["gluteeniton tumma leipä", "gluteeniton vaalea leipä"],
+      "vastaus_ei_sisalla": ["ruisnäkkileipä", "vehnäpaahtoleipä", "kauraleipä"]
+    }
+  },
+  {
+    "id": "grilli_ilta",
+    "kuvaus": "Iso tuoteryhmäpyyntö: kategorioiden käyttö ja budjetti.",
+    "kysymys": "Grilli-illan tarvikkeet kuudelle, budjetti 30 €.",
+    "ehdot": {
+      "laske_hinta_kutsuttu": true,
+      "budjetti_max_snt": 3000,
+      "kategoriat_kaikki": [["Liha", "Kasviproteiinit", "Kala ja äyriäiset"]],
+      "summa_vastauksessa": true,
+      "max_kierroksia": 8
+    }
+  },
+  {
+    "id": "opiskelijan_viikko",
+    "kuvaus": "Laaja pyyntö tiukalla budjetilla: monta kategoriaa, kierrosmäärä kurissa.",
+    "kysymys": "Olen opiskelija ja tarvitsen viikon ruoat yhdelle 25 eurolla.",
+    "ehdot": {
+      "laske_hinta_kutsuttu": true,
+      "budjetti_max_snt": 2500,
+      "summa_vastauksessa": true,
+      "max_kierroksia": 8
+    }
+  },
+  {
+    "id": "juomat_alle_2e",
+    "kuvaus": "Hintaraja: alle 2 € (Kivennäisvesi, Alkoholiton olut, Energiajuoma). Kalliimpia ei saa listata.",
+    "kysymys": "Näytä juomat, jotka maksavat alle 2 euroa.",
+    "ehdot": {
+      "haku_kategorialla": ["Juomat"],
+      "vastaus_sisaltaa_kaikki": ["kivennäisvesi"],
+      "vastaus_ei_sisalla": ["täysmehu", "cola", "kaakaojauhe", "kahvi"]
+    }
+  },
+  {
+    "id": "mahdoton_budjetti_perhe",
+    "kuvaus": "Mahdoton budjetti: agentin pitää sanoa, ettei budjetti riitä, eikä ylittää sitä.",
+    "kysymys": "Kokoa viikon ruoat neljän hengen perheelle, budjetti 5 €.",
+    "ehdot": {
+      "budjetti_max_snt": 500,
+      "vastaus_sisaltaa_jokin": ["ei riitä", "ei onnistu", "ei mahdu", "liian pieni", "ei ole mahdollista", "mahdoton", "ei kata"]
+    }
+  },
+  {
+    "id": "mahdoton_budjetti_lohi",
+    "kuvaus": "Pelkkä lohifilee (19,99 €/kg) ylittää budjetin: kerrotaan, ei keksitä halvempaa hintaa.",
+    "kysymys": "Tarvitsen kilon lohifilettä ja kaksi juustoa, budjetti 3 €.",
+    "ehdot": {
+      "budjetti_max_snt": 300,
+      "vastaus_sisaltaa_jokin": ["ei riitä", "ylittää", "ei mahdu", "liian pieni", "ei onnistu", "ei kata"]
+    }
+  },
+  {
+    "id": "tuntematon_ruokavalio_pahkinaton",
+    "kuvaus": "Kannassa ei ole pähkinättömyysmerkintää: agentin pitää kertoa, ettei sitä voi varmistaa, eikä listata pähkinätuotteita.",
+    "kysymys": "Kokoa pähkinätön aamupala, lapsellani on pähkinäallergia.",
+    "ehdot": {
+      "vastaus_sisaltaa_jokin": ["varmist", "merkin", "ei tue", "tuettu", "taata", "pakkausseloste"],
+      "tuotteet_ei_mukana": ["pähkinä"],
+      "vastaus_ei_sisalla": ["maapähkinävoi"]
+    }
+  },
+  {
+    "id": "tuntematon_ruokavalio_fodmap",
+    "kuvaus": "Tuntematon ruokavalio: ei saa väittää tuotteiden sopivan.",
+    "kysymys": "Tarvitsen FODMAP-ruokavalioon sopivan päivällisen.",
+    "ehdot": {
+      "vastaus_sisaltaa_jokin": ["varmist", "merkin", "ei tue", "tuettu", "taata", "ei ole tietoa", "tietoa ei"]
+    }
+  },
+  {
+    "id": "epaselva_ruokaa",
+    "kuvaus": "Epäselvä pyyntö: pitää kysyä tarkennusta eikä koota satunnaista listaa.",
+    "kysymys": "Tarvitsen ruokaa.",
+    "ehdot": {
+      "vastaus_kysyy": true,
+      "ei_tyokalua": ["laske_hinta"]
+    }
+  },
+  {
+    "id": "epaselva_juhlat",
+    "kuvaus": "Epäselvä pyyntö: henkilömäärä ja budjetti puuttuvat.",
+    "kysymys": "Jotain hyvää juhliin.",
+    "ehdot": {
+      "vastaus_kysyy": true,
+      "ei_tyokalua": ["laske_hinta"]
+    }
+  },
+  {
+    "id": "epaselva_paljonko",
+    "kuvaus": "Kysymys ilman kohdetta: ei hakuja, kysytään mitä tarkoitetaan.",
+    "kysymys": "Paljonko maksaa?",
+    "ehdot": {
+      "vastaus_kysyy": true,
+      "max_hakuja": 0
+    }
+  },
+  {
+    "id": "aiheen_ulkopuolinen",
+    "kuvaus": "Ei liity kauppaan: ei turhia työkalukutsuja.",
+    "kysymys": "Mikä on Suomen pääkaupunki?",
+    "ehdot": {
+      "max_tyokalukutsuja": 0
+    }
+  }
+]

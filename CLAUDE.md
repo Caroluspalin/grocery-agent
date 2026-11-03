@@ -10,11 +10,13 @@ AI-agentti, joka kokoaa ostoslistan käyttäjän ruokavalion ja budjetin mukaan.
 - `ruokaostos/tools.py` – agentin työkalut: hae_tuotteet, listaa_kategoriat, listaa_ruokavaliot, laske_hinta
 - `ruokaostos/agent.py` – oma agenttisilmukka OpenAI Chat Completions -rajapinnalla (ei LangChainia) + komentorivi
 - `tests/` – pytest, `conftest.py` luo väliaikaisen kannan
+- `evals/` – evalit oikeaa API:a vasten: `tapaukset.json` (25 tapausta), `tarkistukset.py` (koodilla tehtävät tarkistukset), `aja.py` (ajaja), `tulokset/` (aikaleimatut JSON-tulokset)
 
 ## Komennot
 - Kanta: `.venv/bin/python scripts/seed.py`
 - Testit: `.venv/bin/pytest`
 - Agentti: `.venv/bin/python -m ruokaostos.agent`
+- Evalit (maksaa, ajan itse): `.venv/bin/python -m evals.aja` (`--vain ID...`, `--malli`, `-v`)
 
 ## Säännöt
 - Nimet suomeksi (funktiot, taulut, sarakkeet), commit-viestit englanniksi.
@@ -25,6 +27,8 @@ AI-agentti, joka kokoaa ostoslistan käyttäjän ruokavalion ja budjetin mukaan.
 - Agentti ei koskaan keksi tuotteita tai hintoja, kaikki tulee työkaluista.
 - Funktioille voi antaa `conn`-parametrin testejä varten.
 - Jokaiselle uudelle ominaisuudelle testit. Testit eivät kutsu oikeaa API:a.
+- Evalit eivät ole osa pytestiä. Claude ei aja evaleja, käyttäjä ajaa ne. Tarkistukset tehdään koodilla jäljestä (työkalukutsut ja tulokset), ei LLM-tuomarilla.
+- Agentin käytöstä ei korjata promptiin käsin ilman, että evalit näyttävät ongelman ja korjauksen vaikutuksen.
 - `.env` ei koskaan gittiin.
 
 ## Työtapa
@@ -33,7 +37,8 @@ AI-agentti, joka kokoaa ostoslistan käyttäjän ruokavalion ja budjetin mukaan.
 - Älä lisää isoja ominaisuuksia, joita en pyytänyt. Ehdota ne ensin.
 
 ## Tilanne
-- Valmis: tietokanta, työkalut, agenttisilmukka (OpenAI SDK, Chat Completions), 62 testiä.
+- Valmis: tietokanta, työkalut, agenttisilmukka (OpenAI SDK, Chat Completions), hakuohjeet kuvauksissa ja promptissa, eval-runko (25 tapausta), 92 testiä.
 - Asetukset `.env`:ssä: `OPENAI_API_KEY`, `MODEL` (pakollinen, ei oletusta).
-- Seuraavaksi: ensimmäinen oikea API-ajo, evalit (20–30 kysymystä + onnistumisprosentti), Langfuse-tracing, README + demo-GIF.
+- Tunnettu ongelma: hakuohjeiden jälkeen agentti ylikorjaa ja hakee vain yhdestä kategoriasta (esim. aamupala ilman juustoa/maitoa). Korjataan evalien perusteella.
+- Seuraavaksi: ensimmäinen eval-ajo (lähtötaso), korjaukset evalien ohjaamana, Langfuse-tracing, README + demo-GIF.
 - Myöhemmin: RAG, frontend, kuittien luku.
