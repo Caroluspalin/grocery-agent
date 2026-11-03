@@ -1,0 +1,1319 @@
+{
+  "aloitettu": "2026-11-03T22:30:27",
+  "malli": "gpt-4.1-mini",
+  "git": "cef3971-muokattu",
+  "yhteenveto": {
+    "tapauksia": 25,
+    "onnistui": 17,
+    "onnistumisprosentti": 68.0,
+    "kierroksia_keskimaarin": 2.8,
+    "tyokalukutsuja_yhteensa": 59,
+    "tyokalukutsuja_keskimaarin": 2.36,
+    "syote_tokenit": 162542,
+    "tuloste_tokenit": 4438
+  },
+  "tapaukset": [
+    {
+      "id": "aamupala_gluteeniton_10e",
+      "onnistui": false,
+      "tarkistukset": {
+        "ei_keksittyja_tuotteita": null,
+        "hinnat_tarkistettavissa": null,
+        "ei_ruokavaliota_hakusanassa": null,
+        "laske_hinta_kutsuttu": null,
+        "tyokalu_kutsuttu": null,
+        "budjetti_max_snt": null,
+        "ruokavaliot": null,
+        "kategoriat_kaikki": "listalta puuttuu kategoria: Juustot tai Maitotuotteet ja kasvijuomat",
+        "max_hakuja": null,
+        "summa_vastauksessa": null
+      },
+      "jalki": {
+        "kysymys": "Kokoa gluteenittomat aamupalatarvikkeet, budjetti 10 €.",
+        "vastaus": "Tässä gluteenittomat aamupalatarvikkeet noin 10 euron budjetilla:\n\n- Gluteenittomat kaurahiutaleet 500 g, 1 kpl, 2,99 €\n- Kananmunat M 10 kpl, 1 paketillinen, 2,99 €\n- Appelsiinimarmeladi 400 g, 1 kpl, 2,49 €\n\nYhteensä 8,47 €. Budjettia jää vielä 1,53 €. Haluatko lisätä jotain tai muuttaa listaa?",
+        "virhe": null,
+        "kierrokset": 4,
+        "tokenit": {
+          "syote": 9647,
+          "tuloste": 231
+        },
+        "kesto_s": 5.4,
+        "kutsut": [
+          {
+            "nimi": "listaa_kategoriat",
+            "argumentit": {},
+            "tulos": "[{\"id\": 14, \"nimi\": \"Aamupala\", \"tuotteita\": 10}, {\"id\": 1, \"nimi\": \"Hedelmät ja vihannekset\", \"tuotteita\": 32}, {\"id\": 10, \"nimi\": \"Juomat\", \"tuotteita\": 16}, {\"id\": 3, \"nimi\": \"Juustot\", \"tuotteita\": 13}, {\"id\": 5, \"nimi\": \"Kala ja äyriäiset\", \"tuotteita\": 8}, {\"id\": 13, \"nimi\": \"Kasviproteiinit\", \"tuotteita\": 9}, {\"id\": 7, \"nimi\": \"Kuivatuotteet\", \"tuotteita\": 21}, {\"id\": 6, \"nimi\": \"Leivät ja leivonnaiset\", \"tuotteita\": 16}, {\"id\": 4, \"nimi\": \"Liha\", \"tuotteita\": 18}, {\"id\": 2, \"nimi\": \"Maitotuotteet ja kasvijuomat\", \"tuotteita\": 29}, {\"id\": 11, \"nimi\": \"Makeiset ja naposteltavat\", \"tuotteita\": 15}, {\"id\": 12, \"nimi\": \"Mausteet, öljyt ja kastikkeet\", \"tuotteita\": 16}, {\"id\": 9, \"nimi\": \"Pakasteet\", \"tuotteita\": 11}, {\"id\": 8, \"nimi\": \"Säilykkeet\", \"tuotteita\": 13}, {\"id\": 15, \"nimi\": \"Valmisruoat\", \"tuotteita\": 10}]",
+            "virhe": false
+          },
+          {
+            "nimi": "hae_tuotteet",
+            "argumentit": {
+              "hakusana": "",
+              "kategoria": "Aamupala",
+              "ruokavaliot": [
+                "gluteeniton"
+              ]
+            },
+            "tulos": "[{\"id\": 226, \"nimi\": \"Appelsiinimarmeladi 400 g\", \"kategoria\": \"Aamupala\", \"hinta_snt\": 249, \"yksikko\": \"kpl\", \"ruokavaliot\": [\"gluteeniton\", \"laktoositon\", \"vegaaninen\"]}, {\"id\": 225, \"nimi\": \"Mansikkahillo 400 g\", \"kategoria\": \"Aamupala\", \"hinta_snt\": 249, \"yksikko\": \"kpl\", \"ruokavaliot\": [\"gluteeniton\", \"laktoositon\", \"vegaaninen\"]}, {\"id\": 219, \"nimi\": \"Gluteenittomat kaurahiutaleet 500 g\", \"kategoria\": \"Aamupala\", \"hinta_snt\": 299, \"yksikko\": \"kpl\", \"ruokavaliot\": [\"gluteeniton\", \"laktoositon\", \"vegaaninen\"]}, {\"id\": 223, \"nimi\": \"Kananmunat M 10 kpl\", \"kategoria\": \"Aamupala\", \"hinta_snt\": 299, \"yksikko\": \"kpl\", \"ruokavaliot\": [\"gluteeniton\", \"laktoositon\"]}, {\"id\": 227, \"nimi\": \"Maapähkinävoi 350 g\", \"kategoria\": \"Aamupala\", \"hinta_snt\": 349, \"yksikko\": \"kpl\", \"ruokavaliot\": [\"gluteeniton\", \"laktoositon\", \"vegaaninen\"]}, {\"id\": 224, \"nimi\": \"Vapaan kanan munat 10 kpl\", \"kategoria\": \"Aamupala\", \"hinta_snt\": 349, \"yksikko\": \"kpl\", \"ruokavaliot\": [\"gluteeniton\", \"laktoositon\"]}]",
+            "virhe": false
+          },
+          {
+            "nimi": "laske_hinta",
+            "argumentit": {
+              "ostoslista": [
+                {
+                  "tuote_id": 219,
+                  "maara": 1
+                },
+                {
+                  "tuote_id": 223,
+                  "maara": 1
+                },
+                {
+                  "tuote_id": 226,
+                  "maara": 1
+                }
+              ],
+              "budjetti_snt": 1000
+            },
+            "tulos": "{\"rivit\": [{\"tuote_id\": 219, \"nimi\": \"Gluteenittomat kaurahiutaleet 500 g\", \"yksikko\": \"kpl\", \"hinta_snt\": 299, \"maara\": 1, \"rivihinta_snt\": 299}, {\"tuote_id\": 223, \"nimi\": \"Kananmunat M 10 kpl\", \"yksikko\": \"kpl\", \"hinta_snt\": 299, \"maara\": 1, \"rivihinta_snt\": 299}, {\"tuote_id\": 226, \"nimi\": \"Appelsiinimarmeladi 400 g\", \"yksikko\": \"kpl\", \"hinta_snt\": 249, \"maara\": 1, \"rivihinta_snt\": 249}], \"yhteensa_snt\": 847, \"budjetti_snt\": 1000, \"budjetti_ylittyy\": false, \"jaljella_snt\": 153}",
+            "virhe": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "banaanin_hinta",
+      "onnistui": true,
+      "tarkistukset": {
+        "ei_keksittyja_tuotteita": null,
+        "hinnat_tarkistettavissa": null,
+        "ei_ruokavaliota_hakusanassa": null,
+        "vastaus_sisaltaa_kaikki": null,
+        "max_hakuja": null,
+        "ei_tyokaluvirheita": null
+      },
+      "jalki": {
+        "kysymys": "Paljonko banaani maksaa?",
+        "vastaus": "Banaani maksaa 1,99 € per kilo. Haluatko ostaa banaania? Jos kyllä, niin kuinka monta kiloa?",
+        "virhe": null,
+        "kierrokset": 2,
+        "tokenit": {
+          "syote": 3702,
+          "tuloste": 54
+        },
+        "kesto_s": 1.9,
+        "kutsut": [
+          {
+            "nimi": "hae_tuotteet",
+            "argumentit": {
+              "hakusana": "banaani"
+            },
+            "tulos": "[{\"id\": 1, \"nimi\": \"Banaani\", \"kategoria\": \"Hedelmät ja vihannekset\", \"hinta_snt\": 199, \"yksikko\": \"kg\", \"ruokavaliot\": [\"gluteeniton\", \"laktoositon\", \"vegaaninen\"]}]",
+            "virhe": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "tarkka_lista_maito_kaura",
+      "onnistui": true,
+      "tarkistukset": {
+        "ei_keksittyja_tuotteita": null,
+        "hinnat_tarkistettavissa": null,
+        "ei_ruokavaliota_hakusanassa": null,
+        "yhteensa_snt": null,
+        "summa_vastauksessa": null,
+        "ei_tyokaluvirheita": null
+      },
+      "jalki": {
+        "kysymys": "Tarvitsen 2 kpl Kevytmaito 1 l ja yhden paketin Kaurahiutaleet 1 kg. Paljonko tulee yhteensä?",
+        "vastaus": "2 kpl Kevytmaitoa 1 l maksaa 2,18 € ja 1 paketti Kaurahiutaleita 1 kg maksaa 1,59 €. \nYhteensä ostokset maksavat 3,77 €.",
+        "virhe": null,
+        "kierrokset": 3,
+        "tokenit": {
+          "syote": 6367,
+          "tuloste": 156
+        },
+        "kesto_s": 4.6,
+        "kutsut": [
+          {
+            "nimi": "hae_tuotteet",
+            "argumentit": {
+              "hakusana": "kevytmaito"
+            },
+            "tulos": "[{\"id\": 33, \"nimi\": \"Kevytmaito 1 l\", \"kategoria\": \"Maitotuotteet ja kasvijuomat\", \"hinta_snt\": 109, \"yksikko\": \"kpl\", \"ruokavaliot\": [\"gluteeniton\"]}, {\"id\": 36, \"nimi\": \"Laktoositon kevytmaitojuoma 1 l\", \"kategoria\": \"Maitotuotteet ja kasvijuomat\", \"hinta_snt\": 149, \"yksikko\": \"kpl\", \"ruokavaliot\": [\"gluteeniton\", \"laktoositon\"]}]",
+            "virhe": false
+          },
+          {
+            "nimi": "hae_tuotteet",
+            "argumentit": {
+              "hakusana": "kaurahiutaleet"
+            },
+            "tulos": "[{\"id\": 218, \"nimi\": \"Kaurahiutaleet 1 kg\", \"kategoria\": \"Aamupala\", \"hinta_snt\": 159, \"yksikko\": \"kpl\", \"ruokavaliot\": [\"laktoositon\", \"vegaaninen\"]}, {\"id\": 219, \"nimi\": \"Gluteenittomat kaurahiutaleet 500 g\", \"kategoria\": \"Aamupala\", \"hinta_snt\": 299, \"yksikko\": \"kpl\", \"ruokavaliot\": [\"gluteeniton\", \"laktoositon\", \"vegaaninen\"]}]",
+            "virhe": false
+          },
+          {
+            "nimi": "laske_hinta",
+            "argumentit": {
+              "ostoslista": [
+                {
+                  "tuote_id": 33,
+                  "maara": 2
+                },
+                {
+                  "tuote_id": 218,
+                  "maara": 1
+                }
+              ]
+            },
+            "tulos": "{\"rivit\": [{\"tuote_id\": 33, \"nimi\": \"Kevytmaito 1 l\", \"yksikko\": \"kpl\", \"hinta_snt\": 109, \"maara\": 2, \"rivihinta_snt\": 218}, {\"tuote_id\": 218, \"nimi\": \"Kaurahiutaleet 1 kg\", \"yksikko\": \"kpl\", \"hinta_snt\": 159, \"maara\": 1, \"rivihinta_snt\": 159}], \"yhteensa_snt\": 377}",
+            "virhe": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "kg_tuotteet_desimaalit",
+      "onnistui": true,
+      "tarkistukset": {
+        "ei_keksittyja_tuotteita": null,
+        "hinnat_tarkistettavissa": null,
+        "ei_ruokavaliota_hakusanassa": null,
+        "yhteensa_snt": null,
+        "summa_vastauksessa": null
+      },
+      "jalki": {
+        "kysymys": "Haluan 1,5 kg banaaneja ja 500 g lanttua. Mitä maksaa?",
+        "vastaus": "1,5 kg banaaneja maksaa 2,99 € ja 0,5 kg lanttua 1,00 €. Yhteensä ostoslistasi hinta on 3,99 €. Haluatko vielä jotain muuta?",
+        "virhe": null,
+        "kierrokset": 3,
+        "tokenit": {
+          "syote": 6032,
+          "tuloste": 155
+        },
+        "kesto_s": 4.1,
+        "kutsut": [
+          {
+            "nimi": "hae_tuotteet",
+            "argumentit": {
+              "hakusana": "banaani"
+            },
+            "tulos": "[{\"id\": 1, \"nimi\": \"Banaani\", \"kategoria\": \"Hedelmät ja vihannekset\", \"hinta_snt\": 199, \"yksikko\": \"kg\", \"ruokavaliot\": [\"gluteeniton\", \"laktoositon\", \"vegaaninen\"]}]",
+            "virhe": false
+          },
+          {
+            "nimi": "hae_tuotteet",
+            "argumentit": {
+              "hakusana": "lanttu"
+            },
+            "tulos": "[{\"id\": 28, \"nimi\": \"Lanttu\", \"kategoria\": \"Hedelmät ja vihannekset\", \"hinta_snt\": 199, \"yksikko\": \"kg\", \"ruokavaliot\": [\"gluteeniton\", \"laktoositon\", \"vegaaninen\"]}]",
+            "virhe": false
+          },
+          {
+            "nimi": "laske_hinta",
+            "argumentit": {
+              "ostoslista": [
+                {
+                  "tuote_id": 1,
+                  "maara": 1.5
+                },
+                {
+                  "tuote_id": 28,
+                  "maara": 0.5
+                }
+              ]
+            },
+            "tulos": "{\"rivit\": [{\"tuote_id\": 1, \"nimi\": \"Banaani\", \"yksikko\": \"kg\", \"hinta_snt\": 199, \"maara\": 1.5, \"rivihinta_snt\": 299}, {\"tuote_id\": 28, \"nimi\": \"Lanttu\", \"yksikko\": \"kg\", \"hinta_snt\": 199, \"maara\": 0.5, \"rivihinta_snt\": 100}], \"yhteensa_snt\": 399}",
+            "virhe": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "useita_kappaleita",
+      "onnistui": true,
+      "tarkistukset": {
+        "ei_keksittyja_tuotteita": null,
+        "hinnat_tarkistettavissa": null,
+        "ei_ruokavaliota_hakusanassa": null,
+        "yhteensa_snt": null,
+        "summa_vastauksessa": null
+      },
+      "jalki": {
+        "kysymys": "Kolme mozzarellaa ja kaksi halloumia, paljonko yhteensä?",
+        "vastaus": "Kolme mozzarellaa (125 g) maksaa yhteensä 5,37 € ja kaksi halloumia (200 g) maksaa yhteensä 7,98 €. Yhteishinta on 13,35 €.",
+        "virhe": null,
+        "kierrokset": 3,
+        "tokenit": {
+          "syote": 5985,
+          "tuloste": 158
+        },
+        "kesto_s": 5.0,
+        "kutsut": [
+          {
+            "nimi": "hae_tuotteet",
+            "argumentit": {
+              "hakusana": "mozzarella",
+              "raja": 3
+            },
+            "tulos": "[{\"id\": 69, \"nimi\": \"Mozzarella 125 g\", \"kategoria\": \"Juustot\", \"hinta_snt\": 179, \"yksikko\": \"kpl\", \"ruokavaliot\": [\"gluteeniton\"]}]",
+            "virhe": false
+          },
+          {
+            "nimi": "hae_tuotteet",
+            "argumentit": {
+              "hakusana": "halloumi",
+              "raja": 3
+            },
+            "tulos": "[{\"id\": 70, \"nimi\": \"Halloumi 200 g\", \"kategoria\": \"Juustot\", \"hinta_snt\": 399, \"yksikko\": \"kpl\", \"ruokavaliot\": [\"gluteeniton\"]}]",
+            "virhe": false
+          },
+          {
+            "nimi": "laske_hinta",
+            "argumentit": {
+              "ostoslista": [
+                {
+                  "tuote_id": 69,
+                  "maara": 3
+                },
+                {
+                  "tuote_id": 70,
+                  "maara": 2
+                }
+              ]
+            },
+            "tulos": "{\"rivit\": [{\"tuote_id\": 69, \"nimi\": \"Mozzarella 125 g\", \"yksikko\": \"kpl\", \"hinta_snt\": 179, \"maara\": 3, \"rivihinta_snt\": 537}, {\"tuote_id\": 70, \"nimi\": \"Halloumi 200 g\", \"yksikko\": \"kpl\", \"hinta_snt\": 399, \"maara\": 2, \"rivihinta_snt\": 798}], \"yhteensa_snt\": 1335}",
+            "virhe": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "halvin_maito",
+      "onnistui": true,
+      "tarkistukset": {
+        "ei_keksittyja_tuotteita": null,
+        "hinnat_tarkistettavissa": null,
+        "ei_ruokavaliota_hakusanassa": null,
+        "vastaus_sisaltaa_kaikki": null,
+        "max_hakuja": null
+      },
+      "jalki": {
+        "kysymys": "Mikä on halvin maito?",
+        "vastaus": "Halvin maito on Rasvaton maito 1 litra, hinta 0,99 €. Haluatko, että autan sinua ostoslistan kanssa?",
+        "virhe": null,
+        "kierrokset": 2,
+        "tokenit": {
+          "syote": 4108,
+          "tuloste": 60
+        },
+        "kesto_s": 2.7,
+        "kutsut": [
+          {
+            "nimi": "hae_tuotteet",
+            "argumentit": {
+              "hakusana": "maito"
+            },
+            "tulos": "[{\"id\": 34, \"nimi\": \"Rasvaton maito 1 l\", \"kategoria\": \"Maitotuotteet ja kasvijuomat\", \"hinta_snt\": 99, \"yksikko\": \"kpl\", \"ruokavaliot\": [\"gluteeniton\"]}, {\"id\": 33, \"nimi\": \"Kevytmaito 1 l\", \"kategoria\": \"Maitotuotteet ja kasvijuomat\", \"hinta_snt\": 109, \"yksikko\": \"kpl\", \"ruokavaliot\": [\"gluteeniton\"]}, {\"id\": 35, \"nimi\": \"Täysmaito 1 l\", \"kategoria\": \"Maitotuotteet ja kasvijuomat\", \"hinta_snt\": 129, \"yksikko\": \"kpl\", \"ruokavaliot\": [\"gluteeniton\"]}, {\"id\": 37, \"nimi\": \"Laktoositon rasvaton maitojuoma 1 l\", \"kategoria\": \"Maitotuotteet ja kasvijuomat\", \"hinta_snt\": 145, \"yksikko\": \"kpl\", \"ruokavaliot\": [\"gluteeniton\", \"laktoositon\"]}, {\"id\": 36, \"nimi\": \"Laktoositon kevytmaitojuoma 1 l\", \"kategoria\": \"Maitotuotteet ja kasvijuomat\", \"hinta_snt\": 149, \"yksikko\": \"kpl\", \"ruokavaliot\": [\"gluteeniton\", \"laktoositon\"]}, {\"id\": 141, \"nimi\": \"Kookosmaito 400 ml\", \"kategoria\": \"Säilykkeet\", \"hinta_snt\": 179, \"yksikko\": \"kpl\", \"ruokavaliot\": [\"gluteeniton\", \"laktoositon\", \"vegaaninen\"]}, {\"id\": 178, \"nimi\": \"Maitosuklaa 200 g\", \"kategoria\": \"Makeiset ja naposteltavat\", \"hinta_snt\": 349, \"yksikko\": \"kpl\", \"ruokavaliot\": [\"gluteeniton\"]}]",
+            "virhe": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "edam_ja_leipa",
+      "onnistui": true,
+      "tarkistukset": {
+        "ei_keksittyja_tuotteita": null,
+        "hinnat_tarkistettavissa": null,
+        "ei_ruokavaliota_hakusanassa": null,
+        "laske_hinta_kutsuttu": null,
+        "tuotteet_mukana": null,
+        "kategoriat_kaikki": null,
+        "summa_vastauksessa": null
+      },
+      "jalki": {
+        "kysymys": "Haluan Edam-juustoa ja jotain leipää, paljonko maksaa?",
+        "vastaus": "Edam viipale 300 g maksaa 3,99 € ja Vehnäpaahtoleipä 500 g maksaa 1,69 €. Yhteishinta on 5,68 €. Haluatko ostoslistan tähän vai haluatko jotain muuta leipää?",
+        "virhe": null,
+        "kierrokset": 5,
+        "tokenit": {
+          "syote": 13229,
+          "tuloste": 213
+        },
+        "kesto_s": 5.6,
+        "kutsut": [
+          {
+            "nimi": "hae_tuotteet",
+            "argumentit": {
+              "hakusana": "edam",
+              "kategoria": "Juustot"
+            },
+            "tulos": "[{\"id\": 62, \"nimi\": \"Edam viipale 300 g\", \"kategoria\": \"Juustot\", \"hinta_snt\": 399, \"yksikko\": \"kpl\", \"ruokavaliot\": [\"gluteeniton\", \"laktoositon\"]}]",
+            "virhe": false
+          },
+          {
+            "nimi": "hae_tuotteet",
+            "argumentit": {
+              "hakusana": "",
+              "kategoria": "Leivät"
+            },
+            "tulos": "VIRHE: Tuntematon kategoria 'leivät'. Käytä listaa_kategoriat()-työkalua.",
+            "virhe": true
+          },
+          {
+            "nimi": "listaa_kategoriat",
+            "argumentit": {},
+            "tulos": "[{\"id\": 14, \"nimi\": \"Aamupala\", \"tuotteita\": 10}, {\"id\": 1, \"nimi\": \"Hedelmät ja vihannekset\", \"tuotteita\": 32}, {\"id\": 10, \"nimi\": \"Juomat\", \"tuotteita\": 16}, {\"id\": 3, \"nimi\": \"Juustot\", \"tuotteita\": 13}, {\"id\": 5, \"nimi\": \"Kala ja äyriäiset\", \"tuotteita\": 8}, {\"id\": 13, \"nimi\": \"Kasviproteiinit\", \"tuotteita\": 9}, {\"id\": 7, \"nimi\": \"Kuivatuotteet\", \"tuotteita\": 21}, {\"id\": 6, \"nimi\": \"Leivät ja leivonnaiset\", \"tuotteita\": 16}, {\"id\": 4, \"nimi\": \"Liha\", \"tuotteita\": 18}, {\"id\": 2, \"nimi\": \"Maitotuotteet ja kasvijuomat\", \"tuotteita\": 29}, {\"id\": 11, \"nimi\": \"Makeiset ja naposteltavat\", \"tuotteita\": 15}, {\"id\": 12, \"nimi\": \"Mausteet, öljyt ja kastikkeet\", \"tuotteita\": 16}, {\"id\": 9, \"nimi\": \"Pakasteet\", \"tuotteita\": 11}, {\"id\": 8, \"nimi\": \"Säilykkeet\", \"tuotteita\": 13}, {\"id\": 15, \"nimi\": \"Valmisruoat\", \"tuotteita\": 10}]",
+            "virhe": false
+          },
+          {
+            "nimi": "hae_tuotteet",
+            "argumentit": {
+              "hakusana": "",
+              "kategoria": "Leivät ja leivonnaiset"
+            },
+            "tulos": "[{\"id\": 104, \"nimi\": \"Vehnäpaahtoleipä 500 g\", \"kategoria\": \"Leivät ja leivonnaiset\", \"hinta_snt\": 169, \"yksikko\": \"kpl\", \"ruokavaliot\": []}, {\"id\": 107, \"nimi\": \"Patonki\", \"kategoria\": \"Leivät ja leivonnaiset\", \"hinta_snt\": 179, \"yksikko\": \"kpl\", \"ruokavaliot\": [\"laktoositon\", \"vegaaninen\"]}, {\"id\": 109, \"nimi\": \"Ruisnäkkileipä 230 g\", \"kategoria\": \"Leivät ja leivonnaiset\", \"hinta_snt\": 179, \"yksikko\": \"kpl\", \"ruokavaliot\": [\"laktoositon\", \"vegaaninen\"]}, {\"id\": 110, \"nimi\": \"Hapankorppu 200 g\", \"kategoria\": \"Leivät ja leivonnaiset\", \"hinta_snt\": 189, \"yksikko\": \"kpl\", \"ruokavaliot\": [\"laktoositon\", \"vegaaninen\"]}, {\"id\": 106, \"nimi\": \"Ciabatta 2 kpl\", \"kategoria\": \"Leivät ja leivonnaiset\", \"hinta_snt\": 199, \"yksikko\": \"kpl\", \"ruokavaliot\": [\"laktoositon\", \"vegaaninen\"]}, {\"id\": 101, \"nimi\": \"Ruispalat 6 kpl\", \"kategoria\": \"Leivät ja leivonnaiset\", \"hinta_snt\": 199, \"yksikko\": \"kpl\", \"ruokavaliot\": [\"laktoositon\", \"vegaaninen\"]}, {\"id\": 111, \"nimi\": \"Vehnätortilla 8 kpl\", \"kategoria\": \"Leivät ja leivonnaiset\", \"hinta_snt\": 229, \"yksikko\": \"kpl\", \"ruokavaliot\": [\"laktoositon\", \"vegaaninen\"]}, {\"id\": 105, \"nimi\": \"Kauraleipä 500 g\", \"kategoria\": \"Leivät ja leivonnaiset\", \"hinta_snt\": 249, \"yksikko\": \"kpl\", \"ruokavaliot\": []}, {\"id\": 102, \"nimi\": \"Reikäleipä 500 g\", \"kategoria\": \"Leivät ja leivonnaiset\", \"hinta_snt\": 249, \"yksikko\": \"kpl\", \"ruokavaliot\": [\"laktoositon\", \"vegaaninen\"]}, {\"id\": 108, \"nimi\": \"Vehnäsämpylä 6 kpl\", \"kategoria\": \"Leivät ja leivonnaiset\", \"hinta_snt\": 249, \"yksikko\": \"kpl\", \"ruokavaliot\": []}, {\"id\": 114, \"nimi\": \"Voicroissant 4 kpl\", \"kategoria\": \"Leivät ja leivonnaiset\", \"hinta_snt\": 299, \"yksikko\": \"kpl\", \"ruokavaliot\": []}, {\"id\": 112, \"nimi\": \"Karjalanpiirakka 10 kpl\", \"kategoria\": \"Leivät ja leivonnaiset\", \"hinta_snt\": 349, \"yksikko\": \"kpl\", \"ruokavaliot\": []}, {\"id\": 113, \"nimi\": \"Korvapuusti 4 kpl\", \"kategoria\": \"Leivät ja leivonnaiset\", \"hinta_snt\": 349, \"yksikko\": \"kpl\", \"ruokavaliot\": []}, {\"id\": 103, \"nimi\": \"Saaristolaisleipä 700 g\", \"kategoria\": \"Leivät ja leivonnaiset\", \"hinta_snt\": 349, \"yksikko\": \"kpl\", \"ruokavaliot\": []}, {\"id\": 116, \"nimi\": \"Gluteeniton tumma leipä 300 g\", \"kategoria\": \"Leivät ja leivonnaiset\", \"hinta_snt\": 449, \"yksikko\": \"kpl\", \"ruokavaliot\": [\"gluteeniton\", \"laktoositon\"]}, {\"id\": 115, \"nimi\": \"Gluteeniton vaalea leipä 300 g\", \"kategoria\": \"Leivät ja leivonnaiset\", \"hinta_snt\": 449, \"yksikko\": \"kpl\", \"ruokavaliot\": [\"gluteeniton\", \"laktoositon\"]}]",
+            "virhe": false
+          },
+          {
+            "nimi": "laske_hinta",
+            "argumentit": {
+              "ostoslista": [
+                {
+                  "tuote_id": 62,
+                  "maara": 1
+                },
+                {
+                  "tuote_id": 104,
+                  "maara": 1
+                }
+              ]
+            },
+            "tulos": "{\"rivit\": [{\"tuote_id\": 62, \"nimi\": \"Edam viipale 300 g\", \"yksikko\": \"kpl\", \"hinta_snt\": 399, \"maara\": 1, \"rivihinta_snt\": 399}, {\"tuote_id\": 104, \"nimi\": \"Vehnäpaahtoleipä 500 g\", \"yksikko\": \"kpl\", \"hinta_snt\": 169, \"maara\": 1, \"rivihinta_snt\": 169}], \"yhteensa_snt\": 568}",
+            "virhe": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "gluteenittomat_juustot",
+      "onnistui": true,
+      "tarkistukset": {
+        "ei_keksittyja_tuotteita": null,
+        "hinnat_tarkistettavissa": null,
+        "ei_ruokavaliota_hakusanassa": null,
+        "haku_kategorialla": null,
+        "haku_ruokavaliolla": null,
+        "vastaus_sisaltaa_kaikki": null,
+        "max_hakuja": null
+      },
+      "jalki": {
+        "kysymys": "Mitä gluteenittomia juustoja teillä on?",
+        "vastaus": "Gluteenittomia juustoja löytyy seuraavia:\n\n1. Mozzarella 125 g 1,79 €\n2. Maustamaton tuorejuusto 200 g 2,29 €\n3. Laktoositon tuorejuusto 200 g 2,59 €\n4. Cheddar viipale 150 g 2,99 €\n5. Fetajuusto 200 g 2,99 €\n6. Parmesaaniraaste 80 g 3,49 €\n7. Vegaaninen juustoraaste 200 g 3,49 €\n8. Sinihomejuusto 170 g 3,59 €\n9. Leipäjuusto 220 g 3,89 €\n10. Edam viipale 300 g 3,99 €\n11. Halloumi 200 g 3,99 €\n12. Kermajuusto viipale 300 g 4,29 €\n13. Emmental 400 g 5,49 €\n\nHaluatko apua ostoslistan kokoamisessa tai lisätietoja jostain näistä tuotteista?",
+        "virhe": null,
+        "kierrokset": 2,
+        "tokenit": {
+          "syote": 4465,
+          "tuloste": 268
+        },
+        "kesto_s": 4.0,
+        "kutsut": [
+          {
+            "nimi": "hae_tuotteet",
+            "argumentit": {
+              "hakusana": "",
+              "kategoria": "Juustot",
+              "ruokavaliot": [
+                "gluteeniton"
+              ]
+            },
+            "tulos": "[{\"id\": 69, \"nimi\": \"Mozzarella 125 g\", \"kategoria\": \"Juustot\", \"hinta_snt\": 179, \"yksikko\": \"kpl\", \"ruokavaliot\": [\"gluteeniton\"]}, {\"id\": 72, \"nimi\": \"Maustamaton tuorejuusto 200 g\", \"kategoria\": \"Juustot\", \"hinta_snt\": 229, \"yksikko\": \"kpl\", \"ruokavaliot\": [\"gluteeniton\"]}, {\"id\": 73, \"nimi\": \"Laktoositon tuorejuusto 200 g\", \"kategoria\": \"Juustot\", \"hinta_snt\": 259, \"yksikko\": \"kpl\", \"ruokavaliot\": [\"gluteeniton\", \"laktoositon\"]}, {\"id\": 65, \"nimi\": \"Cheddar viipale 150 g\", \"kategoria\": \"Juustot\", \"hinta_snt\": 299, \"yksikko\": \"kpl\", \"ruokavaliot\": [\"gluteeniton\", \"laktoositon\"]}, {\"id\": 68, \"nimi\": \"Fetajuusto 200 g\", \"kategoria\": \"Juustot\", \"hinta_snt\": 299, \"yksikko\": \"kpl\", \"ruokavaliot\": [\"gluteeniton\"]}, {\"id\": 66, \"nimi\": \"Parmesaaniraaste 80 g\", \"kategoria\": \"Juustot\", \"hinta_snt\": 349, \"yksikko\": \"kpl\", \"ruokavaliot\": [\"gluteeniton\", \"laktoositon\"]}, {\"id\": 74, \"nimi\": \"Vegaaninen juustoraaste 200 g\", \"kategoria\": \"Juustot\", \"hinta_snt\": 349, \"yksikko\": \"kpl\", \"ruokavaliot\": [\"gluteeniton\", \"laktoositon\", \"vegaaninen\"]}, {\"id\": 67, \"nimi\": \"Sinihomejuusto 170 g\", \"kategoria\": \"Juustot\", \"hinta_snt\": 359, \"yksikko\": \"kpl\", \"ruokavaliot\": [\"gluteeniton\", \"laktoositon\"]}, {\"id\": 71, \"nimi\": \"Leipäjuusto 220 g\", \"kategoria\": \"Juustot\", \"hinta_snt\": 389, \"yksikko\": \"kpl\", \"ruokavaliot\": [\"gluteeniton\"]}, {\"id\": 62, \"nimi\": \"Edam viipale 300 g\", \"kategoria\": \"Juustot\", \"hinta_snt\": 399, \"yksikko\": \"kpl\", \"ruokavaliot\": [\"gluteeniton\", \"laktoositon\"]}, {\"id\": 70, \"nimi\": \"Halloumi 200 g\", \"kategoria\": \"Juustot\", \"hinta_snt\": 399, \"yksikko\": \"kpl\", \"ruokavaliot\": [\"gluteeniton\"]}, {\"id\": 64, \"nimi\": \"Kermajuusto viipale 300 g\", \"kategoria\": \"Juustot\", \"hinta_snt\": 429, \"yksikko\": \"kpl\", \"ruokavaliot\": [\"gluteeniton\", \"laktoositon\"]}, {\"id\": 63, \"nimi\": \"Emmental 400 g\", \"kategoria\": \"Juustot\", \"hinta_snt\": 549, \"yksikko\": \"kpl\", \"ruokavaliot\": [\"gluteeniton\", \"laktoositon\"]}]",
+            "virhe": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "vegaaninen_juusto",
+      "onnistui": true,
+      "tarkistukset": {
+        "ei_keksittyja_tuotteita": null,
+        "hinnat_tarkistettavissa": null,
+        "ei_ruokavaliota_hakusanassa": null,
+        "vastaus_sisaltaa_kaikki": null,
+        "max_hakuja": null
+      },
+      "jalki": {
+        "kysymys": "Onko teillä vegaanista juustoa?",
+        "vastaus": "Meillä on vegaanista juustoa, esimerkiksi Vegaaninen juustoraaste 200 g hintaan 3,49 €. Haluatko nähdä lisää vegaanisia juustotuotteita tai koota ostoslistan?",
+        "virhe": null,
+        "kierrokset": 3,
+        "tokenit": {
+          "syote": 5738,
+          "tuloste": 105
+        },
+        "kesto_s": 3.0,
+        "kutsut": [
+          {
+            "nimi": "listaa_ruokavaliot",
+            "argumentit": {},
+            "tulos": "[{\"koodi\": \"gluteeniton\", \"nimi\": \"Gluteeniton\", \"tuotteita\": 184}, {\"koodi\": \"laktoositon\", \"nimi\": \"Laktoositon\", \"tuotteita\": 189}, {\"koodi\": \"vegaaninen\", \"nimi\": \"Vegaaninen\", \"tuotteita\": 138}]",
+            "virhe": false
+          },
+          {
+            "nimi": "hae_tuotteet",
+            "argumentit": {
+              "hakusana": "",
+              "kategoria": "Juustot",
+              "ruokavaliot": [
+                "vegaaninen"
+              ],
+              "raja": 10
+            },
+            "tulos": "[{\"id\": 74, \"nimi\": \"Vegaaninen juustoraaste 200 g\", \"kategoria\": \"Juustot\", \"hinta_snt\": 349, \"yksikko\": \"kpl\", \"ruokavaliot\": [\"gluteeniton\", \"laktoositon\", \"vegaaninen\"]}]",
+            "virhe": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "tuote_puuttuu_hummeri",
+      "onnistui": false,
+      "tarkistukset": {
+        "ei_keksittyja_tuotteita": null,
+        "hinnat_tarkistettavissa": null,
+        "ei_ruokavaliota_hakusanassa": null,
+        "haku_kategorialla": "ei hakua kategorialla Kala ja äyriäiset",
+        "ei_tyokalua": null,
+        "vastaus_sisaltaa_jokin": "vastauksessa ei mitään näistä: ei ole, ei näytä olevan, ei löyty, ei valikoima, ei myynnissä, valitettavasti"
+      },
+      "jalki": {
+        "kysymys": "Onko teillä hummeria?",
+        "vastaus": "Hummeria ei löydy valikoimastamme tällä hetkellä. Voinko auttaa jollain muulla merenelävään liittyvällä tuotteella?",
+        "virhe": null,
+        "kierrokset": 2,
+        "tokenit": {
+          "syote": 3633,
+          "tuloste": 57
+        },
+        "kesto_s": 1.9,
+        "kutsut": [
+          {
+            "nimi": "hae_tuotteet",
+            "argumentit": {
+              "hakusana": "hummeri"
+            },
+            "tulos": "[]",
+            "virhe": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "laktoositon_taco",
+      "onnistui": false,
+      "tarkistukset": {
+        "ei_keksittyja_tuotteita": null,
+        "hinnat_tarkistettavissa": null,
+        "ei_ruokavaliota_hakusanassa": null,
+        "laske_hinta_kutsuttu": null,
+        "budjetti_max_snt": null,
+        "ruokavaliot": null,
+        "tuotteet_mukana": "listalta puuttuu: taco",
+        "summa_vastauksessa": null
+      },
+      "jalki": {
+        "kysymys": "Laktoosittomat ainekset tacoiltaan neljälle, budjetti 20 €.",
+        "vastaus": "Tässä laktoosittomat tacoillesi ainekset neljälle, yhteishinta 15,01 €:\n\n- Vehnätortilla 8 kpl, 1 kpl, 2,29 €\n- Pekoni 140 g, 4 kpl, 7,96 €\n- Porkkana 1 kg, 1 kpl, 1,29 €\n- Keltasipuli 1 kg, 1 kpl, 1,49 €\n- Tomaattimurska 400 g, 1 kpl, 0,99 €\n- Väkiviinaetikka 10 % 0,5 l, 1 kpl, 0,99 €\n\nBudjettiasi jäi vielä 4,99 €. Haluatko lisätä listaan jotain tai tehdä muutoksia?",
+        "virhe": null,
+        "kierrokset": 7,
+        "tokenit": {
+          "syote": 22597,
+          "tuloste": 622
+        },
+        "kesto_s": 11.0,
+        "kutsut": [
+          {
+            "nimi": "listaa_ruokavaliot",
+            "argumentit": {},
+            "tulos": "[{\"koodi\": \"gluteeniton\", \"nimi\": \"Gluteeniton\", \"tuotteita\": 184}, {\"koodi\": \"laktoositon\", \"nimi\": \"Laktoositon\", \"tuotteita\": 189}, {\"koodi\": \"vegaaninen\", \"nimi\": \"Vegaaninen\", \"tuotteita\": 138}]",
+            "virhe": false
+          },
+          {
+            "nimi": "listaa_kategoriat",
+            "argumentit": {},
+            "tulos": "[{\"id\": 14, \"nimi\": \"Aamupala\", \"tuotteita\": 10}, {\"id\": 1, \"nimi\": \"Hedelmät ja vihannekset\", \"tuotteita\": 32}, {\"id\": 10, \"nimi\": \"Juomat\", \"tuotteita\": 16}, {\"id\": 3, \"nimi\": \"Juustot\", \"tuotteita\": 13}, {\"id\": 5, \"nimi\": \"Kala ja äyriäiset\", \"tuotteita\": 8}, {\"id\": 13, \"nimi\": \"Kasviproteiinit\", \"tuotteita\": 9}, {\"id\": 7, \"nimi\": \"Kuivatuotteet\", \"tuotteita\": 21}, {\"id\": 6, \"nimi\": \"Leivät ja leivonnaiset\", \"tuotteita\": 16}, {\"id\": 4, \"nimi\": \"Liha\", \"tuotteita\": 18}, {\"id\": 2, \"nimi\": \"Maitotuotteet ja kasvijuomat\", \"tuotteita\": 29}, {\"id\": 11, \"nimi\": \"Makeiset ja naposteltavat\", \"tuotteita\": 15}, {\"id\": 12, \"nimi\": \"Mausteet, öljyt ja kastikkeet\", \"tuotteita\": 16}, {\"id\": 9, \"nimi\": \"Pakasteet\", \"tuotteita\": 11}, {\"id\": 8, \"nimi\": \"Säilykkeet\", \"tuotteita\": 13}, {\"id\": 15, \"nimi\": \"Valmisruoat\", \"tuotteita\": 10}]",
+            "virhe": false
+          },
+          {
+            "nimi": "hae_tuotteet",
+            "argumentit": {
+              "hakusana": "tortilla",
+              "ruokavaliot": [
+                "laktoositon"
+              ],
+              "raja": 5
+            },
+            "tulos": "[{\"id\": 111, \"nimi\": \"Vehnätortilla 8 kpl\", \"kategoria\": \"Leivät ja leivonnaiset\", \"hinta_snt\": 229, \"yksikko\": \"kpl\", \"ruokavaliot\": [\"laktoositon\", \"vegaaninen\"]}]",
+            "virhe": false
+          },
+          {
+            "nimi": "hae_tuotteet",
+            "argumentit": {
+              "hakusana": "",
+              "kategoria": "Liha",
+              "ruokavaliot": [
+                "laktoositon"
+              ],
+              "raja": 5
+            },
+            "tulos": "[{\"id\": 88, \"nimi\": \"Pekoni 140 g\", \"kategoria\": \"Liha\", \"hinta_snt\": 199, \"yksikko\": \"kpl\", \"ruokavaliot\": [\"gluteeniton\", \"laktoositon\"]}, {\"id\": 90, \"nimi\": \"Kalkkunaleike 150 g\", \"kategoria\": \"Liha\", \"hinta_snt\": 249, \"yksikko\": \"kpl\", \"ruokavaliot\": [\"gluteeniton\", \"laktoositon\"]}, {\"id\": 91, \"nimi\": \"Meetvursti 150 g\", \"kategoria\": \"Liha\", \"hinta_snt\": 249, \"yksikko\": \"kpl\", \"ruokavaliot\": [\"gluteeniton\", \"laktoositon\"]}, {\"id\": 89, \"nimi\": \"Keittokinkkuleike 300 g\", \"kategoria\": \"Liha\", \"hinta_snt\": 399, \"yksikko\": \"kpl\", \"ruokavaliot\": [\"gluteeniton\", \"laktoositon\"]}, {\"id\": 76, \"nimi\": \"Sika-nauta-jauheliha 400 g\", \"kategoria\": \"Liha\", \"hinta_snt\": 399, \"yksikko\": \"kpl\", \"ruokavaliot\": [\"gluteeniton\", \"laktoositon\"]}]",
+            "virhe": false
+          },
+          {
+            "nimi": "hae_tuotteet",
+            "argumentit": {
+              "hakusana": "",
+              "kategoria": "Hedelmät ja vihannekset",
+              "ruokavaliot": [
+                "laktoositon"
+              ],
+              "raja": 5
+            },
+            "tulos": "[{\"id\": 15, \"nimi\": \"Porkkana 1 kg\", \"kategoria\": \"Hedelmät ja vihannekset\", \"hinta_snt\": 129, \"yksikko\": \"kpl\", \"ruokavaliot\": [\"gluteeniton\", \"laktoositon\", \"vegaaninen\"]}, {\"id\": 16, \"nimi\": \"Keltasipuli 1 kg\", \"kategoria\": \"Hedelmät ja vihannekset\", \"hinta_snt\": 149, \"yksikko\": \"kpl\", \"ruokavaliot\": [\"gluteeniton\", \"laktoositon\", \"vegaaninen\"]}, {\"id\": 18, \"nimi\": \"Valkosipuli 3 kpl\", \"kategoria\": \"Hedelmät ja vihannekset\", \"hinta_snt\": 149, \"yksikko\": \"kpl\", \"ruokavaliot\": [\"gluteeniton\", \"laktoositon\", \"vegaaninen\"]}, {\"id\": 29, \"nimi\": \"Punajuuri 1 kg\", \"kategoria\": \"Hedelmät ja vihannekset\", \"hinta_snt\": 179, \"yksikko\": \"kpl\", \"ruokavaliot\": [\"gluteeniton\", \"laktoositon\", \"vegaaninen\"]}, {\"id\": 1, \"nimi\": \"Banaani\", \"kategoria\": \"Hedelmät ja vihannekset\", \"hinta_snt\": 199, \"yksikko\": \"kg\", \"ruokavaliot\": [\"gluteeniton\", \"laktoositon\", \"vegaaninen\"]}]",
+            "virhe": false
+          },
+          {
+            "nimi": "hae_tuotteet",
+            "argumentit": {
+              "hakusana": "",
+              "kategoria": "Mausteet, öljyt ja kastikkeet",
+              "ruokavaliot": [
+                "laktoositon"
+              ],
+              "raja": 5
+            },
+            "tulos": "[{\"id\": 205, \"nimi\": \"Väkiviinaetikka 10 % 0,5 l\", \"kategoria\": \"Mausteet, öljyt ja kastikkeet\", \"hinta_snt\": 99, \"yksikko\": \"kpl\", \"ruokavaliot\": [\"gluteeniton\", \"laktoositon\", \"vegaaninen\"]}, {\"id\": 193, \"nimi\": \"Merisuola 500 g\", \"kategoria\": \"Mausteet, öljyt ja kastikkeet\", \"hinta_snt\": 129, \"yksikko\": \"kpl\", \"ruokavaliot\": [\"gluteeniton\", \"laktoositon\", \"vegaaninen\"]}, {\"id\": 207, \"nimi\": \"Kasvisliemikuutio 6 kpl\", \"kategoria\": \"Mausteet, öljyt ja kastikkeet\", \"hinta_snt\": 149, \"yksikko\": \"kpl\", \"ruokavaliot\": [\"laktoositon\", \"vegaaninen\"]}, {\"id\": 197, \"nimi\": \"Currymauste 40 g\", \"kategoria\": \"Mausteet, öljyt ja kastikkeet\", \"hinta_snt\": 199, \"yksikko\": \"kpl\", \"ruokavaliot\": [\"gluteeniton\", \"laktoositon\", \"vegaaninen\"]}, {\"id\": 196, \"nimi\": \"Kaneli 50 g\", \"kategoria\": \"Mausteet, öljyt ja kastikkeet\", \"hinta_snt\": 199, \"yksikko\": \"kpl\", \"ruokavaliot\": [\"gluteeniton\", \"laktoositon\", \"vegaaninen\"]}]",
+            "virhe": false
+          },
+          {
+            "nimi": "hae_tuotteet",
+            "argumentit": {
+              "hakusana": "",
+              "kategoria": "Säilykkeet",
+              "ruokavaliot": [
+                "laktoositon"
+              ],
+              "raja": 5
+            },
+            "tulos": "[{\"id\": 143, \"nimi\": \"Kidneypavut 400 g\", \"kategoria\": \"Säilykkeet\", \"hinta_snt\": 99, \"yksikko\": \"kpl\", \"ruokavaliot\": [\"gluteeniton\", \"laktoositon\", \"vegaaninen\"]}, {\"id\": 142, \"nimi\": \"Kikherneet 400 g\", \"kategoria\": \"Säilykkeet\", \"hinta_snt\": 99, \"yksikko\": \"kpl\", \"ruokavaliot\": [\"gluteeniton\", \"laktoositon\", \"vegaaninen\"]}, {\"id\": 138, \"nimi\": \"Tomaattimurska 400 g\", \"kategoria\": \"Säilykkeet\", \"hinta_snt\": 99, \"yksikko\": \"kpl\", \"ruokavaliot\": [\"gluteeniton\", \"laktoositon\", \"vegaaninen\"]}, {\"id\": 139, \"nimi\": \"Kuoritut tomaatit 400 g\", \"kategoria\": \"Säilykkeet\", \"hinta_snt\": 109, \"yksikko\": \"kpl\", \"ruokavaliot\": [\"gluteeniton\", \"laktoositon\", \"vegaaninen\"]}, {\"id\": 144, \"nimi\": \"Mustapavut 400 g\", \"kategoria\": \"Säilykkeet\", \"hinta_snt\": 109, \"yksikko\": \"kpl\", \"ruokavaliot\": [\"gluteeniton\", \"laktoositon\", \"vegaaninen\"]}]",
+            "virhe": false
+          },
+          {
+            "nimi": "laske_hinta",
+            "argumentit": {
+              "ostoslista": [
+                {
+                  "tuote_id": 111,
+                  "maara": 1
+                },
+                {
+                  "tuote_id": 88,
+                  "maara": 4
+                },
+                {
+                  "tuote_id": 15,
+                  "maara": 0.5
+                },
+                {
+                  "tuote_id": 16,
+                  "maara": 0.3
+                },
+                {
+                  "tuote_id": 138,
+                  "maara": 1
+                },
+                {
+                  "tuote_id": 205,
+                  "maara": 1
+                }
+              ],
+              "budjetti_snt": 2000
+            },
+            "tulos": "VIRHE: Rivi 2: Porkkana 1 kg myydään kappaleittain, määrän pitää olla kokonaisluku",
+            "virhe": true
+          },
+          {
+            "nimi": "laske_hinta",
+            "argumentit": {
+              "ostoslista": [
+                {
+                  "tuote_id": 111,
+                  "maara": 1
+                },
+                {
+                  "tuote_id": 88,
+                  "maara": 4
+                },
+                {
+                  "tuote_id": 15,
+                  "maara": 1
+                },
+                {
+                  "tuote_id": 16,
+                  "maara": 1
+                },
+                {
+                  "tuote_id": 138,
+                  "maara": 1
+                },
+                {
+                  "tuote_id": 205,
+                  "maara": 1
+                }
+              ],
+              "budjetti_snt": 2000
+            },
+            "tulos": "{\"rivit\": [{\"tuote_id\": 111, \"nimi\": \"Vehnätortilla 8 kpl\", \"yksikko\": \"kpl\", \"hinta_snt\": 229, \"maara\": 1, \"rivihinta_snt\": 229}, {\"tuote_id\": 88, \"nimi\": \"Pekoni 140 g\", \"yksikko\": \"kpl\", \"hinta_snt\": 199, \"maara\": 4, \"rivihinta_snt\": 796}, {\"tuote_id\": 15, \"nimi\": \"Porkkana 1 kg\", \"yksikko\": \"kpl\", \"hinta_snt\": 129, \"maara\": 1, \"rivihinta_snt\": 129}, {\"tuote_id\": 16, \"nimi\": \"Keltasipuli 1 kg\", \"yksikko\": \"kpl\", \"hinta_snt\": 149, \"maara\": 1, \"rivihinta_snt\": 149}, {\"tuote_id\": 138, \"nimi\": \"Tomaattimurska 400 g\", \"yksikko\": \"kpl\", \"hinta_snt\": 99, \"maara\": 1, \"rivihinta_snt\": 99}, {\"tuote_id\": 205, \"nimi\": \"Väkiviinaetikka 10 % 0,5 l\", \"yksikko\": \"kpl\", \"hinta_snt\": 99, \"maara\": 1, \"rivihinta_snt\": 99}], \"yhteensa_snt\": 1501, \"budjetti_snt\": 2000, \"budjetti_ylittyy\": false, \"jaljella_snt\": 499}",
+            "virhe": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "vegaaninen_illallinen",
+      "onnistui": false,
+      "tarkistukset": {
+        "ei_keksittyja_tuotteita": null,
+        "hinnat_tarkistettavissa": null,
+        "ei_ruokavaliota_hakusanassa": null,
+        "laske_hinta_kutsuttu": "ostoslistaa ei laskettu laske_hinta-työkalulla",
+        "budjetti_max_snt": null,
+        "ruokavaliot": null,
+        "kategoriat_kaikki": "ostoslistaa ei laskettu",
+        "summa_vastauksessa": "ostoslistaa ei laskettu"
+      },
+      "jalki": {
+        "kysymys": "Vegaaniset ainekset kahteen illalliseen kahdelle, budjetti 15 €.",
+        "vastaus": "Ehdotan vegaaniset ainekset kahteen illalliseen kahdelle seuraavasti:\n\n1. Porkkana 1 kg  \n2. Keltasipuli 1 kg (otetaan 0.5 kg, puolet hintaa)  \n3. Maustamaton tofu 270 g  \n4. Spagetti 500 g  \n5. Kasvisliemikuutio 6 kpl  \n6. Merisuola 500 g (otetaan pieni määrä, esim. 0.05 kg, hinta osuus)  \n7. Väkiviinaetikka 0,5 l (otetaan pienempi määrä arvio)  \n\nLasken hinnan tarkemman määrän kanssa, niin pysytään budjetissa. Vahvista haluatko, että teen listan vai haluatko vielä muita tuotteita mukaan?",
+        "virhe": null,
+        "kierrokset": 4,
+        "tokenit": {
+          "syote": 9986,
+          "tuloste": 399
+        },
+        "kesto_s": 5.9,
+        "kutsut": [
+          {
+            "nimi": "listaa_ruokavaliot",
+            "argumentit": {},
+            "tulos": "[{\"koodi\": \"gluteeniton\", \"nimi\": \"Gluteeniton\", \"tuotteita\": 184}, {\"koodi\": \"laktoositon\", \"nimi\": \"Laktoositon\", \"tuotteita\": 189}, {\"koodi\": \"vegaaninen\", \"nimi\": \"Vegaaninen\", \"tuotteita\": 138}]",
+            "virhe": false
+          },
+          {
+            "nimi": "listaa_kategoriat",
+            "argumentit": {},
+            "tulos": "[{\"id\": 14, \"nimi\": \"Aamupala\", \"tuotteita\": 10}, {\"id\": 1, \"nimi\": \"Hedelmät ja vihannekset\", \"tuotteita\": 32}, {\"id\": 10, \"nimi\": \"Juomat\", \"tuotteita\": 16}, {\"id\": 3, \"nimi\": \"Juustot\", \"tuotteita\": 13}, {\"id\": 5, \"nimi\": \"Kala ja äyriäiset\", \"tuotteita\": 8}, {\"id\": 13, \"nimi\": \"Kasviproteiinit\", \"tuotteita\": 9}, {\"id\": 7, \"nimi\": \"Kuivatuotteet\", \"tuotteita\": 21}, {\"id\": 6, \"nimi\": \"Leivät ja leivonnaiset\", \"tuotteita\": 16}, {\"id\": 4, \"nimi\": \"Liha\", \"tuotteita\": 18}, {\"id\": 2, \"nimi\": \"Maitotuotteet ja kasvijuomat\", \"tuotteita\": 29}, {\"id\": 11, \"nimi\": \"Makeiset ja naposteltavat\", \"tuotteita\": 15}, {\"id\": 12, \"nimi\": \"Mausteet, öljyt ja kastikkeet\", \"tuotteita\": 16}, {\"id\": 9, \"nimi\": \"Pakasteet\", \"tuotteita\": 11}, {\"id\": 8, \"nimi\": \"Säilykkeet\", \"tuotteita\": 13}, {\"id\": 15, \"nimi\": \"Valmisruoat\", \"tuotteita\": 10}]",
+            "virhe": false
+          },
+          {
+            "nimi": "hae_tuotteet",
+            "argumentit": {
+              "hakusana": "",
+              "kategoria": "Hedelmät ja vihannekset",
+              "ruokavaliot": [
+                "vegaaninen"
+              ],
+              "raja": 5
+            },
+            "tulos": "[{\"id\": 15, \"nimi\": \"Porkkana 1 kg\", \"kategoria\": \"Hedelmät ja vihannekset\", \"hinta_snt\": 129, \"yksikko\": \"kpl\", \"ruokavaliot\": [\"gluteeniton\", \"laktoositon\", \"vegaaninen\"]}, {\"id\": 16, \"nimi\": \"Keltasipuli 1 kg\", \"kategoria\": \"Hedelmät ja vihannekset\", \"hinta_snt\": 149, \"yksikko\": \"kpl\", \"ruokavaliot\": [\"gluteeniton\", \"laktoositon\", \"vegaaninen\"]}, {\"id\": 18, \"nimi\": \"Valkosipuli 3 kpl\", \"kategoria\": \"Hedelmät ja vihannekset\", \"hinta_snt\": 149, \"yksikko\": \"kpl\", \"ruokavaliot\": [\"gluteeniton\", \"laktoositon\", \"vegaaninen\"]}, {\"id\": 29, \"nimi\": \"Punajuuri 1 kg\", \"kategoria\": \"Hedelmät ja vihannekset\", \"hinta_snt\": 179, \"yksikko\": \"kpl\", \"ruokavaliot\": [\"gluteeniton\", \"laktoositon\", \"vegaaninen\"]}, {\"id\": 1, \"nimi\": \"Banaani\", \"kategoria\": \"Hedelmät ja vihannekset\", \"hinta_snt\": 199, \"yksikko\": \"kg\", \"ruokavaliot\": [\"gluteeniton\", \"laktoositon\", \"vegaaninen\"]}]",
+            "virhe": false
+          },
+          {
+            "nimi": "hae_tuotteet",
+            "argumentit": {
+              "hakusana": "",
+              "kategoria": "Kasviproteiinit",
+              "ruokavaliot": [
+                "vegaaninen"
+              ],
+              "raja": 5
+            },
+            "tulos": "[{\"id\": 209, \"nimi\": \"Maustamaton tofu 270 g\", \"kategoria\": \"Kasviproteiinit\", \"hinta_snt\": 249, \"yksikko\": \"kpl\", \"ruokavaliot\": [\"gluteeniton\", \"laktoositon\", \"vegaaninen\"]}, {\"id\": 211, \"nimi\": \"Soijarouhe 200 g\", \"kategoria\": \"Kasviproteiinit\", \"hinta_snt\": 249, \"yksikko\": \"kpl\", \"ruokavaliot\": [\"gluteeniton\", \"laktoositon\", \"vegaaninen\"]}, {\"id\": 210, \"nimi\": \"Härkäpapurouhe 250 g\", \"kategoria\": \"Kasviproteiinit\", \"hinta_snt\": 299, \"yksikko\": \"kpl\", \"ruokavaliot\": [\"gluteeniton\", \"laktoositon\", \"vegaaninen\"]}, {\"id\": 215, \"nimi\": \"Falafel 300 g\", \"kategoria\": \"Kasviproteiinit\", \"hinta_snt\": 349, \"yksikko\": \"kpl\", \"ruokavaliot\": [\"laktoositon\", \"vegaaninen\"]}, {\"id\": 217, \"nimi\": \"Kasvisnakit 300 g\", \"kategoria\": \"Kasviproteiinit\", \"hinta_snt\": 349, \"yksikko\": \"kpl\", \"ruokavaliot\": [\"laktoositon\", \"vegaaninen\"]}]",
+            "virhe": false
+          },
+          {
+            "nimi": "hae_tuotteet",
+            "argumentit": {
+              "hakusana": "",
+              "kategoria": "Kuivatuotteet",
+              "ruokavaliot": [
+                "vegaaninen"
+              ],
+              "raja": 5
+            },
+            "tulos": "[{\"id\": 134, \"nimi\": \"Kuivahiiva 3 x 11 g\", \"kategoria\": \"Kuivatuotteet\", \"hinta_snt\": 89, \"yksikko\": \"kpl\", \"ruokavaliot\": [\"gluteeniton\", \"laktoositon\", \"vegaaninen\"]}, {\"id\": 133, \"nimi\": \"Leivinjauhe 100 g\", \"kategoria\": \"Kuivatuotteet\", \"hinta_snt\": 99, \"yksikko\": \"kpl\", \"ruokavaliot\": [\"gluteeniton\", \"laktoositon\", \"vegaaninen\"]}, {\"id\": 118, \"nimi\": \"Makaroni 400 g\", \"kategoria\": \"Kuivatuotteet\", \"hinta_snt\": 109, \"yksikko\": \"kpl\", \"ruokavaliot\": [\"laktoositon\", \"vegaaninen\"]}, {\"id\": 117, \"nimi\": \"Spagetti 500 g\", \"kategoria\": \"Kuivatuotteet\", \"hinta_snt\": 129, \"yksikko\": \"kpl\", \"ruokavaliot\": [\"laktoositon\", \"vegaaninen\"]}, {\"id\": 131, \"nimi\": \"Taloussokeri 1 kg\", \"kategoria\": \"Kuivatuotteet\", \"hinta_snt\": 129, \"yksikko\": \"kpl\", \"ruokavaliot\": [\"gluteeniton\", \"laktoositon\", \"vegaaninen\"]}]",
+            "virhe": false
+          },
+          {
+            "nimi": "hae_tuotteet",
+            "argumentit": {
+              "hakusana": "",
+              "kategoria": "Mausteet, öljyt ja kastikkeet",
+              "ruokavaliot": [
+                "vegaaninen"
+              ],
+              "raja": 5
+            },
+            "tulos": "[{\"id\": 205, \"nimi\": \"Väkiviinaetikka 10 % 0,5 l\", \"kategoria\": \"Mausteet, öljyt ja kastikkeet\", \"hinta_snt\": 99, \"yksikko\": \"kpl\", \"ruokavaliot\": [\"gluteeniton\", \"laktoositon\", \"vegaaninen\"]}, {\"id\": 193, \"nimi\": \"Merisuola 500 g\", \"kategoria\": \"Mausteet, öljyt ja kastikkeet\", \"hinta_snt\": 129, \"yksikko\": \"kpl\", \"ruokavaliot\": [\"gluteeniton\", \"laktoositon\", \"vegaaninen\"]}, {\"id\": 207, \"nimi\": \"Kasvisliemikuutio 6 kpl\", \"kategoria\": \"Mausteet, öljyt ja kastikkeet\", \"hinta_snt\": 149, \"yksikko\": \"kpl\", \"ruokavaliot\": [\"laktoositon\", \"vegaaninen\"]}, {\"id\": 197, \"nimi\": \"Currymauste 40 g\", \"kategoria\": \"Mausteet, öljyt ja kastikkeet\", \"hinta_snt\": 199, \"yksikko\": \"kpl\", \"ruokavaliot\": [\"gluteeniton\", \"laktoositon\", \"vegaaninen\"]}, {\"id\": 196, \"nimi\": \"Kaneli 50 g\", \"kategoria\": \"Mausteet, öljyt ja kastikkeet\", \"hinta_snt\": 199, \"yksikko\": \"kpl\", \"ruokavaliot\": [\"gluteeniton\", \"laktoositon\", \"vegaaninen\"]}]",
+            "virhe": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "kaksi_ruokavaliota",
+      "onnistui": true,
+      "tarkistukset": {
+        "ei_keksittyja_tuotteita": null,
+        "hinnat_tarkistettavissa": null,
+        "ei_ruokavaliota_hakusanassa": null,
+        "laske_hinta_kutsuttu": null,
+        "budjetti_max_snt": null,
+        "ruokavaliot": null,
+        "haku_ruokavaliolla": null
+      },
+      "jalki": {
+        "kysymys": "Tarvitsen gluteenittomia ja laktoosittomia välipaloja viikon koulupäiviin, max 8 €.",
+        "vastaus": "Valitsemani gluteenittomat ja laktoosittomat välipalat viikon koulupäiviin maksavat 12,92 €, mikä ylittää 8 € budjettisi 4,92 €:llä. Haluatko, että etsin edullisempia vaihtoehtoja vai haluatko tehdä muutoksia toiveisiin?",
+        "virhe": null,
+        "kierrokset": 5,
+        "tokenit": {
+          "syote": 12264,
+          "tuloste": 209
+        },
+        "kesto_s": 5.1,
+        "kutsut": [
+          {
+            "nimi": "listaa_ruokavaliot",
+            "argumentit": {},
+            "tulos": "[{\"koodi\": \"gluteeniton\", \"nimi\": \"Gluteeniton\", \"tuotteita\": 184}, {\"koodi\": \"laktoositon\", \"nimi\": \"Laktoositon\", \"tuotteita\": 189}, {\"koodi\": \"vegaaninen\", \"nimi\": \"Vegaaninen\", \"tuotteita\": 138}]",
+            "virhe": false
+          },
+          {
+            "nimi": "listaa_kategoriat",
+            "argumentit": {},
+            "tulos": "[{\"id\": 14, \"nimi\": \"Aamupala\", \"tuotteita\": 10}, {\"id\": 1, \"nimi\": \"Hedelmät ja vihannekset\", \"tuotteita\": 32}, {\"id\": 10, \"nimi\": \"Juomat\", \"tuotteita\": 16}, {\"id\": 3, \"nimi\": \"Juustot\", \"tuotteita\": 13}, {\"id\": 5, \"nimi\": \"Kala ja äyriäiset\", \"tuotteita\": 8}, {\"id\": 13, \"nimi\": \"Kasviproteiinit\", \"tuotteita\": 9}, {\"id\": 7, \"nimi\": \"Kuivatuotteet\", \"tuotteita\": 21}, {\"id\": 6, \"nimi\": \"Leivät ja leivonnaiset\", \"tuotteita\": 16}, {\"id\": 4, \"nimi\": \"Liha\", \"tuotteita\": 18}, {\"id\": 2, \"nimi\": \"Maitotuotteet ja kasvijuomat\", \"tuotteita\": 29}, {\"id\": 11, \"nimi\": \"Makeiset ja naposteltavat\", \"tuotteita\": 15}, {\"id\": 12, \"nimi\": \"Mausteet, öljyt ja kastikkeet\", \"tuotteita\": 16}, {\"id\": 9, \"nimi\": \"Pakasteet\", \"tuotteita\": 11}, {\"id\": 8, \"nimi\": \"Säilykkeet\", \"tuotteita\": 13}, {\"id\": 15, \"nimi\": \"Valmisruoat\", \"tuotteita\": 10}]",
+            "virhe": false
+          },
+          {
+            "nimi": "hae_tuotteet",
+            "argumentit": {
+              "hakusana": "",
+              "kategoria": "Makeiset ja naposteltavat",
+              "ruokavaliot": [
+                "gluteeniton",
+                "laktoositon"
+              ],
+              "raja": 20
+            },
+            "tulos": "[{\"id\": 190, \"nimi\": \"Riisikakut 100 g\", \"kategoria\": \"Makeiset ja naposteltavat\", \"hinta_snt\": 129, \"yksikko\": \"kpl\", \"ruokavaliot\": [\"gluteeniton\", \"laktoositon\", \"vegaaninen\"]}, {\"id\": 189, \"nimi\": \"Rusinat 250 g\", \"kategoria\": \"Makeiset ja naposteltavat\", \"hinta_snt\": 199, \"yksikko\": \"kpl\", \"ruokavaliot\": [\"gluteeniton\", \"laktoositon\", \"vegaaninen\"]}, {\"id\": 182, \"nimi\": \"Hedelmäkarkit 200 g\", \"kategoria\": \"Makeiset ja naposteltavat\", \"hinta_snt\": 229, \"yksikko\": \"kpl\", \"ruokavaliot\": [\"gluteeniton\", \"laktoositon\"]}, {\"id\": 179, \"nimi\": \"Maidoton tumma suklaa 70 % 100 g\", \"kategoria\": \"Makeiset ja naposteltavat\", \"hinta_snt\": 249, \"yksikko\": \"kpl\", \"ruokavaliot\": [\"gluteeniton\", \"laktoositon\", \"vegaaninen\"]}, {\"id\": 183, \"nimi\": \"Suolatut perunalastut 275 g\", \"kategoria\": \"Makeiset ja naposteltavat\", \"hinta_snt\": 299, \"yksikko\": \"kpl\", \"ruokavaliot\": [\"gluteeniton\", \"laktoositon\", \"vegaaninen\"]}, {\"id\": 188, \"nimi\": \"Mantelit 200 g\", \"kategoria\": \"Makeiset ja naposteltavat\", \"hinta_snt\": 349, \"yksikko\": \"kpl\", \"ruokavaliot\": [\"gluteeniton\", \"laktoositon\", \"vegaaninen\"]}, {\"id\": 186, \"nimi\": \"Suolapähkinät 300 g\", \"kategoria\": \"Makeiset ja naposteltavat\", \"hinta_snt\": 349, \"yksikko\": \"kpl\", \"ruokavaliot\": [\"gluteeniton\", \"laktoositon\", \"vegaaninen\"]}, {\"id\": 187, \"nimi\": \"Cashewpähkinät 200 g\", \"kategoria\": \"Makeiset ja naposteltavat\", \"hinta_snt\": 399, \"yksikko\": \"kpl\", \"ruokavaliot\": [\"gluteeniton\", \"laktoositon\", \"vegaaninen\"]}]",
+            "virhe": false
+          },
+          {
+            "nimi": "laske_hinta",
+            "argumentit": {
+              "ostoslista": [
+                {
+                  "tuote_id": 190,
+                  "maara": 5
+                },
+                {
+                  "tuote_id": 189,
+                  "maara": 2
+                },
+                {
+                  "tuote_id": 179,
+                  "maara": 1
+                }
+              ],
+              "budjetti_snt": 800
+            },
+            "tulos": "{\"rivit\": [{\"tuote_id\": 190, \"nimi\": \"Riisikakut 100 g\", \"yksikko\": \"kpl\", \"hinta_snt\": 129, \"maara\": 5, \"rivihinta_snt\": 645}, {\"tuote_id\": 189, \"nimi\": \"Rusinat 250 g\", \"yksikko\": \"kpl\", \"hinta_snt\": 199, \"maara\": 2, \"rivihinta_snt\": 398}, {\"tuote_id\": 179, \"nimi\": \"Maidoton tumma suklaa 70 % 100 g\", \"yksikko\": \"kpl\", \"hinta_snt\": 249, \"maara\": 1, \"rivihinta_snt\": 249}], \"yhteensa_snt\": 1292, \"budjetti_snt\": 800, \"budjetti_ylittyy\": true, \"ylitys_snt\": 492}",
+            "virhe": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "keliakia_leipa",
+      "onnistui": true,
+      "tarkistukset": {
+        "ei_keksittyja_tuotteita": null,
+        "hinnat_tarkistettavissa": null,
+        "ei_ruokavaliota_hakusanassa": null,
+        "haku_ruokavaliolla": null,
+        "vastaus_sisaltaa_jokin": null,
+        "vastaus_ei_sisalla": null
+      },
+      "jalki": {
+        "kysymys": "Lapsellani on keliakia. Mitä leipää voin ostaa?",
+        "vastaus": "Kaupassa on gluteenitonta leipää keliakiaa sairastavalle:\n- Gluteeniton tumma leipä 300 g, 4,49 €\n- Gluteeniton vaalea leipä 300 g, 4,49 €\n\nHaluatko ostoslistan jommasta kummasta?",
+        "virhe": null,
+        "kierrokset": 4,
+        "tokenit": {
+          "syote": 8432,
+          "tuloste": 157
+        },
+        "kesto_s": 3.9,
+        "kutsut": [
+          {
+            "nimi": "hae_tuotteet",
+            "argumentit": {
+              "hakusana": "",
+              "kategoria": "Leivät",
+              "ruokavaliot": [
+                "gluteeniton"
+              ]
+            },
+            "tulos": "VIRHE: Tuntematon kategoria 'leivät'. Käytä listaa_kategoriat()-työkalua.",
+            "virhe": true
+          },
+          {
+            "nimi": "listaa_kategoriat",
+            "argumentit": {},
+            "tulos": "[{\"id\": 14, \"nimi\": \"Aamupala\", \"tuotteita\": 10}, {\"id\": 1, \"nimi\": \"Hedelmät ja vihannekset\", \"tuotteita\": 32}, {\"id\": 10, \"nimi\": \"Juomat\", \"tuotteita\": 16}, {\"id\": 3, \"nimi\": \"Juustot\", \"tuotteita\": 13}, {\"id\": 5, \"nimi\": \"Kala ja äyriäiset\", \"tuotteita\": 8}, {\"id\": 13, \"nimi\": \"Kasviproteiinit\", \"tuotteita\": 9}, {\"id\": 7, \"nimi\": \"Kuivatuotteet\", \"tuotteita\": 21}, {\"id\": 6, \"nimi\": \"Leivät ja leivonnaiset\", \"tuotteita\": 16}, {\"id\": 4, \"nimi\": \"Liha\", \"tuotteita\": 18}, {\"id\": 2, \"nimi\": \"Maitotuotteet ja kasvijuomat\", \"tuotteita\": 29}, {\"id\": 11, \"nimi\": \"Makeiset ja naposteltavat\", \"tuotteita\": 15}, {\"id\": 12, \"nimi\": \"Mausteet, öljyt ja kastikkeet\", \"tuotteita\": 16}, {\"id\": 9, \"nimi\": \"Pakasteet\", \"tuotteita\": 11}, {\"id\": 8, \"nimi\": \"Säilykkeet\", \"tuotteita\": 13}, {\"id\": 15, \"nimi\": \"Valmisruoat\", \"tuotteita\": 10}]",
+            "virhe": false
+          },
+          {
+            "nimi": "hae_tuotteet",
+            "argumentit": {
+              "hakusana": "",
+              "kategoria": "Leivät ja leivonnaiset",
+              "ruokavaliot": [
+                "gluteeniton"
+              ]
+            },
+            "tulos": "[{\"id\": 116, \"nimi\": \"Gluteeniton tumma leipä 300 g\", \"kategoria\": \"Leivät ja leivonnaiset\", \"hinta_snt\": 449, \"yksikko\": \"kpl\", \"ruokavaliot\": [\"gluteeniton\", \"laktoositon\"]}, {\"id\": 115, \"nimi\": \"Gluteeniton vaalea leipä 300 g\", \"kategoria\": \"Leivät ja leivonnaiset\", \"hinta_snt\": 449, \"yksikko\": \"kpl\", \"ruokavaliot\": [\"gluteeniton\", \"laktoositon\"]}]",
+            "virhe": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "grilli_ilta",
+      "onnistui": false,
+      "tarkistukset": {
+        "ei_keksittyja_tuotteita": null,
+        "hinnat_tarkistettavissa": null,
+        "ei_ruokavaliota_hakusanassa": null,
+        "laske_hinta_kutsuttu": "ostoslistaa ei laskettu laske_hinta-työkalulla",
+        "budjetti_max_snt": null,
+        "kategoriat_kaikki": "ostoslistaa ei laskettu",
+        "summa_vastauksessa": "ostoslistaa ei laskettu",
+        "max_kierroksia": null
+      },
+      "jalki": {
+        "kysymys": "Grilli-illan tarvikkeet kuudelle, budjetti 30 €.",
+        "vastaus": "Grilli-illan tarvikkeet löytyvät lähinnä kategoria \"Liha\", \"Kala ja äyriäiset\", \"Hedelmät ja vihannekset\", \"Mausteet, öljyt ja kastikkeet\", \"Leivät ja leivonnaiset\" sekä \"Juomat\". Haen nyt näistä sopivia tuotteita kuudelle ja laadin budjettiin 30 euroa sopivan ostoslistan. Onko toiveita esimerkiksi erityisestä ruokavaliosta? Tai haluatko jotain erityistä grillattavaa?\nOnko teillä joku erityinen ruokavalio tai allergiat, jotka tulee ottaa huomioon? Haluatteko esimerkiksi lihaa, kalaa, kasviproteiinia tai jotain muuta grillattavaa? Tai jotain lisukkeita tai juomia? Tämä auttaa minua tekemään sopivan ostoslistan kuudelle 30 eurolla.",
+        "virhe": null,
+        "kierrokset": 2,
+        "tokenit": {
+          "syote": 4011,
+          "tuloste": 204
+        },
+        "kesto_s": 3.4,
+        "kutsut": [
+          {
+            "nimi": "listaa_kategoriat",
+            "argumentit": {},
+            "tulos": "[{\"id\": 14, \"nimi\": \"Aamupala\", \"tuotteita\": 10}, {\"id\": 1, \"nimi\": \"Hedelmät ja vihannekset\", \"tuotteita\": 32}, {\"id\": 10, \"nimi\": \"Juomat\", \"tuotteita\": 16}, {\"id\": 3, \"nimi\": \"Juustot\", \"tuotteita\": 13}, {\"id\": 5, \"nimi\": \"Kala ja äyriäiset\", \"tuotteita\": 8}, {\"id\": 13, \"nimi\": \"Kasviproteiinit\", \"tuotteita\": 9}, {\"id\": 7, \"nimi\": \"Kuivatuotteet\", \"tuotteita\": 21}, {\"id\": 6, \"nimi\": \"Leivät ja leivonnaiset\", \"tuotteita\": 16}, {\"id\": 4, \"nimi\": \"Liha\", \"tuotteita\": 18}, {\"id\": 2, \"nimi\": \"Maitotuotteet ja kasvijuomat\", \"tuotteita\": 29}, {\"id\": 11, \"nimi\": \"Makeiset ja naposteltavat\", \"tuotteita\": 15}, {\"id\": 12, \"nimi\": \"Mausteet, öljyt ja kastikkeet\", \"tuotteita\": 16}, {\"id\": 9, \"nimi\": \"Pakasteet\", \"tuotteita\": 11}, {\"id\": 8, \"nimi\": \"Säilykkeet\", \"tuotteita\": 13}, {\"id\": 15, \"nimi\": \"Valmisruoat\", \"tuotteita\": 10}]",
+            "virhe": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "opiskelijan_viikko",
+      "onnistui": false,
+      "tarkistukset": {
+        "ei_keksittyja_tuotteita": null,
+        "hinnat_tarkistettavissa": null,
+        "ei_ruokavaliota_hakusanassa": null,
+        "laske_hinta_kutsuttu": "ostoslistaa ei laskettu laske_hinta-työkalulla",
+        "budjetti_max_snt": null,
+        "summa_vastauksessa": "ostoslistaa ei laskettu",
+        "max_kierroksia": null
+      },
+      "jalki": {
+        "kysymys": "Olen opiskelija ja tarvitsen viikon ruoat yhdelle 25 eurolla.",
+        "vastaus": "Voisitko kertoa, haluatko esimerkiksi aamupalaa, lounasta ja päivällistä tai jotain erityisiä ruokalajeja tai ruokavaliorajoitteita? Näin osaan tehdä sopivan ostoslistan budjetillesi.",
+        "virhe": null,
+        "kierrokset": 1,
+        "tokenit": {
+          "syote": 1810,
+          "tuloste": 54
+        },
+        "kesto_s": 1.0,
+        "kutsut": []
+      }
+    },
+    {
+      "id": "juomat_alle_2e",
+      "onnistui": true,
+      "tarkistukset": {
+        "ei_keksittyja_tuotteita": null,
+        "hinnat_tarkistettavissa": null,
+        "ei_ruokavaliota_hakusanassa": null,
+        "haku_kategorialla": null,
+        "vastaus_sisaltaa_kaikki": null,
+        "vastaus_ei_sisalla": null
+      },
+      "jalki": {
+        "kysymys": "Näytä juomat, jotka maksavat alle 2 euroa.",
+        "vastaus": "Tässä juomia alle 2 eurolla:\n- Kivennäisvesi 1,5 l, 0,99 €\n- Alkoholiton olut 0,33 l, 1,49 €\n- Energiajuoma 0,5 l, 1,99 €\n\nHaluatko ostoslistan näistä tai jotain muuta?",
+        "virhe": null,
+        "kierrokset": 2,
+        "tokenit": {
+          "syote": 3865,
+          "tuloste": 115
+        },
+        "kesto_s": 3.2,
+        "kutsut": [
+          {
+            "nimi": "hae_tuotteet",
+            "argumentit": {
+              "hakusana": "",
+              "kategoria": "Juomat",
+              "max_hinta_snt": 199,
+              "raja": 20
+            },
+            "tulos": "[{\"id\": 165, \"nimi\": \"Kivennäisvesi 1,5 l\", \"kategoria\": \"Juomat\", \"hinta_snt\": 99, \"yksikko\": \"kpl\", \"ruokavaliot\": [\"gluteeniton\", \"laktoositon\", \"vegaaninen\"]}, {\"id\": 170, \"nimi\": \"Alkoholiton olut 0,33 l\", \"kategoria\": \"Juomat\", \"hinta_snt\": 149, \"yksikko\": \"kpl\", \"ruokavaliot\": [\"laktoositon\", \"vegaaninen\"]}, {\"id\": 169, \"nimi\": \"Energiajuoma 0,5 l\", \"kategoria\": \"Juomat\", \"hinta_snt\": 199, \"yksikko\": \"kpl\", \"ruokavaliot\": [\"gluteeniton\", \"laktoositon\", \"vegaaninen\"]}]",
+            "virhe": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "mahdoton_budjetti_perhe",
+      "onnistui": false,
+      "tarkistukset": {
+        "ei_keksittyja_tuotteita": null,
+        "hinnat_tarkistettavissa": null,
+        "ei_ruokavaliota_hakusanassa": null,
+        "budjetti_max_snt": null,
+        "vastaus_sisaltaa_jokin": "vastauksessa ei mitään näistä: ei riitä, ei onnistu, ei mahdu, liian pieni, ei ole mahdollista, mahdoton, ei kata"
+      },
+      "jalki": {
+        "kysymys": "Kokoa viikon ruoat neljän hengen perheelle, budjetti 5 €.",
+        "vastaus": "Budjetti 5 € ylittyy selvästi tällä listalla, ylitys on 4,92 €. \n\nVoimme kokeilla vielä halvemmin tai pienemmillä määrillä, tai rajoittaa valikoimaa tiukasti. Kerro, haluatko toiveita (esim. pelkkiä kasviksia, gluteenitonta, vegaanista)? Tai haluatko, että teen halvimman mahdollisen listan?",
+        "virhe": null,
+        "kierrokset": 4,
+        "tokenit": {
+          "syote": 12097,
+          "tuloste": 427
+        },
+        "kesto_s": 6.3,
+        "kutsut": [
+          {
+            "nimi": "listaa_kategoriat",
+            "argumentit": {},
+            "tulos": "[{\"id\": 14, \"nimi\": \"Aamupala\", \"tuotteita\": 10}, {\"id\": 1, \"nimi\": \"Hedelmät ja vihannekset\", \"tuotteita\": 32}, {\"id\": 10, \"nimi\": \"Juomat\", \"tuotteita\": 16}, {\"id\": 3, \"nimi\": \"Juustot\", \"tuotteita\": 13}, {\"id\": 5, \"nimi\": \"Kala ja äyriäiset\", \"tuotteita\": 8}, {\"id\": 13, \"nimi\": \"Kasviproteiinit\", \"tuotteita\": 9}, {\"id\": 7, \"nimi\": \"Kuivatuotteet\", \"tuotteita\": 21}, {\"id\": 6, \"nimi\": \"Leivät ja leivonnaiset\", \"tuotteita\": 16}, {\"id\": 4, \"nimi\": \"Liha\", \"tuotteita\": 18}, {\"id\": 2, \"nimi\": \"Maitotuotteet ja kasvijuomat\", \"tuotteita\": 29}, {\"id\": 11, \"nimi\": \"Makeiset ja naposteltavat\", \"tuotteita\": 15}, {\"id\": 12, \"nimi\": \"Mausteet, öljyt ja kastikkeet\", \"tuotteita\": 16}, {\"id\": 9, \"nimi\": \"Pakasteet\", \"tuotteita\": 11}, {\"id\": 8, \"nimi\": \"Säilykkeet\", \"tuotteita\": 13}, {\"id\": 15, \"nimi\": \"Valmisruoat\", \"tuotteita\": 10}]",
+            "virhe": false
+          },
+          {
+            "nimi": "hae_tuotteet",
+            "argumentit": {
+              "hakusana": "",
+              "kategoria": "Hedelmät ja vihannekset",
+              "raja": 5
+            },
+            "tulos": "[{\"id\": 15, \"nimi\": \"Porkkana 1 kg\", \"kategoria\": \"Hedelmät ja vihannekset\", \"hinta_snt\": 129, \"yksikko\": \"kpl\", \"ruokavaliot\": [\"gluteeniton\", \"laktoositon\", \"vegaaninen\"]}, {\"id\": 16, \"nimi\": \"Keltasipuli 1 kg\", \"kategoria\": \"Hedelmät ja vihannekset\", \"hinta_snt\": 149, \"yksikko\": \"kpl\", \"ruokavaliot\": [\"gluteeniton\", \"laktoositon\", \"vegaaninen\"]}, {\"id\": 18, \"nimi\": \"Valkosipuli 3 kpl\", \"kategoria\": \"Hedelmät ja vihannekset\", \"hinta_snt\": 149, \"yksikko\": \"kpl\", \"ruokavaliot\": [\"gluteeniton\", \"laktoositon\", \"vegaaninen\"]}, {\"id\": 29, \"nimi\": \"Punajuuri 1 kg\", \"kategoria\": \"Hedelmät ja vihannekset\", \"hinta_snt\": 179, \"yksikko\": \"kpl\", \"ruokavaliot\": [\"gluteeniton\", \"laktoositon\", \"vegaaninen\"]}, {\"id\": 1, \"nimi\": \"Banaani\", \"kategoria\": \"Hedelmät ja vihannekset\", \"hinta_snt\": 199, \"yksikko\": \"kg\", \"ruokavaliot\": [\"gluteeniton\", \"laktoositon\", \"vegaaninen\"]}]",
+            "virhe": false
+          },
+          {
+            "nimi": "hae_tuotteet",
+            "argumentit": {
+              "hakusana": "",
+              "kategoria": "Kuivatuotteet",
+              "raja": 5
+            },
+            "tulos": "[{\"id\": 134, \"nimi\": \"Kuivahiiva 3 x 11 g\", \"kategoria\": \"Kuivatuotteet\", \"hinta_snt\": 89, \"yksikko\": \"kpl\", \"ruokavaliot\": [\"gluteeniton\", \"laktoositon\", \"vegaaninen\"]}, {\"id\": 133, \"nimi\": \"Leivinjauhe 100 g\", \"kategoria\": \"Kuivatuotteet\", \"hinta_snt\": 99, \"yksikko\": \"kpl\", \"ruokavaliot\": [\"gluteeniton\", \"laktoositon\", \"vegaaninen\"]}, {\"id\": 118, \"nimi\": \"Makaroni 400 g\", \"kategoria\": \"Kuivatuotteet\", \"hinta_snt\": 109, \"yksikko\": \"kpl\", \"ruokavaliot\": [\"laktoositon\", \"vegaaninen\"]}, {\"id\": 117, \"nimi\": \"Spagetti 500 g\", \"kategoria\": \"Kuivatuotteet\", \"hinta_snt\": 129, \"yksikko\": \"kpl\", \"ruokavaliot\": [\"laktoositon\", \"vegaaninen\"]}, {\"id\": 131, \"nimi\": \"Taloussokeri 1 kg\", \"kategoria\": \"Kuivatuotteet\", \"hinta_snt\": 129, \"yksikko\": \"kpl\", \"ruokavaliot\": [\"gluteeniton\", \"laktoositon\", \"vegaaninen\"]}]",
+            "virhe": false
+          },
+          {
+            "nimi": "hae_tuotteet",
+            "argumentit": {
+              "hakusana": "",
+              "kategoria": "Leivät ja leivonnaiset",
+              "raja": 5
+            },
+            "tulos": "[{\"id\": 104, \"nimi\": \"Vehnäpaahtoleipä 500 g\", \"kategoria\": \"Leivät ja leivonnaiset\", \"hinta_snt\": 169, \"yksikko\": \"kpl\", \"ruokavaliot\": []}, {\"id\": 107, \"nimi\": \"Patonki\", \"kategoria\": \"Leivät ja leivonnaiset\", \"hinta_snt\": 179, \"yksikko\": \"kpl\", \"ruokavaliot\": [\"laktoositon\", \"vegaaninen\"]}, {\"id\": 109, \"nimi\": \"Ruisnäkkileipä 230 g\", \"kategoria\": \"Leivät ja leivonnaiset\", \"hinta_snt\": 179, \"yksikko\": \"kpl\", \"ruokavaliot\": [\"laktoositon\", \"vegaaninen\"]}, {\"id\": 110, \"nimi\": \"Hapankorppu 200 g\", \"kategoria\": \"Leivät ja leivonnaiset\", \"hinta_snt\": 189, \"yksikko\": \"kpl\", \"ruokavaliot\": [\"laktoositon\", \"vegaaninen\"]}, {\"id\": 106, \"nimi\": \"Ciabatta 2 kpl\", \"kategoria\": \"Leivät ja leivonnaiset\", \"hinta_snt\": 199, \"yksikko\": \"kpl\", \"ruokavaliot\": [\"laktoositon\", \"vegaaninen\"]}]",
+            "virhe": false
+          },
+          {
+            "nimi": "hae_tuotteet",
+            "argumentit": {
+              "hakusana": "",
+              "kategoria": "Maitotuotteet ja kasvijuomat",
+              "raja": 5
+            },
+            "tulos": "[{\"id\": 48, \"nimi\": \"Mansikkajogurtti 150 g\", \"kategoria\": \"Maitotuotteet ja kasvijuomat\", \"hinta_snt\": 69, \"yksikko\": \"kpl\", \"ruokavaliot\": [\"gluteeniton\"]}, {\"id\": 52, \"nimi\": \"Viili 200 g\", \"kategoria\": \"Maitotuotteet ja kasvijuomat\", \"hinta_snt\": 79, \"yksikko\": \"kpl\", \"ruokavaliot\": [\"gluteeniton\"]}, {\"id\": 40, \"nimi\": \"Kermaviili 200 g\", \"kategoria\": \"Maitotuotteet ja kasvijuomat\", \"hinta_snt\": 99, \"yksikko\": \"kpl\", \"ruokavaliot\": [\"gluteeniton\"]}, {\"id\": 34, \"nimi\": \"Rasvaton maito 1 l\", \"kategoria\": \"Maitotuotteet ja kasvijuomat\", \"hinta_snt\": 99, \"yksikko\": \"kpl\", \"ruokavaliot\": [\"gluteeniton\"]}, {\"id\": 33, \"nimi\": \"Kevytmaito 1 l\", \"kategoria\": \"Maitotuotteet ja kasvijuomat\", \"hinta_snt\": 109, \"yksikko\": \"kpl\", \"ruokavaliot\": [\"gluteeniton\"]}]",
+            "virhe": false
+          },
+          {
+            "nimi": "laske_hinta",
+            "argumentit": {
+              "ostoslista": [
+                {
+                  "tuote_id": 15,
+                  "maara": 4
+                },
+                {
+                  "tuote_id": 118,
+                  "maara": 1
+                },
+                {
+                  "tuote_id": 104,
+                  "maara": 1
+                },
+                {
+                  "tuote_id": 34,
+                  "maara": 2
+                }
+              ],
+              "budjetti_snt": 500
+            },
+            "tulos": "{\"rivit\": [{\"tuote_id\": 15, \"nimi\": \"Porkkana 1 kg\", \"yksikko\": \"kpl\", \"hinta_snt\": 129, \"maara\": 4, \"rivihinta_snt\": 516}, {\"tuote_id\": 118, \"nimi\": \"Makaroni 400 g\", \"yksikko\": \"kpl\", \"hinta_snt\": 109, \"maara\": 1, \"rivihinta_snt\": 109}, {\"tuote_id\": 104, \"nimi\": \"Vehnäpaahtoleipä 500 g\", \"yksikko\": \"kpl\", \"hinta_snt\": 169, \"maara\": 1, \"rivihinta_snt\": 169}, {\"tuote_id\": 34, \"nimi\": \"Rasvaton maito 1 l\", \"yksikko\": \"kpl\", \"hinta_snt\": 99, \"maara\": 2, \"rivihinta_snt\": 198}], \"yhteensa_snt\": 992, \"budjetti_snt\": 500, \"budjetti_ylittyy\": true, \"ylitys_snt\": 492}",
+            "virhe": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "mahdoton_budjetti_lohi",
+      "onnistui": false,
+      "tarkistukset": {
+        "ei_keksittyja_tuotteita": null,
+        "hinnat_tarkistettavissa": null,
+        "ei_ruokavaliota_hakusanassa": null,
+        "budjetti_max_snt": null,
+        "vastaus_sisaltaa_jokin": "vastauksessa ei mitään näistä: ei riitä, ylittää, ei mahdu, liian pieni, ei onnistu, ei kata"
+      },
+      "jalki": {
+        "kysymys": "Tarvitsen kilon lohifilettä ja kaksi juustoa, budjetti 3 €.",
+        "vastaus": "Lämminsavukirjolohipaketti myydään kappaleina, joten määrän pitää olla kokonaisluku. Ehdottaisin vaihtoehtoisesti ostamaan esimerkiksi yhden kokonaisen lämminsavulohen (300 g), ja lisään toisen juuston sen sijaan, jos haluat. Haluatko kokeilla sitä, vai haluatko muita vaihtoehtoja? Budjetti kuitenkin 3 € on hyvin tiukka lohi- ja juustohankintaan.",
+        "virhe": null,
+        "kierrokset": 4,
+        "tokenit": {
+          "syote": 9650,
+          "tuloste": 388
+        },
+        "kesto_s": 5.3,
+        "kutsut": [
+          {
+            "nimi": "listaa_kategoriat",
+            "argumentit": {},
+            "tulos": "[{\"id\": 14, \"nimi\": \"Aamupala\", \"tuotteita\": 10}, {\"id\": 1, \"nimi\": \"Hedelmät ja vihannekset\", \"tuotteita\": 32}, {\"id\": 10, \"nimi\": \"Juomat\", \"tuotteita\": 16}, {\"id\": 3, \"nimi\": \"Juustot\", \"tuotteita\": 13}, {\"id\": 5, \"nimi\": \"Kala ja äyriäiset\", \"tuotteita\": 8}, {\"id\": 13, \"nimi\": \"Kasviproteiinit\", \"tuotteita\": 9}, {\"id\": 7, \"nimi\": \"Kuivatuotteet\", \"tuotteita\": 21}, {\"id\": 6, \"nimi\": \"Leivät ja leivonnaiset\", \"tuotteita\": 16}, {\"id\": 4, \"nimi\": \"Liha\", \"tuotteita\": 18}, {\"id\": 2, \"nimi\": \"Maitotuotteet ja kasvijuomat\", \"tuotteita\": 29}, {\"id\": 11, \"nimi\": \"Makeiset ja naposteltavat\", \"tuotteita\": 15}, {\"id\": 12, \"nimi\": \"Mausteet, öljyt ja kastikkeet\", \"tuotteita\": 16}, {\"id\": 9, \"nimi\": \"Pakasteet\", \"tuotteita\": 11}, {\"id\": 8, \"nimi\": \"Säilykkeet\", \"tuotteita\": 13}, {\"id\": 15, \"nimi\": \"Valmisruoat\", \"tuotteita\": 10}]",
+            "virhe": false
+          },
+          {
+            "nimi": "hae_tuotteet",
+            "argumentit": {
+              "hakusana": "lohi",
+              "kategoria": "Kala ja äyriäiset",
+              "raja": 3
+            },
+            "tulos": "[{\"id\": 95, \"nimi\": \"Graavilohi viipale 200 g\", \"kategoria\": \"Kala ja äyriäiset\", \"hinta_snt\": 699, \"yksikko\": \"kpl\", \"ruokavaliot\": [\"gluteeniton\", \"laktoositon\"]}, {\"id\": 94, \"nimi\": \"Kylmäsavulohi viipale 200 g\", \"kategoria\": \"Kala ja äyriäiset\", \"hinta_snt\": 699, \"yksikko\": \"kpl\", \"ruokavaliot\": [\"gluteeniton\", \"laktoositon\"]}, {\"id\": 96, \"nimi\": \"Lämminsavukirjolohi 300 g\", \"kategoria\": \"Kala ja äyriäiset\", \"hinta_snt\": 799, \"yksikko\": \"kpl\", \"ruokavaliot\": [\"gluteeniton\", \"laktoositon\"]}]",
+            "virhe": false
+          },
+          {
+            "nimi": "hae_tuotteet",
+            "argumentit": {
+              "hakusana": "",
+              "kategoria": "Juustot",
+              "raja": 3
+            },
+            "tulos": "[{\"id\": 69, \"nimi\": \"Mozzarella 125 g\", \"kategoria\": \"Juustot\", \"hinta_snt\": 179, \"yksikko\": \"kpl\", \"ruokavaliot\": [\"gluteeniton\"]}, {\"id\": 72, \"nimi\": \"Maustamaton tuorejuusto 200 g\", \"kategoria\": \"Juustot\", \"hinta_snt\": 229, \"yksikko\": \"kpl\", \"ruokavaliot\": [\"gluteeniton\"]}, {\"id\": 73, \"nimi\": \"Laktoositon tuorejuusto 200 g\", \"kategoria\": \"Juustot\", \"hinta_snt\": 259, \"yksikko\": \"kpl\", \"ruokavaliot\": [\"gluteeniton\", \"laktoositon\"]}]",
+            "virhe": false
+          },
+          {
+            "nimi": "laske_hinta",
+            "argumentit": {
+              "ostoslista": [
+                {
+                  "tuote_id": 96,
+                  "maara": 0.3
+                },
+                {
+                  "tuote_id": 69,
+                  "maara": 1
+                },
+                {
+                  "tuote_id": 72,
+                  "maara": 1
+                }
+              ],
+              "budjetti_snt": 300
+            },
+            "tulos": "VIRHE: Rivi 0: Lämminsavukirjolohi 300 g myydään kappaleittain, määrän pitää olla kokonaisluku",
+            "virhe": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "tuntematon_ruokavalio_pahkinaton",
+      "onnistui": true,
+      "tarkistukset": {
+        "ei_keksittyja_tuotteita": null,
+        "hinnat_tarkistettavissa": null,
+        "ei_ruokavaliota_hakusanassa": null,
+        "vastaus_sisaltaa_jokin": null,
+        "tuotteet_ei_mukana": null,
+        "vastaus_ei_sisalla": null
+      },
+      "jalki": {
+        "kysymys": "Kokoa pähkinätön aamupala, lapsellani on pähkinäallergia.",
+        "vastaus": "Valikoimassamme ei ole tietoa pähkinättömyydestä tai pähkinäallergiaan sopivista tuotteista, joten en voi suoraan taata tuotteiden sopivuutta pähkinäallergiseen ruokavalioon. Voimme kuitenkin koota yleisen aamupalaehdotuksen, jonka kohdalla kannattaa tarkistaa pakkausselosteet pähkinöiden varalta. Haluaisitko esimerkiksi maitotuotteita, leipää, hedelmiä tai mehutuotteita aamupalalle?",
+        "virhe": null,
+        "kierrokset": 1,
+        "tokenit": {
+          "syote": 1814,
+          "tuloste": 117
+        },
+        "kesto_s": 1.6,
+        "kutsut": []
+      }
+    },
+    {
+      "id": "tuntematon_ruokavalio_fodmap",
+      "onnistui": true,
+      "tarkistukset": {
+        "ei_keksittyja_tuotteita": null,
+        "hinnat_tarkistettavissa": null,
+        "ei_ruokavaliota_hakusanassa": null,
+        "vastaus_sisaltaa_jokin": null
+      },
+      "jalki": {
+        "kysymys": "Tarvitsen FODMAP-ruokavalioon sopivan päivällisen.",
+        "vastaus": "Valikoimassa ei ole tietoa FODMAP-ruokavalioon sopivista tuotteista. Voimme etsiä esimerkiksi gluteenittomia, laktoosittomia tai vegaanisia ruokavaihtoehtoja, jos haluat. Haluatko? Tai voit kertoa toiveesi ruoalle (esim. lihaa, kasvisruokaa tms.), niin autan löytämään sopivaa päivällistä.",
+        "virhe": null,
+        "kierrokset": 2,
+        "tokenit": {
+          "syote": 3722,
+          "tuloste": 107
+        },
+        "kesto_s": 3.0,
+        "kutsut": [
+          {
+            "nimi": "listaa_ruokavaliot",
+            "argumentit": {},
+            "tulos": "[{\"koodi\": \"gluteeniton\", \"nimi\": \"Gluteeniton\", \"tuotteita\": 184}, {\"koodi\": \"laktoositon\", \"nimi\": \"Laktoositon\", \"tuotteita\": 189}, {\"koodi\": \"vegaaninen\", \"nimi\": \"Vegaaninen\", \"tuotteita\": 138}]",
+            "virhe": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "epaselva_ruokaa",
+      "onnistui": true,
+      "tarkistukset": {
+        "ei_keksittyja_tuotteita": null,
+        "hinnat_tarkistettavissa": null,
+        "ei_ruokavaliota_hakusanassa": null,
+        "vastaus_kysyy": null,
+        "ei_tyokalua": null
+      },
+      "jalki": {
+        "kysymys": "Tarvitsen ruokaa.",
+        "vastaus": "Kuinka monta henkilöä ruoat ovat, ja mille ajalle? Onko sinulla budjettia tai erityistoiveita esim. ruokavalion tai ruokatyyppien suhteen?",
+        "virhe": null,
+        "kierrokset": 1,
+        "tokenit": {
+          "syote": 1798,
+          "tuloste": 42
+        },
+        "kesto_s": 1.0,
+        "kutsut": []
+      }
+    },
+    {
+      "id": "epaselva_juhlat",
+      "onnistui": true,
+      "tarkistukset": {
+        "ei_keksittyja_tuotteita": null,
+        "hinnat_tarkistettavissa": null,
+        "ei_ruokavaliota_hakusanassa": null,
+        "vastaus_kysyy": null,
+        "ei_tyokalua": null
+      },
+      "jalki": {
+        "kysymys": "Jotain hyvää juhliin.",
+        "vastaus": "Hyviin juhlatarvikkeisiin voisi kuulua esimerkiksi juustoja, makeisia ja juomia. Haluatko, että haen näistä kategorioista tuotteita? Entä onko sinulla erityistoiveita tai ruokavaliotoiveita?",
+        "virhe": null,
+        "kierrokset": 2,
+        "tokenit": {
+          "syote": 3993,
+          "tuloste": 70
+        },
+        "kesto_s": 1.9,
+        "kutsut": [
+          {
+            "nimi": "listaa_kategoriat",
+            "argumentit": {},
+            "tulos": "[{\"id\": 14, \"nimi\": \"Aamupala\", \"tuotteita\": 10}, {\"id\": 1, \"nimi\": \"Hedelmät ja vihannekset\", \"tuotteita\": 32}, {\"id\": 10, \"nimi\": \"Juomat\", \"tuotteita\": 16}, {\"id\": 3, \"nimi\": \"Juustot\", \"tuotteita\": 13}, {\"id\": 5, \"nimi\": \"Kala ja äyriäiset\", \"tuotteita\": 8}, {\"id\": 13, \"nimi\": \"Kasviproteiinit\", \"tuotteita\": 9}, {\"id\": 7, \"nimi\": \"Kuivatuotteet\", \"tuotteita\": 21}, {\"id\": 6, \"nimi\": \"Leivät ja leivonnaiset\", \"tuotteita\": 16}, {\"id\": 4, \"nimi\": \"Liha\", \"tuotteita\": 18}, {\"id\": 2, \"nimi\": \"Maitotuotteet ja kasvijuomat\", \"tuotteita\": 29}, {\"id\": 11, \"nimi\": \"Makeiset ja naposteltavat\", \"tuotteita\": 15}, {\"id\": 12, \"nimi\": \"Mausteet, öljyt ja kastikkeet\", \"tuotteita\": 16}, {\"id\": 9, \"nimi\": \"Pakasteet\", \"tuotteita\": 11}, {\"id\": 8, \"nimi\": \"Säilykkeet\", \"tuotteita\": 13}, {\"id\": 15, \"nimi\": \"Valmisruoat\", \"tuotteita\": 10}]",
+            "virhe": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "epaselva_paljonko",
+      "onnistui": true,
+      "tarkistukset": {
+        "ei_keksittyja_tuotteita": null,
+        "hinnat_tarkistettavissa": null,
+        "ei_ruokavaliota_hakusanassa": null,
+        "vastaus_kysyy": null,
+        "max_hakuja": null
+      },
+      "jalki": {
+        "kysymys": "Paljonko maksaa?",
+        "vastaus": "Voisitko tarkentaa, mitä tuotteita tai ostoslistaa haluat tietää hinnan? Tai onko sinulla esimerkiksi budjetti ja henkilömäärä, jolle haluat ehdotuksen ostoslistasta?",
+        "virhe": null,
+        "kierrokset": 1,
+        "tokenit": {
+          "syote": 1797,
+          "tuloste": 50
+        },
+        "kesto_s": 1.0,
+        "kutsut": []
+      }
+    },
+    {
+      "id": "aiheen_ulkopuolinen",
+      "onnistui": true,
+      "tarkistukset": {
+        "ei_keksittyja_tuotteita": null,
+        "hinnat_tarkistettavissa": null,
+        "ei_ruokavaliota_hakusanassa": null,
+        "max_tyokalukutsuja": null
+      },
+      "jalki": {
+        "kysymys": "Mikä on Suomen pääkaupunki?",
+        "vastaus": "Suomen pääkaupunki on Helsinki. Voinko auttaa vielä kauppaostosten kanssa?",
+        "virhe": null,
+        "kierrokset": 1,
+        "tokenit": {
+          "syote": 1800,
+          "tuloste": 20
+        },
+        "kesto_s": 0.9,
+        "kutsut": []
+      }
+    }
+  ]
+}
