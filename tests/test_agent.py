@@ -282,3 +282,61 @@ def test_promptin_esimerkki_pitaa_paikkansa(conn):
     nimet = lambda tulos: {t["nimi"] for t in tulos}
     assert "Edam viipale 300 g" not in nimet(agent.tools.hae_tuotteet("juusto", conn=conn))
     assert "Edam viipale 300 g" in nimet(agent.tools.hae_tuotteet("", kategoria="Juustot", conn=conn))
+
+
+# --- budjetti -------------------------------------------------------------
+
+
+def _laske_hinta_kuvaus():
+    [laske] = [t["function"] for t in agent.TYOKALUT if t["function"]["name"] == "laske_hinta"]
+    return laske
+
+
+def test_laske_hinta_skeemassa_valinnainen_budjetti():
+    laske = _laske_hinta_kuvaus()
+    budjetti = laske["parameters"]["properties"]["budjetti_snt"]
+    assert budjetti["type"] == "integer" and budjetti["minimum"] == 0
+    assert laske["parameters"]["required"] == ["ostoslista"]
+    assert "budjetti_snt-parametrina" in laske["description"]
+
+
+def test_prompti_ohjaa_budjetin_kayttoon():
+    p = agent.JARJESTELMAPROMPTI
+    assert "anna se aina laske_hinta-kutsuun" in p
+    assert "budjetti_ylittyy: true" in p
+    assert "kutsu laske_hinta uudelleen" in p
+    assert "ylitys_snt" in p and "Älä laske erotusta itse" in p
+    assert "esitä halvin mahdollinen lista" in p
+
+
+def test_prompti_kieltaa_sopivuusvaitteet_tuntemattomille_ruokavalioille():
+    """Turvallisuus: eval-ajossa agentti väitti aamupalaa pähkinättömäksi ilman tietoa."""
+    p = agent.JARJESTELMAPROMPTI
+    assert "Tuetut ruokavaliot ovat vain ne, jotka listaa_ruokavaliot palauttaa" in p
+    assert "pähkinäallergia" in p
+    assert "Älä silloin koskaan väitä tuotteita sille sopiviksi" in p
+    assert "pakkausseloste" in p
+    assert "Voit silti näyttää tuotteita" in p
+
+
+def test_prompti_ohjaa_tekemaan_ehdotuksen_heti():
+    p = agent.JARJESTELMAPROMPTI
+    assert "tee ostoslistaehdotus heti ja kysy toiveita vasta sen jälkeen" in p
+    assert "Kysy tarkennusta ensin vain" in p
+
+
+def test_budjetti_valitetaan_tyokalulle_ja_tulos_mallille(conn):
+    lohi = conn.execute("SELECT id FROM tuotteet WHERE nimi = 'Lohifilee'").fetchone()[0]
+    client = ValeClient(
+        vastaus(
+            "tool_calls",
+            None,
+            tyokalukutsu("laske_hinta", {"ostoslista": [{"tuote_id": lohi, "maara": 1}], "budjetti_snt": 300}),
+        ),
+        vastaus("stop", "Budjetti ylittyy 16,99 €."),
+    )
+    Agentti(client, conn).kysy("kilo lohta, budjetti 3 €")
+    [tool] = tool_viestit(client.pyynnot[1])
+    tulos = json.loads(tool["content"])
+    assert tulos["budjetti_ylittyy"] is True
+    assert tulos["ylitys_snt"] == 1699

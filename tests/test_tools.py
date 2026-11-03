@@ -186,3 +186,48 @@ def test_kappaletuotteen_murtomaara_on_virhe(conn):
 def test_virheelliset_ostoslistat(conn, ostoslista):
     with pytest.raises(TyokaluVirhe):
         laske_hinta(ostoslista, conn=conn)
+
+
+# --- laske_hinta: budjetti ------------------------------------------------
+
+
+def test_ilman_budjettia_ei_budjettikenttia(conn):
+    tulos = laske_hinta([{"tuote_id": _id(conn, "Kevytmaito 1 l"), "maara": 1}], conn=conn)
+    assert set(tulos) == {"rivit", "yhteensa_snt"}
+
+
+def test_budjetti_riittaa(conn):
+    tulos = laske_hinta([{"tuote_id": _id(conn, "Kevytmaito 1 l"), "maara": 2}], budjetti_snt=1000, conn=conn)
+    assert tulos["budjetti_snt"] == 1000
+    assert tulos["budjetti_ylittyy"] is False
+    assert tulos["jaljella_snt"] == 1000 - 218
+    assert "ylitys_snt" not in tulos
+
+
+def test_budjetti_ylittyy(conn):
+    tulos = laske_hinta([{"tuote_id": _id(conn, "Lohifilee"), "maara": 1}], budjetti_snt=300, conn=conn)
+    assert tulos["budjetti_ylittyy"] is True
+    assert tulos["ylitys_snt"] == 1999 - 300
+    assert "jaljella_snt" not in tulos
+
+
+def test_budjetti_tasan_ei_ylity(conn):
+    tulos = laske_hinta([{"tuote_id": _id(conn, "Kevytmaito 1 l"), "maara": 1}], budjetti_snt=109, conn=conn)
+    assert tulos["budjetti_ylittyy"] is False
+    assert tulos["jaljella_snt"] == 0
+
+
+def test_budjetti_tyhjalla_listalla(conn):
+    assert laske_hinta([], budjetti_snt=0, conn=conn) == {
+        "rivit": [],
+        "yhteensa_snt": 0,
+        "budjetti_snt": 0,
+        "budjetti_ylittyy": False,
+        "jaljella_snt": 0,
+    }
+
+
+@pytest.mark.parametrize("budjetti", [-1, 10.5, "1000", True])
+def test_virheellinen_budjetti(conn, budjetti):
+    with pytest.raises(TyokaluVirhe, match="budjetti_snt"):
+        laske_hinta([{"tuote_id": _id(conn, "Kevytmaito 1 l"), "maara": 1}], budjetti_snt=budjetti, conn=conn)

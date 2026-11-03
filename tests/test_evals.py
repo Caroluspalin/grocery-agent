@@ -35,15 +35,16 @@ def jalki(kysymys="x", vastaus="", kutsut=(), kierrokset=1):
     return {"kysymys": kysymys, "vastaus": vastaus, "kutsut": list(kutsut), "kierrokset": kierrokset}
 
 
-def haku_ja_lasku(conn, hakusana, kategoria, nimet_ja_maarat, ruokavaliot=None):
+def haku_ja_lasku(conn, hakusana, kategoria, nimet_ja_maarat, ruokavaliot=None, budjetti_snt=None):
     """Oikeat työkalutulokset kannasta: yksi haku ja laske_hinta."""
     argumentit = {"hakusana": hakusana, "kategoria": kategoria, "ruokavaliot": ruokavaliot}
     argumentit = {k: v for k, v in argumentit.items() if v is not None}
     hakutulos = tools.hae_tuotteet(**argumentit, raja=200, conn=conn)
     lista = [{"tuote_id": id_(conn, n), "maara": m} for n, m in nimet_ja_maarat]
+    lasku = {"ostoslista": lista} | ({"budjetti_snt": budjetti_snt} if budjetti_snt is not None else {})
     return [
         kutsu("hae_tuotteet", argumentit, hakutulos),
-        kutsu("laske_hinta", {"ostoslista": lista}, tools.laske_hinta(lista, conn=conn)),
+        kutsu("laske_hinta", lasku, tools.laske_hinta(lista, budjetti_snt, conn=conn)),
     ]
 
 
@@ -241,3 +242,51 @@ def test_yhteenveto():
     assert y["kierroksia_keskimaarin"] == 3.0
     assert y["tyokalukutsuja_yhteensa"] == 3
     assert (y["syote_tokenit"], y["tuloste_tokenit"]) == (30, 3)
+
+
+# --- budjetin ylitys ------------------------------------------------------
+# Lohifilee 19,99 €, budjetti 3 € → ylitys 16,99 €.
+
+
+def _lohi(conn, vastaus, budjetti_snt=300):
+    return jalki(
+        kysymys="Kilo lohta, budjetti 3 €",
+        vastaus=vastaus,
+        kutsut=haku_ja_lasku(conn, "lohifilee", None, [("Lohifilee", 1)], budjetti_snt=budjetti_snt),
+    )
+
+
+def test_ylitys_kerrottuna_tyokalun_luvulla_menee_lapi(conn, kanta):
+    j = _lohi(conn, "Halvin lista: Lohifilee 19,99 €. Budjetti ylittyy 16,99 €.")
+    assert t.budjetti_max_snt(300, j, kanta) is None
+    assert t.hinnat_tarkistettavissa(None, j, kanta) is None
+
+
+def test_ylitysta_ei_mainita(conn, kanta):
+    j = _lohi(conn, "Lohifilee 19,99 €, yhteensä 19,99 €.")
+    assert "ei kerro budjetin ylittyvän" in t.budjetti_max_snt(300, j, kanta)
+
+
+def test_ylityksen_maara_vaarin(conn, kanta):
+    j = _lohi(conn, "Budjetti ylittyy noin 17 €.")
+    assert "puuttuu ylitys 16,99 €" in t.budjetti_max_snt(300, j, kanta)
+
+
+def test_ylitys_ilman_budjettia_laske_hinnassa(conn, kanta):
+    j = _lohi(conn, "Budjetti ylittyy 16,99 €.", budjetti_snt=None)
+    assert "ei annettu laske_hinta-kutsuun" in t.budjetti_max_snt(300, j, kanta)
+
+
+def test_vaara_budjetti_laske_hinnassa(conn, kanta):
+    """Agentti antoi 30 € budjetiksi 3 €:n sijaan: poikkeus ei päde."""
+    j = _lohi(conn, "Budjetti riittää.", budjetti_snt=3000)
+    assert "ei annettu laske_hinta-kutsuun" in t.budjetti_max_snt(300, j, kanta)
+
+
+def test_jaljella_oleva_raha_tyokalusta_sallitaan(conn, kanta):
+    j = jalki(
+        kysymys="Banaania",
+        vastaus="Yhteensä 1,99 €, budjetista jää 8,01 €.",
+        kutsut=haku_ja_lasku(conn, "banaani", None, [("Banaani", 1)], budjetti_snt=1000),
+    )
+    assert t.hinnat_tarkistettavissa(None, j, kanta) is None

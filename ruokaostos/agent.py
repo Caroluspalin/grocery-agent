@@ -34,6 +34,12 @@ vaihtoehtoa. Älä väitä tuotteen sopivan ruokavalioon, jos merkintää ei ole
 - Ruokavaliomerkinnän puuttuminen tarkoittaa, ettei tuotteen sopivuutta ole \
 varmistettu, ei sitä, että tuote olisi sopimaton. Kerro tämä käyttäjälle, kun \
 asialla on merkitystä (esim. keliakia tai allergia).
+- Tuetut ruokavaliot ovat vain ne, jotka listaa_ruokavaliot palauttaa. Jos käyttäjä \
+mainitsee allergian tai ruokavalion, jota siinä ei ole (esim. pähkinäallergia, \
+kananmuna-allergia, FODMAP), valikoimassa ei ole siitä tietoa. Älä silloin koskaan \
+väitä tuotteita sille sopiviksi, älä edes otsikossa (ei "pähkinätön aamupala"). \
+Kerro, ettei valikoimassa ole tätä tietoa, ja kehota tarkistamaan \
+pakkausseloste. Voit silti näyttää tuotteita, kunhan et väitä niiden sopivan.
 
 Työskentely:
 - Kun pyyntö koskee tuoteryhmiä (esim. "aamupalatarvikkeet", "juustoja", \
@@ -47,9 +53,24 @@ ruokavaliot-parametrina. Älä koskaan laita ruokavaliota hakusanaan: \
 "peruna"), kun etsit tiettyä tuotetta.
 - Jos haku ei löydä mitään, hae tuotteen todennäköisestä kategoriasta tyhjällä \
 hakusanalla ennen kuin kerrot, ettei tuotetta ole.
+- Kun käyttäjä on antanut budjetin ja henkilömäärän tai ajanjakson (esim. \
+"viikon ruoat yhdelle 25 eurolla"), tee ostoslistaehdotus heti ja kysy toiveita \
+vasta sen jälkeen. Kysy tarkennusta ensin vain, jos pyynnöstä ei voi päätellä \
+edes karkeasti, mitä pitäisi ostaa.
 - Voit tehdä useita hakuja kerralla, kun tarvitset monta tuotetta.
 - Kg- ja l-hintaisissa tuotteissa määrä on kiloina tai litroina; arvioi järkevä \
 määrä ja kerro arviosi käyttäjälle.
+
+Budjetti:
+- Kun käyttäjä antaa budjetin, anna se aina laske_hinta-kutsuun \
+budjetti_snt-parametrina (sentteinä, 10 € = 1000).
+- Jos tulos kertoo budjetti_ylittyy: true, älä esitä listaa valmiina. Vaihda \
+tuotteita halvempiin tai poista vähiten tärkeitä ja kutsu laske_hinta uudelleen, \
+kunnes budjetti riittää.
+- Jos budjetti ei riitä millään järkevällä listalla, esitä halvin mahdollinen \
+lista ja sano suoraan, että budjetti ylittyy. Kerro ylityksen määrä euroina \
+laske_hinta-tuloksen ylitys_snt-kentästä (esim. "Budjetti ylittyy 2,49 €"). \
+Älä laske erotusta itse.
 
 Vastaukset:
 - Vastaa suomeksi, ytimekkäästi.
@@ -144,7 +165,10 @@ TYOKALUT = [
             "description": (
                 "Laskee ostoslistan hinnan. Palauttaa rivikohtaiset hinnat ja yhteissumman "
                 "sentteinä. Määrä annetaan tuotteen yksikössä: kpl-tuotteille kokonaisluku, "
-                "kg- ja l-tuotteille desimaaliluku sallittu (esim. 0.5 kg)."
+                "kg- ja l-tuotteille desimaaliluku sallittu (esim. 0.5 kg). Kun käyttäjä on "
+                "antanut budjetin, anna se aina budjetti_snt-parametrina: tulos kertoo "
+                "budjetti_ylittyy-kentässä, ylittyykö budjetti, ja ylitys_snt- tai "
+                "jaljella_snt-kentässä paljonko."
             ),
             "parameters": {
                 "type": "object",
@@ -160,7 +184,15 @@ TYOKALUT = [
                             "required": ["tuote_id", "maara"],
                             "additionalProperties": False,
                         },
-                    }
+                    },
+                    "budjetti_snt": {
+                        "type": "integer",
+                        "minimum": 0,
+                        "description": (
+                            "Käyttäjän budjetti sentteinä, esim. 10 € = 1000. Anna aina, "
+                            "kun käyttäjä on maininnut budjetin."
+                        ),
+                    },
                 },
                 "required": ["ostoslista"],
                 "additionalProperties": False,

@@ -121,13 +121,24 @@ def listaa_ruokavaliot(*, conn: sqlite3.Connection | None = None) -> list[dict]:
     return [dict(r) for r in rivit]
 
 
-def laske_hinta(ostoslista: list[dict], *, conn: sqlite3.Connection | None = None) -> dict:
+def laske_hinta(
+    ostoslista: list[dict],
+    budjetti_snt: int | None = None,
+    *,
+    conn: sqlite3.Connection | None = None,
+) -> dict:
     """Laskee ostoslistan hinnan.
 
     ostoslista: [{"tuote_id": int, "maara": luku}, ...]. Määrä on tuotteen
     yksikössä: kpl-tuotteille kokonaisluku, kg/l-tuotteille desimaali sallittu.
     Rivihinnat pyöristetään lähimpään senttiin (puolikkaat ylöspäin).
+
+    budjetti_snt: valinnainen. Kun annettu, tulokseen lisätään budjetti_snt,
+    budjetti_ylittyy ja joko ylitys_snt tai jaljella_snt. Vertailu tehdään koodissa,
+    jotta mallin ei tarvitse laskea erotusta päässään.
     """
+    if budjetti_snt is not None and (not _on_kokonaisluku(budjetti_snt) or budjetti_snt < 0):
+        raise TyokaluVirhe("budjetti_snt pitää olla ei-negatiivinen kokonaisluku sentteinä, esim. 1000 = 10 €")
     if not isinstance(ostoslista, list):
         raise TyokaluVirhe("ostoslista pitää olla lista muotoa [{tuote_id, maara}]")
     for i, rivi in enumerate(ostoslista):
@@ -168,4 +179,13 @@ def laske_hinta(ostoslista: list[dict], *, conn: sqlite3.Connection | None = Non
                 "rivihinta_snt": int(rivihinta),
             }
         )
-    return {"rivit": rivit, "yhteensa_snt": sum(r["rivihinta_snt"] for r in rivit)}
+    yhteensa = sum(r["rivihinta_snt"] for r in rivit)
+    tulos = {"rivit": rivit, "yhteensa_snt": yhteensa}
+    if budjetti_snt is not None:
+        tulos["budjetti_snt"] = budjetti_snt
+        tulos["budjetti_ylittyy"] = yhteensa > budjetti_snt
+        if yhteensa > budjetti_snt:
+            tulos["ylitys_snt"] = yhteensa - budjetti_snt
+        else:
+            tulos["jaljella_snt"] = budjetti_snt - yhteensa
+    return tulos

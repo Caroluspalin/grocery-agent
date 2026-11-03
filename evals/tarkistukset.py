@@ -115,8 +115,11 @@ def hinnat_tarkistettavissa(_arvo, jalki, _kanta):
         for r in rivit:
             if isinstance(r, dict):
                 sallitut |= {r[a] for a in ("hinta_snt", "rivihinta_snt") if isinstance(r.get(a), int)}
-        if isinstance(tulos, dict) and isinstance(tulos.get("yhteensa_snt"), int):
-            summat.add(tulos["yhteensa_snt"])
+        if isinstance(tulos, dict):
+            if isinstance(tulos.get("yhteensa_snt"), int):
+                summat.add(tulos["yhteensa_snt"])
+            # laske_hinta laskee budjetin ylityksen tai jäännöksen itse.
+            sallitut |= {tulos[a] for a in ("ylitys_snt", "jaljella_snt") if isinstance(tulos.get(a), int)}
     sallitut |= summat
     sallitut |= {b - s for b in euromaarat_snt(jalki["kysymys"]) for s in summat}
     tuntemattomat = euromaarat_snt(jalki["vastaus"]) - sallitut
@@ -182,9 +185,23 @@ def ei_tyokaluvirheita(arvo, jalki, _kanta):
 
 
 def budjetti_max_snt(arvo, jalki, _kanta):
+    """Budjetti ei saa ylittyä, paitsi jos agentti kertoo ylityksen työkalun luvulla.
+
+    Mahdottomassa budjetissa oikea käytös on halvin lista + ylitys selvästi kerrottuna.
+    Poikkeus vaatii, että laske_hinta sai saman budjetin ja ilmoitti budjetti_ylittyy,
+    ja että vastaus mainitsee ylityksen ja sen euromäärän (ylitys_snt).
+    """
     lista = ostoslista(jalki)
-    if lista and lista["yhteensa_snt"] > arvo:
-        return f"yhteensä {lista['yhteensa_snt']} snt, budjetti {arvo} snt"
+    if not lista or lista["yhteensa_snt"] <= arvo:
+        return None
+    perus = f"yhteensä {lista['yhteensa_snt']} snt, budjetti {arvo} snt"
+    if lista.get("budjetti_snt") != arvo or not lista.get("budjetti_ylittyy"):
+        return f"{perus}; budjettia {arvo} ei annettu laske_hinta-kutsuun"
+    ylitys = lista["ylitys_snt"]
+    if "ylit" not in _vastaus(jalki):
+        return f"{perus}; vastaus ei kerro budjetin ylittyvän"
+    if ylitys not in euromaarat_snt(jalki["vastaus"]):
+        return f"{perus}; vastauksesta puuttuu ylitys {ylitys // 100},{ylitys % 100:02d} €"
     return None
 
 

@@ -98,7 +98,7 @@
     "ehdot": {
       "haku_kategorialla": ["Kala ja äyriäiset"],
       "ei_tyokalua": ["laske_hinta"],
-      "vastaus_sisaltaa_jokin": ["ei ole", "ei löyty", "ei valikoima", "ei myynnissä", "valitettavasti"]
+      "vastaus_sisaltaa_jokin": ["ei ole", "ei näytä olevan", "ei löyty", "ei valikoima", "ei myynnissä", "valitettavasti"]
     }
   },
   {
