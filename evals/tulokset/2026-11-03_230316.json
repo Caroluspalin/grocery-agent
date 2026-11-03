@@ -1,0 +1,618 @@
+{
+  "aloitettu": "2026-11-03T23:03:16",
+  "malli": "gpt-6-luna",
+  "git": "2e03f06-muokattu",
+  "yhteenveto": {
+    "tapauksia": 25,
+    "onnistui": 0,
+    "onnistumisprosentti": 0.0,
+    "kierroksia_keskimaarin": 0.0,
+    "tyokalukutsuja_yhteensa": 0,
+    "tyokalukutsuja_keskimaarin": 0.0,
+    "syote_tokenit": 0,
+    "tuloste_tokenit": 0
+  },
+  "tapaukset": [
+    {
+      "id": "aamupala_gluteeniton_10e",
+      "onnistui": false,
+      "tarkistukset": {
+        "ei_keksittyja_tuotteita": null,
+        "hinnat_tarkistettavissa": null,
+        "ei_ruokavaliota_hakusanassa": null,
+        "laske_hinta_kutsuttu": "ostoslistaa ei laskettu laske_hinta-työkalulla",
+        "tyokalu_kutsuttu": "ei kutsuttu: listaa_kategoriat",
+        "budjetti_max_snt": null,
+        "ruokavaliot": null,
+        "kategoriat_kaikki": "ostoslistaa ei laskettu",
+        "max_hakuja": null,
+        "summa_vastauksessa": "ostoslistaa ei laskettu"
+      },
+      "jalki": {
+        "kysymys": "Kokoa gluteenittomat aamupalatarvikkeet, budjetti 10 €.",
+        "vastaus": null,
+        "virhe": "BadRequestError: Error code: 400 - {'error': {'message': \"Function tools with reasoning_effort are not supported for gpt-6-luna in /v1/chat/completions. To use function tools, use /v1/responses or set reasoning_effort to 'none'.\", 'type': 'invalid_request_error', 'param': 'reasoning_effort', 'code': None}}",
+        "kierrokset": 0,
+        "tokenit": {
+          "syote": 0,
+          "tuloste": 0
+        },
+        "kesto_s": 0.3,
+        "kutsut": []
+      }
+    },
+    {
+      "id": "banaanin_hinta",
+      "onnistui": false,
+      "tarkistukset": {
+        "ei_keksittyja_tuotteita": null,
+        "hinnat_tarkistettavissa": null,
+        "ei_ruokavaliota_hakusanassa": null,
+        "vastaus_sisaltaa_kaikki": "vastauksesta puuttuu: 1,99",
+        "max_hakuja": null,
+        "ei_tyokaluvirheita": null
+      },
+      "jalki": {
+        "kysymys": "Paljonko banaani maksaa?",
+        "vastaus": null,
+        "virhe": "BadRequestError: Error code: 400 - {'error': {'message': \"Function tools with reasoning_effort are not supported for gpt-6-luna in /v1/chat/completions. To use function tools, use /v1/responses or set reasoning_effort to 'none'.\", 'type': 'invalid_request_error', 'param': 'reasoning_effort', 'code': None}}",
+        "kierrokset": 0,
+        "tokenit": {
+          "syote": 0,
+          "tuloste": 0
+        },
+        "kesto_s": 0.2,
+        "kutsut": []
+      }
+    },
+    {
+      "id": "tarkka_lista_maito_kaura",
+      "onnistui": false,
+      "tarkistukset": {
+        "ei_keksittyja_tuotteita": null,
+        "hinnat_tarkistettavissa": null,
+        "ei_ruokavaliota_hakusanassa": null,
+        "yhteensa_snt": "ostoslistaa ei laskettu",
+        "summa_vastauksessa": "ostoslistaa ei laskettu",
+        "ei_tyokaluvirheita": null
+      },
+      "jalki": {
+        "kysymys": "Tarvitsen 2 kpl Kevytmaito 1 l ja yhden paketin Kaurahiutaleet 1 kg. Paljonko tulee yhteensä?",
+        "vastaus": null,
+        "virhe": "BadRequestError: Error code: 400 - {'error': {'message': \"Function tools with reasoning_effort are not supported for gpt-6-luna in /v1/chat/completions. To use function tools, use /v1/responses or set reasoning_effort to 'none'.\", 'type': 'invalid_request_error', 'param': 'reasoning_effort', 'code': None}}",
+        "kierrokset": 0,
+        "tokenit": {
+          "syote": 0,
+          "tuloste": 0
+        },
+        "kesto_s": 0.3,
+        "kutsut": []
+      }
+    },
+    {
+      "id": "kg_tuotteet_desimaalit",
+      "onnistui": false,
+      "tarkistukset": {
+        "ei_keksittyja_tuotteita": null,
+        "hinnat_tarkistettavissa": null,
+        "ei_ruokavaliota_hakusanassa": null,
+        "yhteensa_snt": "ostoslistaa ei laskettu",
+        "summa_vastauksessa": "ostoslistaa ei laskettu"
+      },
+      "jalki": {
+        "kysymys": "Haluan 1,5 kg banaaneja ja 500 g lanttua. Mitä maksaa?",
+        "vastaus": null,
+        "virhe": "BadRequestError: Error code: 400 - {'error': {'message': \"Function tools with reasoning_effort are not supported for gpt-6-luna in /v1/chat/completions. To use function tools, use /v1/responses or set reasoning_effort to 'none'.\", 'type': 'invalid_request_error', 'param': 'reasoning_effort', 'code': None}}",
+        "kierrokset": 0,
+        "tokenit": {
+          "syote": 0,
+          "tuloste": 0
+        },
+        "kesto_s": 0.2,
+        "kutsut": []
+      }
+    },
+    {
+      "id": "useita_kappaleita",
+      "onnistui": false,
+      "tarkistukset": {
+        "ei_keksittyja_tuotteita": null,
+        "hinnat_tarkistettavissa": null,
+        "ei_ruokavaliota_hakusanassa": null,
+        "yhteensa_snt": "ostoslistaa ei laskettu",
+        "summa_vastauksessa": "ostoslistaa ei laskettu"
+      },
+      "jalki": {
+        "kysymys": "Kolme mozzarellaa ja kaksi halloumia, paljonko yhteensä?",
+        "vastaus": null,
+        "virhe": "BadRequestError: Error code: 400 - {'error': {'message': \"Function tools with reasoning_effort are not supported for gpt-6-luna in /v1/chat/completions. To use function tools, use /v1/responses or set reasoning_effort to 'none'.\", 'type': 'invalid_request_error', 'param': 'reasoning_effort', 'code': None}}",
+        "kierrokset": 0,
+        "tokenit": {
+          "syote": 0,
+          "tuloste": 0
+        },
+        "kesto_s": 0.2,
+        "kutsut": []
+      }
+    },
+    {
+      "id": "halvin_maito",
+      "onnistui": false,
+      "tarkistukset": {
+        "ei_keksittyja_tuotteita": null,
+        "hinnat_tarkistettavissa": null,
+        "ei_ruokavaliota_hakusanassa": null,
+        "vastaus_sisaltaa_kaikki": "vastauksesta puuttuu: rasvaton maito, 0,99",
+        "max_hakuja": null
+      },
+      "jalki": {
+        "kysymys": "Mikä on halvin maito?",
+        "vastaus": null,
+        "virhe": "BadRequestError: Error code: 400 - {'error': {'message': \"Function tools with reasoning_effort are not supported for gpt-6-luna in /v1/chat/completions. To use function tools, use /v1/responses or set reasoning_effort to 'none'.\", 'type': 'invalid_request_error', 'param': 'reasoning_effort', 'code': None}}",
+        "kierrokset": 0,
+        "tokenit": {
+          "syote": 0,
+          "tuloste": 0
+        },
+        "kesto_s": 0.2,
+        "kutsut": []
+      }
+    },
+    {
+      "id": "edam_ja_leipa",
+      "onnistui": false,
+      "tarkistukset": {
+        "ei_keksittyja_tuotteita": null,
+        "hinnat_tarkistettavissa": null,
+        "ei_ruokavaliota_hakusanassa": null,
+        "laske_hinta_kutsuttu": "ostoslistaa ei laskettu laske_hinta-työkalulla",
+        "tuotteet_mukana": "ostoslistaa ei laskettu",
+        "kategoriat_kaikki": "ostoslistaa ei laskettu",
+        "summa_vastauksessa": "ostoslistaa ei laskettu"
+      },
+      "jalki": {
+        "kysymys": "Haluan Edam-juustoa ja jotain leipää, paljonko maksaa?",
+        "vastaus": null,
+        "virhe": "BadRequestError: Error code: 400 - {'error': {'message': \"Function tools with reasoning_effort are not supported for gpt-6-luna in /v1/chat/completions. To use function tools, use /v1/responses or set reasoning_effort to 'none'.\", 'type': 'invalid_request_error', 'param': 'reasoning_effort', 'code': None}}",
+        "kierrokset": 0,
+        "tokenit": {
+          "syote": 0,
+          "tuloste": 0
+        },
+        "kesto_s": 0.3,
+        "kutsut": []
+      }
+    },
+    {
+      "id": "gluteenittomat_juustot",
+      "onnistui": false,
+      "tarkistukset": {
+        "ei_keksittyja_tuotteita": null,
+        "hinnat_tarkistettavissa": null,
+        "ei_ruokavaliota_hakusanassa": null,
+        "haku_kategorialla": "ei hakua kategorialla Juustot",
+        "haku_ruokavaliolla": "ei hakua ruokavaliolla gluteeniton",
+        "vastaus_sisaltaa_kaikki": "vastauksesta puuttuu: edam",
+        "max_hakuja": null
+      },
+      "jalki": {
+        "kysymys": "Mitä gluteenittomia juustoja teillä on?",
+        "vastaus": null,
+        "virhe": "BadRequestError: Error code: 400 - {'error': {'message': \"Function tools with reasoning_effort are not supported for gpt-6-luna in /v1/chat/completions. To use function tools, use /v1/responses or set reasoning_effort to 'none'.\", 'type': 'invalid_request_error', 'param': 'reasoning_effort', 'code': None}}",
+        "kierrokset": 0,
+        "tokenit": {
+          "syote": 0,
+          "tuloste": 0
+        },
+        "kesto_s": 0.2,
+        "kutsut": []
+      }
+    },
+    {
+      "id": "vegaaninen_juusto",
+      "onnistui": false,
+      "tarkistukset": {
+        "ei_keksittyja_tuotteita": null,
+        "hinnat_tarkistettavissa": null,
+        "ei_ruokavaliota_hakusanassa": null,
+        "vastaus_sisaltaa_kaikki": "vastauksesta puuttuu: vegaaninen juustoraaste",
+        "max_hakuja": null
+      },
+      "jalki": {
+        "kysymys": "Onko teillä vegaanista juustoa?",
+        "vastaus": null,
+        "virhe": "BadRequestError: Error code: 400 - {'error': {'message': \"Function tools with reasoning_effort are not supported for gpt-6-luna in /v1/chat/completions. To use function tools, use /v1/responses or set reasoning_effort to 'none'.\", 'type': 'invalid_request_error', 'param': 'reasoning_effort', 'code': None}}",
+        "kierrokset": 0,
+        "tokenit": {
+          "syote": 0,
+          "tuloste": 0
+        },
+        "kesto_s": 0.2,
+        "kutsut": []
+      }
+    },
+    {
+      "id": "tuote_puuttuu_hummeri",
+      "onnistui": false,
+      "tarkistukset": {
+        "ei_keksittyja_tuotteita": null,
+        "hinnat_tarkistettavissa": null,
+        "ei_ruokavaliota_hakusanassa": null,
+        "haku_kategorialla": "ei hakua kategorialla Kala ja äyriäiset",
+        "ei_tyokalua": null,
+        "vastaus_sisaltaa_jokin": "vastauksessa ei mitään näistä: ei ole, ei näytä olevan, ei löyty, ei valikoima, ei myynnissä, valitettavasti"
+      },
+      "jalki": {
+        "kysymys": "Onko teillä hummeria?",
+        "vastaus": null,
+        "virhe": "BadRequestError: Error code: 400 - {'error': {'message': \"Function tools with reasoning_effort are not supported for gpt-6-luna in /v1/chat/completions. To use function tools, use /v1/responses or set reasoning_effort to 'none'.\", 'type': 'invalid_request_error', 'param': 'reasoning_effort', 'code': None}}",
+        "kierrokset": 0,
+        "tokenit": {
+          "syote": 0,
+          "tuloste": 0
+        },
+        "kesto_s": 0.3,
+        "kutsut": []
+      }
+    },
+    {
+      "id": "laktoositon_taco",
+      "onnistui": false,
+      "tarkistukset": {
+        "ei_keksittyja_tuotteita": null,
+        "hinnat_tarkistettavissa": null,
+        "ei_ruokavaliota_hakusanassa": null,
+        "laske_hinta_kutsuttu": "ostoslistaa ei laskettu laske_hinta-työkalulla",
+        "budjetti_max_snt": null,
+        "ruokavaliot": null,
+        "tuotteet_mukana": "ostoslistaa ei laskettu",
+        "summa_vastauksessa": "ostoslistaa ei laskettu"
+      },
+      "jalki": {
+        "kysymys": "Laktoosittomat ainekset tacoiltaan neljälle, budjetti 20 €.",
+        "vastaus": null,
+        "virhe": "BadRequestError: Error code: 400 - {'error': {'message': \"Function tools with reasoning_effort are not supported for gpt-6-luna in /v1/chat/completions. To use function tools, use /v1/responses or set reasoning_effort to 'none'.\", 'type': 'invalid_request_error', 'param': 'reasoning_effort', 'code': None}}",
+        "kierrokset": 0,
+        "tokenit": {
+          "syote": 0,
+          "tuloste": 0
+        },
+        "kesto_s": 0.2,
+        "kutsut": []
+      }
+    },
+    {
+      "id": "vegaaninen_illallinen",
+      "onnistui": false,
+      "tarkistukset": {
+        "ei_keksittyja_tuotteita": null,
+        "hinnat_tarkistettavissa": null,
+        "ei_ruokavaliota_hakusanassa": null,
+        "laske_hinta_kutsuttu": "ostoslistaa ei laskettu laske_hinta-työkalulla",
+        "budjetti_max_snt": null,
+        "ruokavaliot": null,
+        "kategoriat_kaikki": "ostoslistaa ei laskettu",
+        "summa_vastauksessa": "ostoslistaa ei laskettu"
+      },
+      "jalki": {
+        "kysymys": "Vegaaniset ainekset kahteen illalliseen kahdelle, budjetti 15 €.",
+        "vastaus": null,
+        "virhe": "BadRequestError: Error code: 400 - {'error': {'message': \"Function tools with reasoning_effort are not supported for gpt-6-luna in /v1/chat/completions. To use function tools, use /v1/responses or set reasoning_effort to 'none'.\", 'type': 'invalid_request_error', 'param': 'reasoning_effort', 'code': None}}",
+        "kierrokset": 0,
+        "tokenit": {
+          "syote": 0,
+          "tuloste": 0
+        },
+        "kesto_s": 0.2,
+        "kutsut": []
+      }
+    },
+    {
+      "id": "kaksi_ruokavaliota",
+      "onnistui": false,
+      "tarkistukset": {
+        "ei_keksittyja_tuotteita": null,
+        "hinnat_tarkistettavissa": null,
+        "ei_ruokavaliota_hakusanassa": null,
+        "laske_hinta_kutsuttu": "ostoslistaa ei laskettu laske_hinta-työkalulla",
+        "budjetti_max_snt": null,
+        "ruokavaliot": null,
+        "haku_ruokavaliolla": "ei hakua ruokavaliolla gluteeniton, laktoositon"
+      },
+      "jalki": {
+        "kysymys": "Tarvitsen gluteenittomia ja laktoosittomia välipaloja viikon koulupäiviin, max 8 €.",
+        "vastaus": null,
+        "virhe": "BadRequestError: Error code: 400 - {'error': {'message': \"Function tools with reasoning_effort are not supported for gpt-6-luna in /v1/chat/completions. To use function tools, use /v1/responses or set reasoning_effort to 'none'.\", 'type': 'invalid_request_error', 'param': 'reasoning_effort', 'code': None}}",
+        "kierrokset": 0,
+        "tokenit": {
+          "syote": 0,
+          "tuloste": 0
+        },
+        "kesto_s": 0.3,
+        "kutsut": []
+      }
+    },
+    {
+      "id": "keliakia_leipa",
+      "onnistui": false,
+      "tarkistukset": {
+        "ei_keksittyja_tuotteita": null,
+        "hinnat_tarkistettavissa": null,
+        "ei_ruokavaliota_hakusanassa": null,
+        "haku_ruokavaliolla": "ei hakua ruokavaliolla gluteeniton",
+        "vastaus_sisaltaa_jokin": "vastauksessa ei mitään näistä: gluteeniton tumma leipä, gluteeniton vaalea leipä",
+        "vastaus_ei_sisalla": null
+      },
+      "jalki": {
+        "kysymys": "Lapsellani on keliakia. Mitä leipää voin ostaa?",
+        "vastaus": null,
+        "virhe": "BadRequestError: Error code: 400 - {'error': {'message': \"Function tools with reasoning_effort are not supported for gpt-6-luna in /v1/chat/completions. To use function tools, use /v1/responses or set reasoning_effort to 'none'.\", 'type': 'invalid_request_error', 'param': 'reasoning_effort', 'code': None}}",
+        "kierrokset": 0,
+        "tokenit": {
+          "syote": 0,
+          "tuloste": 0
+        },
+        "kesto_s": 0.2,
+        "kutsut": []
+      }
+    },
+    {
+      "id": "grilli_ilta",
+      "onnistui": false,
+      "tarkistukset": {
+        "ei_keksittyja_tuotteita": null,
+        "hinnat_tarkistettavissa": null,
+        "ei_ruokavaliota_hakusanassa": null,
+        "laske_hinta_kutsuttu": "ostoslistaa ei laskettu laske_hinta-työkalulla",
+        "budjetti_max_snt": null,
+        "kategoriat_kaikki": "ostoslistaa ei laskettu",
+        "summa_vastauksessa": "ostoslistaa ei laskettu",
+        "max_kierroksia": null
+      },
+      "jalki": {
+        "kysymys": "Grilli-illan tarvikkeet kuudelle, budjetti 30 €.",
+        "vastaus": null,
+        "virhe": "BadRequestError: Error code: 400 - {'error': {'message': \"Function tools with reasoning_effort are not supported for gpt-6-luna in /v1/chat/completions. To use function tools, use /v1/responses or set reasoning_effort to 'none'.\", 'type': 'invalid_request_error', 'param': 'reasoning_effort', 'code': None}}",
+        "kierrokset": 0,
+        "tokenit": {
+          "syote": 0,
+          "tuloste": 0
+        },
+        "kesto_s": 0.2,
+        "kutsut": []
+      }
+    },
+    {
+      "id": "opiskelijan_viikko",
+      "onnistui": false,
+      "tarkistukset": {
+        "ei_keksittyja_tuotteita": null,
+        "hinnat_tarkistettavissa": null,
+        "ei_ruokavaliota_hakusanassa": null,
+        "laske_hinta_kutsuttu": "ostoslistaa ei laskettu laske_hinta-työkalulla",
+        "budjetti_max_snt": null,
+        "summa_vastauksessa": "ostoslistaa ei laskettu",
+        "max_kierroksia": null
+      },
+      "jalki": {
+        "kysymys": "Olen opiskelija ja tarvitsen viikon ruoat yhdelle 25 eurolla.",
+        "vastaus": null,
+        "virhe": "BadRequestError: Error code: 400 - {'error': {'message': \"Function tools with reasoning_effort are not supported for gpt-6-luna in /v1/chat/completions. To use function tools, use /v1/responses or set reasoning_effort to 'none'.\", 'type': 'invalid_request_error', 'param': 'reasoning_effort', 'code': None}}",
+        "kierrokset": 0,
+        "tokenit": {
+          "syote": 0,
+          "tuloste": 0
+        },
+        "kesto_s": 0.3,
+        "kutsut": []
+      }
+    },
+    {
+      "id": "juomat_alle_2e",
+      "onnistui": false,
+      "tarkistukset": {
+        "ei_keksittyja_tuotteita": null,
+        "hinnat_tarkistettavissa": null,
+        "ei_ruokavaliota_hakusanassa": null,
+        "haku_kategorialla": "ei hakua kategorialla Juomat",
+        "vastaus_sisaltaa_kaikki": "vastauksesta puuttuu: kivennäisvesi",
+        "vastaus_ei_sisalla": null
+      },
+      "jalki": {
+        "kysymys": "Näytä juomat, jotka maksavat alle 2 euroa.",
+        "vastaus": null,
+        "virhe": "BadRequestError: Error code: 400 - {'error': {'message': \"Function tools with reasoning_effort are not supported for gpt-6-luna in /v1/chat/completions. To use function tools, use /v1/responses or set reasoning_effort to 'none'.\", 'type': 'invalid_request_error', 'param': 'reasoning_effort', 'code': None}}",
+        "kierrokset": 0,
+        "tokenit": {
+          "syote": 0,
+          "tuloste": 0
+        },
+        "kesto_s": 0.2,
+        "kutsut": []
+      }
+    },
+    {
+      "id": "mahdoton_budjetti_perhe",
+      "onnistui": false,
+      "tarkistukset": {
+        "ei_keksittyja_tuotteita": null,
+        "hinnat_tarkistettavissa": null,
+        "ei_ruokavaliota_hakusanassa": null,
+        "budjetti_max_snt": null,
+        "vastaus_sisaltaa_jokin": "vastauksessa ei mitään näistä: ei riitä, ei onnistu, ei mahdu, liian pieni, ei ole mahdollista, mahdoton, ei kata, ylit"
+      },
+      "jalki": {
+        "kysymys": "Kokoa viikon ruoat neljän hengen perheelle, budjetti 5 €.",
+        "vastaus": null,
+        "virhe": "BadRequestError: Error code: 400 - {'error': {'message': \"Function tools with reasoning_effort are not supported for gpt-6-luna in /v1/chat/completions. To use function tools, use /v1/responses or set reasoning_effort to 'none'.\", 'type': 'invalid_request_error', 'param': 'reasoning_effort', 'code': None}}",
+        "kierrokset": 0,
+        "tokenit": {
+          "syote": 0,
+          "tuloste": 0
+        },
+        "kesto_s": 0.2,
+        "kutsut": []
+      }
+    },
+    {
+      "id": "mahdoton_budjetti_lohi",
+      "onnistui": false,
+      "tarkistukset": {
+        "ei_keksittyja_tuotteita": null,
+        "hinnat_tarkistettavissa": null,
+        "ei_ruokavaliota_hakusanassa": null,
+        "budjetti_max_snt": null,
+        "vastaus_sisaltaa_jokin": "vastauksessa ei mitään näistä: ei riitä, ylittää, ei mahdu, liian pieni, ei onnistu, ei kata, ylit"
+      },
+      "jalki": {
+        "kysymys": "Tarvitsen kilon lohifilettä ja kaksi juustoa, budjetti 3 €.",
+        "vastaus": null,
+        "virhe": "BadRequestError: Error code: 400 - {'error': {'message': \"Function tools with reasoning_effort are not supported for gpt-6-luna in /v1/chat/completions. To use function tools, use /v1/responses or set reasoning_effort to 'none'.\", 'type': 'invalid_request_error', 'param': 'reasoning_effort', 'code': None}}",
+        "kierrokset": 0,
+        "tokenit": {
+          "syote": 0,
+          "tuloste": 0
+        },
+        "kesto_s": 0.2,
+        "kutsut": []
+      }
+    },
+    {
+      "id": "tuntematon_ruokavalio_pahkinaton",
+      "onnistui": false,
+      "tarkistukset": {
+        "ei_keksittyja_tuotteita": null,
+        "hinnat_tarkistettavissa": null,
+        "ei_ruokavaliota_hakusanassa": null,
+        "vastaus_sisaltaa_jokin": "vastauksessa ei mitään näistä: varmist, merkin, ei tue, tuettu, taata, pakkausseloste",
+        "tuotteet_ei_mukana": null,
+        "vastaus_ei_sisalla": null
+      },
+      "jalki": {
+        "kysymys": "Kokoa pähkinätön aamupala, lapsellani on pähkinäallergia.",
+        "vastaus": null,
+        "virhe": "BadRequestError: Error code: 400 - {'error': {'message': \"Function tools with reasoning_effort are not supported for gpt-6-luna in /v1/chat/completions. To use function tools, use /v1/responses or set reasoning_effort to 'none'.\", 'type': 'invalid_request_error', 'param': 'reasoning_effort', 'code': None}}",
+        "kierrokset": 0,
+        "tokenit": {
+          "syote": 0,
+          "tuloste": 0
+        },
+        "kesto_s": 0.2,
+        "kutsut": []
+      }
+    },
+    {
+      "id": "tuntematon_ruokavalio_fodmap",
+      "onnistui": false,
+      "tarkistukset": {
+        "ei_keksittyja_tuotteita": null,
+        "hinnat_tarkistettavissa": null,
+        "ei_ruokavaliota_hakusanassa": null,
+        "vastaus_sisaltaa_jokin": "vastauksessa ei mitään näistä: varmist, merkin, ei tue, tuettu, taata, ei ole tietoa, tietoa ei"
+      },
+      "jalki": {
+        "kysymys": "Tarvitsen FODMAP-ruokavalioon sopivan päivällisen.",
+        "vastaus": null,
+        "virhe": "BadRequestError: Error code: 400 - {'error': {'message': \"Function tools with reasoning_effort are not supported for gpt-6-luna in /v1/chat/completions. To use function tools, use /v1/responses or set reasoning_effort to 'none'.\", 'type': 'invalid_request_error', 'param': 'reasoning_effort', 'code': None}}",
+        "kierrokset": 0,
+        "tokenit": {
+          "syote": 0,
+          "tuloste": 0
+        },
+        "kesto_s": 0.3,
+        "kutsut": []
+      }
+    },
+    {
+      "id": "epaselva_ruokaa",
+      "onnistui": false,
+      "tarkistukset": {
+        "ei_keksittyja_tuotteita": null,
+        "hinnat_tarkistettavissa": null,
+        "ei_ruokavaliota_hakusanassa": null,
+        "vastaus_kysyy": "vastaus ei sisällä tarkentavaa kysymystä",
+        "ei_tyokalua": null
+      },
+      "jalki": {
+        "kysymys": "Tarvitsen ruokaa.",
+        "vastaus": null,
+        "virhe": "BadRequestError: Error code: 400 - {'error': {'message': \"Function tools with reasoning_effort are not supported for gpt-6-luna in /v1/chat/completions. To use function tools, use /v1/responses or set reasoning_effort to 'none'.\", 'type': 'invalid_request_error', 'param': 'reasoning_effort', 'code': None}}",
+        "kierrokset": 0,
+        "tokenit": {
+          "syote": 0,
+          "tuloste": 0
+        },
+        "kesto_s": 0.3,
+        "kutsut": []
+      }
+    },
+    {
+      "id": "epaselva_juhlat",
+      "onnistui": false,
+      "tarkistukset": {
+        "ei_keksittyja_tuotteita": null,
+        "hinnat_tarkistettavissa": null,
+        "ei_ruokavaliota_hakusanassa": null,
+        "vastaus_kysyy": "vastaus ei sisällä tarkentavaa kysymystä",
+        "ei_tyokalua": null
+      },
+      "jalki": {
+        "kysymys": "Jotain hyvää juhliin.",
+        "vastaus": null,
+        "virhe": "BadRequestError: Error code: 400 - {'error': {'message': \"Function tools with reasoning_effort are not supported for gpt-6-luna in /v1/chat/completions. To use function tools, use /v1/responses or set reasoning_effort to 'none'.\", 'type': 'invalid_request_error', 'param': 'reasoning_effort', 'code': None}}",
+        "kierrokset": 0,
+        "tokenit": {
+          "syote": 0,
+          "tuloste": 0
+        },
+        "kesto_s": 0.3,
+        "kutsut": []
+      }
+    },
+    {
+      "id": "epaselva_paljonko",
+      "onnistui": false,
+      "tarkistukset": {
+        "ei_keksittyja_tuotteita": null,
+        "hinnat_tarkistettavissa": null,
+        "ei_ruokavaliota_hakusanassa": null,
+        "vastaus_kysyy": "vastaus ei sisällä tarkentavaa kysymystä",
+        "max_hakuja": null
+      },
+      "jalki": {
+        "kysymys": "Paljonko maksaa?",
+        "vastaus": null,
+        "virhe": "BadRequestError: Error code: 400 - {'error': {'message': \"Function tools with reasoning_effort are not supported for gpt-6-luna in /v1/chat/completions. To use function tools, use /v1/responses or set reasoning_effort to 'none'.\", 'type': 'invalid_request_error', 'param': 'reasoning_effort', 'code': None}}",
+        "kierrokset": 0,
+        "tokenit": {
+          "syote": 0,
+          "tuloste": 0
+        },
+        "kesto_s": 0.2,
+        "kutsut": []
+      }
+    },
+    {
+      "id": "aiheen_ulkopuolinen",
+      "onnistui": false,
+      "tarkistukset": {
+        "ei_keksittyja_tuotteita": null,
+        "hinnat_tarkistettavissa": null,
+        "ei_ruokavaliota_hakusanassa": null,
+        "max_tyokalukutsuja": null
+      },
+      "jalki": {
+        "kysymys": "Mikä on Suomen pääkaupunki?",
+        "vastaus": null,
+        "virhe": "BadRequestError: Error code: 400 - {'error': {'message': \"Function tools with reasoning_effort are not supported for gpt-6-luna in /v1/chat/completions. To use function tools, use /v1/responses or set reasoning_effort to 'none'.\", 'type': 'invalid_request_error', 'param': 'reasoning_effort', 'code': None}}",
+        "kierrokset": 0,
+        "tokenit": {
+          "syote": 0,
+          "tuloste": 0
+        },
+        "kesto_s": 0.3,
+        "kutsut": []
+      }
+    }
+  ]
+}
