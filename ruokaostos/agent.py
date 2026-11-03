@@ -255,10 +255,18 @@ class KierrosrajaYlittyi(RuntimeError):
 class Agentti:
     """Keskustelu, joka muistaa historian viestien välillä."""
 
-    def __init__(self, client: openai.OpenAI, conn: sqlite3.Connection, model: str = config.MODEL):
+    def __init__(
+        self,
+        client: openai.OpenAI,
+        conn: sqlite3.Connection,
+        model: str = config.MODEL,
+        reasoning_effort: str = config.REASONING_EFFORT,
+    ):
         self.client = client
         self.conn = conn
         self.model = model
+        # Tyhjä = ei lähetetä lainkaan; mallit, jotka eivät tue parametria, hylkäisivät pyynnön.
+        self.reasoning_effort = reasoning_effort
         # Järjestelmäprompti on historian ensimmäinen viesti, ei erillinen parametri.
         self.viestit: list = [{"role": "system", "content": JARJESTELMAPROMPTI}]
 
@@ -276,11 +284,13 @@ class Agentti:
 
     def _silmukka(self) -> str:
         for _ in range(MAX_KIERROKSET):
+            asetukset = {"reasoning_effort": self.reasoning_effort} if self.reasoning_effort else {}
             vastaus = self.client.chat.completions.create(
                 model=self.model,
                 messages=self.viestit,
                 tools=TYOKALUT,
                 max_completion_tokens=MAX_TOKENS,
+                **asetukset,
             )
             valinta = vastaus.choices[0]
             viesti = valinta.message

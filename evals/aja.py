@@ -77,19 +77,22 @@ def aja_tapaus(tapaus: dict, client, conn, malli: str) -> dict:
     mittari = Mittari(client)
     agentti = Agentti(mittari, conn, model=malli)
     alku = time.monotonic()
-    vastaus, virhe = None, None
+    vastaus, virhe, api_virhe = None, None, None
     try:
         vastaus = agentti.kysy(tapaus["kysymys"])
-    except openai.AuthenticationError:
-        raise
+    except openai.APIError as e:
+        # Pyyntö ei mennyt läpi (väärä parametri, avain, verkko, käyttöraja). Tämä kertoo
+        # asetuksista, ei agentin käytöksestä, joten tapausta ei arvioida.
+        api_virhe = f"{type(e).__name__}: {e}"
     except Exception as e:
-        # Kierrosraja, katkennut vastaus tai API-virhe: tapaus epäonnistuu, ajo jatkuu.
+        # Kierrosraja tai katkennut vastaus: agentin käytöstä, tapaus epäonnistuu.
         # Huom: agentti palauttaa historian virheen jälkeen, joten kutsut puuttuvat jäljestä.
         virhe = f"{type(e).__name__}: {e}"
     return {
         "kysymys": tapaus["kysymys"],
         "vastaus": vastaus,
         "virhe": virhe,
+        "api_virhe": api_virhe,
         "kierrokset": mittari.kierrokset,
         "tokenit": {"syote": mittari.syote_tokenit, "tuloste": mittari.tuloste_tokenit},
         "kesto_s": round(time.monotonic() - alku, 1),
@@ -108,30 +111,45 @@ def _git_versio() -> str:
         return "tuntematon"
 
 
+def tila(tulos: dict) -> str:
+    """onnistui / epaonnistui / virhe. Vanhoissa tulostiedostoissa on vain onnistui-kenttä."""
+    return tulos.get("tila") or ("onnistui" if tulos["onnistui"] else "epaonnistui")
+
+
+def _prosentti(p) -> str:
+    return "–" if p is None else f"{p} %"
+
+
 def yhteenveto(tulokset: list[dict]) -> dict:
-    n = len(tulokset)
-    onnistuneet = sum(t["onnistui"] for t in tulokset)
-    jaljet = [t["jalki"] for t in tulokset]
+    """API-virheet eivät ole mukana prosentissa eivätkä keskiarvoissa, tokeneissa ovat."""
+    arvioidut = [t for t in tulokset if tila(t) != "virhe"]
+    n = len(arvioidut)
+    onnistuneet = sum(tila(t) == "onnistui" for t in arvioidut)
+    jaljet = [t["jalki"] for t in arvioidut]
     kutsuja = sum(len(j["kutsut"]) for j in jaljet)
     return {
-        "tapauksia": n,
+        "tapauksia": len(tulokset),
+        "arvioitu": n,
         "onnistui": onnistuneet,
-        "onnistumisprosentti": round(100 * onnistuneet / n, 1) if n else 0.0,
+        "api_virheita": len(tulokset) - n,
+        "onnistumisprosentti": round(100 * onnistuneet / n, 1) if n else None,
         "kierroksia_keskimaarin": round(sum(j["kierrokset"] for j in jaljet) / n, 2) if n else 0.0,
         "tyokalukutsuja_yhteensa": kutsuja,
         "tyokalukutsuja_keskimaarin": round(kutsuja / n, 2) if n else 0.0,
-        "syote_tokenit": sum(j["tokenit"]["syote"] for j in jaljet),
-        "tuloste_tokenit": sum(j["tokenit"]["tuloste"] for j in jaljet),
+        "syote_tokenit": sum(t["jalki"]["tokenit"]["syote"] for t in tulokset),
+        "tuloste_tokenit": sum(t["jalki"]["tokenit"]["tuloste"] for t in tulokset),
     }
 
 
 def tulosta_yhteenveto(y: dict, tulokset: list[dict]) -> None:
     print("\n" + "=" * 60)
-    print(f"Onnistui {y['onnistui']}/{y['tapauksia']} ({y['onnistumisprosentti']} %)")
+    print(f"Onnistui {y['onnistui']}/{y['arvioitu']} arvioidusta ({_prosentti(y['onnistumisprosentti'])})")
+    if y["api_virheita"]:
+        print(f"API-virheitä:               {y['api_virheita']} (eivät mukana prosentissa)")
     print(f"Kierroksia keskimäärin:     {y['kierroksia_keskimaarin']}")
     print(f"Työkalukutsuja:             {y['tyokalukutsuja_yhteensa']} (keskim. {y['tyokalukutsuja_keskimaarin']})")
     print(f"Tokenit (syöte / tuloste):  {y['syote_tokenit']} / {y['tuloste_tokenit']}")
-    epaonnistuneet = [t for t in tulokset if not t["onnistui"]]
+    epaonnistuneet = [t for t in tulokset if tila(t) == "epaonnistui"]
     if epaonnistuneet:
         print("\nEpäonnistuneet:")
         for t in epaonnistuneet:
@@ -141,6 +159,15 @@ def tulosta_yhteenveto(y: dict, tulokset: list[dict]) -> None:
             for nimi, syy in t["tarkistukset"].items():
                 if syy:
                     print(f"      - {nimi}: {syy}")
+    # Sama virhe toistuu yleensä joka tapauksessa: ryhmitellään viestin mukaan.
+    virheet: dict[str, list[str]] = {}
+    for t in tulokset:
+        if tila(t) == "virhe":
+            virheet.setdefault(t["jalki"]["api_virhe"], []).append(t["id"])
+    if virheet:
+        print("\nAPI-virheet (ei arvioitu):")
+        for viesti, idt in virheet.items():
+            print(f"  ! {len(idt)} tapausta: {viesti}")
 
 
 def ajojen_vertailu(ajot: list[list[dict]]) -> dict:
@@ -148,51 +175,96 @@ def ajojen_vertailu(ajot: list[list[dict]]) -> dict:
 
     Palauttaa onnistumisprosentit, niiden keskiarvon ja vaihteluvälin sekä tapaukset,
     jotka epäonnistuivat joka kerta (todennäköisesti oikea vika) tai vaihtelivat
-    (epävakaa käytös tai liian tiukka tarkistus).
+    (epävakaa käytös tai liian tiukka tarkistus). API-virheet lasketaan erikseen.
     """
     prosentit = [yhteenveto(ajo)["onnistumisprosentti"] for ajo in ajot]
-    onnistumiset: dict[str, int] = {}
+    arvioidut_prosentit = [p for p in prosentit if p is not None]
+    onnistui: dict[str, int] = {}
+    arvioitu: dict[str, int] = {}
+    virheita: dict[str, int] = {}
     for ajo in ajot:
         for t in ajo:
-            onnistumiset[t["id"]] = onnistumiset.get(t["id"], 0) + t["onnistui"]
+            i = t["id"]
+            if tila(t) == "virhe":
+                virheita[i] = virheita.get(i, 0) + 1
+                continue
+            arvioitu[i] = arvioitu.get(i, 0) + 1
+            onnistui[i] = onnistui.get(i, 0) + (tila(t) == "onnistui")
     return {
         "ajoja": len(ajot),
         "prosentit": prosentit,
-        "keskiarvo": round(sum(prosentit) / len(prosentit), 1),
-        "pienin": min(prosentit),
-        "suurin": max(prosentit),
-        "aina_epaonnistuneet": [i for i, n in onnistumiset.items() if n == 0],
-        "vaihtelevat": {i: f"{n}/{len(ajot)}" for i, n in onnistumiset.items() if 0 < n < len(ajot)},
+        "keskiarvo": round(sum(arvioidut_prosentit) / len(arvioidut_prosentit), 1) if arvioidut_prosentit else None,
+        "pienin": min(arvioidut_prosentit, default=None),
+        "suurin": max(arvioidut_prosentit, default=None),
+        "aina_epaonnistuneet": [i for i, n in arvioitu.items() if onnistui[i] == 0],
+        "vaihtelevat": {i: f"{onnistui[i]}/{n}" for i, n in arvioitu.items() if 0 < onnistui[i] < n},
+        "api_virheita": {i: f"{n}/{len(ajot)}" for i, n in virheita.items()},
     }
 
 
 def tulosta_vertailu(v: dict) -> None:
     print("\n" + "#" * 60)
-    print(f"{v['ajoja']} ajoa: " + ", ".join(f"{p} %" for p in v["prosentit"]))
-    print(f"Keskiarvo {v['keskiarvo']} %, vaihteluväli {v['pienin']}–{v['suurin']} %")
+    print(f"{v['ajoja']} ajoa: " + ", ".join(_prosentti(p) for p in v["prosentit"]))
+    if v["keskiarvo"] is None:
+        print("Yhtään tapausta ei voitu arvioida (kaikki API-virheitä).")
+    else:
+        print(f"Keskiarvo {v['keskiarvo']} %, vaihteluväli {v['pienin']}–{v['suurin']} %")
     print("\nEpäonnistui joka kerta:")
     for i in v["aina_epaonnistuneet"] or ["(ei yhtään)"]:
         print(f"  ✗ {i}")
-    print("\nVaihteli ajojen välillä (onnistui / ajoja):")
+    print("\nVaihteli ajojen välillä (onnistui / arvioitu):")
     for i, osuus in v["vaihtelevat"].items() or [("(ei yhtään)", "")]:
         print(f"  ~ {i} {osuus}")
+    if v["api_virheita"]:
+        print("\nAPI-virheitä (virhe / ajoja):")
+        for i, osuus in v["api_virheita"].items():
+            print(f"  ! {i} {osuus}")
+
+
+# Jos näin monta ensimmäistä tapausta kaatuu samaan API-virheeseen, vika on asetuksissa.
+KESKEYTYSRAJA = 3
+
+
+class ApiVirheKeskeytys(RuntimeError):
+    """Sama API-virhe toistuu alusta asti: jatkaminen vain kuluttaisi aikaa ja rahaa."""
+
+    def __init__(self, viesti: str, tulokset: list[dict]):
+        super().__init__(viesti)
+        self.tulokset = tulokset
 
 
 def aja_setti(tapaukset, client, conn, kanta, malli) -> list[dict]:
-    """Ajaa tapaukset kerran. KeyboardInterrupt jättää keskeneräisen ajon talteen."""
+    """Ajaa tapaukset kerran. KeyboardInterrupt ja ApiVirheKeskeytys jättävät keskeneräisen ajon talteen."""
     tulokset = []
     try:
         for i, tapaus in enumerate(tapaukset, 1):
             jalki = aja_tapaus(tapaus, client, conn, malli)
-            tarkistukset = tarkista(tapaus, jalki, kanta)
-            onnistui = jalki["virhe"] is None and not any(tarkistukset.values())
-            tulokset.append({"id": tapaus["id"], "onnistui": onnistui, "tarkistukset": tarkistukset, "jalki": jalki})
-            merkki = "✓" if onnistui else "✗"
+            if jalki["api_virhe"]:
+                # Ei tarkistuksia: vastausta ei ole, joten niiden tulos olisi merkityksetön.
+                tarkistukset, tulos_tila = {}, "virhe"
+            else:
+                tarkistukset = tarkista(tapaus, jalki, kanta)
+                ok = jalki["virhe"] is None and not any(tarkistukset.values())
+                tulos_tila = "onnistui" if ok else "epaonnistui"
+            tulokset.append(
+                {
+                    "id": tapaus["id"],
+                    "tila": tulos_tila,
+                    "onnistui": tulos_tila == "onnistui",
+                    "tarkistukset": tarkistukset,
+                    "jalki": jalki,
+                }
+            )
+            merkki = {"onnistui": "✓", "epaonnistui": "✗", "virhe": "!"}[tulos_tila]
             print(
                 f"{merkki} [{i:2}/{len(tapaukset)}] {tapaus['id']:<32} "
                 f"{jalki['kierrokset']} kierr., {len(jalki['kutsut'])} kutsua, "
                 f"{jalki['tokenit']['syote'] + jalki['tokenit']['tuloste']} tok."
             )
+            if i == KESKEYTYSRAJA:
+                viestit = {t["jalki"]["api_virhe"] for t in tulokset}
+                if len(viestit) == 1 and None not in viestit:
+                    raise ApiVirheKeskeytys(viestit.pop(), tulokset)
     except KeyboardInterrupt as e:
         e.tulokset = tulokset
         raise
@@ -211,6 +283,7 @@ def tallenna(tulokset: list[dict], aloitettu: datetime, malli: str) -> Path:
             {
                 "aloitettu": aloitettu.isoformat(timespec="seconds"),
                 "malli": malli,
+                "reasoning_effort": config.REASONING_EFFORT or None,
                 "git": _git_versio(),
                 "yhteenveto": yhteenveto(tulokset),
                 "tapaukset": tulokset,
@@ -259,9 +332,16 @@ def main() -> None:
         for n in range(1, args.kertaa + 1):
             aloitettu = datetime.now()
             otsikko = f" (ajo {n}/{args.kertaa})" if args.kertaa > 1 else ""
-            print(f"\nAjetaan {len(tapaukset)} tapausta mallilla {args.malli}{otsikko}\n")
+            effort = f", reasoning_effort={config.REASONING_EFFORT}" if config.REASONING_EFFORT else ""
+            print(f"\nAjetaan {len(tapaukset)} tapausta mallilla {args.malli}{effort}{otsikko}\n")
             try:
                 tulokset = aja_setti(tapaukset, client, conn, kanta, args.malli)
+            except ApiVirheKeskeytys as e:
+                print(f"\nKeskeytetään: {KESKEYTYSRAJA} ensimmäistä tapausta kaatui samaan API-virheeseen:")
+                print(f"  {e}")
+                print("Korjaa asetukset (.env: MODEL, REASONING_EFFORT, OPENAI_API_KEY) ja aja uudelleen.")
+                print(f"\nTulokset tallennettu: {tallenna(e.tulokset, aloitettu, args.malli).relative_to(config.PROJECT_ROOT)}")
+                break
             except KeyboardInterrupt as e:
                 # Keskeneräinen ajo tallennetaan, mutta sitä ei oteta vertailuun.
                 if e.tulokset:
@@ -272,8 +352,6 @@ def main() -> None:
             ajot.append(tulokset)
             tulosta_yhteenveto(yhteenveto(tulokset), tulokset)
             print(f"\nTulokset tallennettu: {tallenna(tulokset, aloitettu, args.malli).relative_to(config.PROJECT_ROOT)}")
-    except openai.AuthenticationError:
-        sys.exit("API-avain on virheellinen. Tarkista OPENAI_API_KEY.")
     finally:
         conn.close()
 

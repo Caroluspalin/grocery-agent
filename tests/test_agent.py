@@ -234,7 +234,8 @@ def test_length_nostaa_virheen_ja_palauttaa_historian(conn):
 
 def test_pyynnon_asetukset(conn):
     client = ValeClient(vastaus("stop", "ok"))
-    Agentti(client, conn, model="testimalli").kysy("x")
+    # reasoning_effort annetaan, jotta testi ei riipu käyttäjän .env-tiedostosta.
+    Agentti(client, conn, model="testimalli", reasoning_effort="").kysy("x")
     p = client.pyynnot[0]
     assert p["model"] == "testimalli"
     assert p["messages"][0] == {"role": "system", "content": agent.JARJESTELMAPROMPTI}
@@ -340,3 +341,18 @@ def test_budjetti_valitetaan_tyokalulle_ja_tulos_mallille(conn):
     tulos = json.loads(tool["content"])
     assert tulos["budjetti_ylittyy"] is True
     assert tulos["ylitys_snt"] == 1699
+
+
+# --- reasoning_effort -----------------------------------------------------
+
+
+def test_reasoning_effort_valitetaan_kun_annettu(conn):
+    client = ValeClient(vastaus("stop", "ok"))
+    Agentti(client, conn, model="m", reasoning_effort="none").kysy("x")
+    assert client.pyynnot[0]["reasoning_effort"] == "none"
+
+
+def test_reasoning_effort_puuttuu_kun_tyhja(conn):
+    client = ValeClient(vastaus("stop", "ok"))
+    Agentti(client, conn, model="m", reasoning_effort="").kysy("x")
+    assert "reasoning_effort" not in client.pyynnot[0]

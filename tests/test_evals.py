@@ -345,3 +345,104 @@ def test_tallennus_ei_ylikirjoita(tmp_path, monkeypatch):
     eka = aja.tallenna(_ajo(a=True), hetki, "m")
     toka = aja.tallenna(_ajo(a=False), hetki, "m")
     assert eka != toka and eka.exists() and toka.exists()
+
+
+# --- API-virheet ----------------------------------------------------------
+
+
+def _bad_request(viesti="reasoning_effort ei tuettu"):
+    import httpx
+    import openai
+
+    vastaus = httpx.Response(400, request=httpx.Request("POST", "https://api.openai.com/v1/chat/completions"))
+    return openai.BadRequestError(viesti, response=vastaus, body=None)
+
+
+def _virhe_client(*virheet):
+    """Jokainen kutsu nostaa seuraavan virheen; None = palauta tavallinen vastaus."""
+    jono = list(virheet)
+
+    def create(**_):
+        v = jono.pop(0)
+        if v is None:
+            return _vastaus("ok")
+        raise v
+
+    return SimpleNamespace(chat=SimpleNamespace(completions=SimpleNamespace(create=create)))
+
+
+def _tapaukset(n):
+    return [{"id": f"t{i}", "kysymys": "x", "ehdot": {"vastaus_kysyy": True}} for i in range(n)]
+
+
+def test_api_virhe_erotetaan_agentin_virheesta(conn):
+    j = aja.aja_tapaus({"kysymys": "x"}, _virhe_client(_bad_request()), conn, "m")
+    assert j["api_virhe"].startswith("BadRequestError")
+    assert j["virhe"] is None
+
+
+def test_api_virheelle_ei_ajeta_tarkistuksia(conn, kanta):
+    [tulos] = aja.aja_setti(_tapaukset(1), _virhe_client(_bad_request()), conn, kanta, "m")
+    assert tulos["tila"] == "virhe"
+    assert tulos["tarkistukset"] == {}
+    assert tulos["onnistui"] is False
+
+
+def test_kolme_samaa_api_virhetta_keskeyttaa(conn, kanta):
+    client = _virhe_client(*[_bad_request()] * 3)  # neljäs kutsu kaatuisi IndexErroriin
+    with pytest.raises(aja.ApiVirheKeskeytys, match="reasoning_effort") as e:
+        aja.aja_setti(_tapaukset(4), client, conn, kanta, "m")
+    assert len(e.value.tulokset) == 3
+
+
+def test_eri_virheet_eivat_keskeyta(conn, kanta):
+    client = _virhe_client(_bad_request("a"), _bad_request("b"), _bad_request("a"), None)
+    tulokset = aja.aja_setti(_tapaukset(4), client, conn, kanta, "m")
+    assert [aja.tila(t) for t in tulokset] == ["virhe", "virhe", "virhe", "epaonnistui"]
+
+
+def test_onnistunut_tapaus_alussa_ei_keskeyta(conn, kanta):
+    client = _virhe_client(None, _bad_request(), _bad_request(), _bad_request())
+    assert len(aja.aja_setti(_tapaukset(4), client, conn, kanta, "m")) == 4
+
+
+def _tulos(tila_, i="a"):
+    return {
+        "id": i,
+        "tila": tila_,
+        "onnistui": tila_ == "onnistui",
+        "jalki": {"kierrokset": 2, "kutsut": [1], "tokenit": {"syote": 10, "tuloste": 1}},
+    }
+
+
+def test_api_virheet_eivat_ole_prosentissa():
+    y = aja.yhteenveto([_tulos("onnistui", "a"), _tulos("epaonnistui", "b"), _tulos("virhe", "c")])
+    assert (y["arvioitu"], y["onnistui"], y["api_virheita"]) == (2, 1, 1)
+    assert y["onnistumisprosentti"] == 50.0
+    assert y["syote_tokenit"] == 30  # virheenkin tokenit maksavat
+
+
+def test_pelkat_api_virheet_ei_prosenttia(capsys):
+    tulokset = [_tulos("virhe", "a"), _tulos("virhe", "b")]
+    for t in tulokset:
+        t["jalki"]["api_virhe"] = "BadRequestError: x"
+    y = aja.yhteenveto(tulokset)
+    assert y["onnistumisprosentti"] is None
+    aja.tulosta_yhteenveto(y, tulokset)
+    tuloste = capsys.readouterr().out
+    assert "(–)" in tuloste
+    assert "2 tapausta: BadRequestError: x" in tuloste
+
+
+def test_vertailu_ohittaa_api_virheet():
+    ajot = [
+        [_tulos("onnistui", "a"), _tulos("virhe", "b")],
+        [_tulos("epaonnistui", "a"), _tulos("epaonnistui", "b")],
+        [_tulos("virhe", "a"), _tulos("virhe", "b")],
+    ]
+    v = aja.ajojen_vertailu(ajot)
+    assert v["prosentit"] == [100.0, 0.0, None]
+    assert v["keskiarvo"] == 50.0
+    assert v["aina_epaonnistuneet"] == ["b"]
+    assert v["vaihtelevat"] == {"a": "1/2"}
+    assert v["api_virheita"] == {"b": "2/3", "a": "1/3"}
